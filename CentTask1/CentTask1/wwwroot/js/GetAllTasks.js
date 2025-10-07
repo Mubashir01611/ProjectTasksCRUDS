@@ -38,7 +38,8 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.equipmentType}</td>
                     <td>${task.twr}</td>
                     <td>
-                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-2" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-eye  text-decoration-none text-dark me-1" data-id="${task.id}"></a>
                         <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
                     </td>
                 </tr>

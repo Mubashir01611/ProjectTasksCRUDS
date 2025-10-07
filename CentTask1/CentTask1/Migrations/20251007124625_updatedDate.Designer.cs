@@ -4,6 +4,7 @@ using CentTask1.DBC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentTask1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20251007124625_updatedDate")]
+    partial class updatedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,21 +34,25 @@ namespace CentTask1.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("AssignedTo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("DueDate")
                         .HasColumnType("date");
 
                     b.Property<string>("EquipmentType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
 
                     b.Property<string>("TWR")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
@@ -53,6 +60,7 @@ namespace CentTask1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("priority")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");

@@ -36,7 +36,7 @@ namespace CentTask1.Controllers
                 return NotFound();
             }
 
-            return View(task);
+            return PartialView("Details", task);
         }
 
         //CreateMethod to Load CreateOrEdit Modal
