@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CentTask1</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="~/CentTask1.styles.css" asp-append-version="true" />
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .dashboard-container {
+            position:absolute;
+            right:0;
+            min-height: 100%;
+            width:100%;
+            display: flex;
+            flex-direction: row;
+        }
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            padding: 1rem 0;
+        }
+        .sidebar-content {
+            flex: 1;
+        }
+        .sidebar img {
+            display: block;
+            margin: 0 auto 1rem auto;
+            max-width: 120px;
+            height: auto;
+        }
+        .sidebar .nav-link {
+            margin-top: 6px;
+            margin-bottom: 0px;
+            color: black;
+        }
+        .sidebar .separator {
+            border-top: 1px solid #dee2e6;
+        }
+        .sidebar-bottom {
+            text-align: center;
+        }
+        .main-content {
+            width:99%;
+            margin-left:250px;
+            padding:4px;  
+        }
+        footer .container {
+            text-align:center;
+            width:0%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+
+        <nav class="sidebar">
+
+            <div class="sidebar-content">
+
+                <img src="~/assets/img/logo.png" alt="Logo" />
+
+                <a class="nav-link fw-bold  w-75 mx-auto" asp-area="" asp-controller="Home" asp-action="Index">
+
+                    <i class="fa fa-home"></i> Home
+                    
+                </a>
+                <div class="separator"></div>
+
+                <a class="nav-link w-75 mx-auto sidebar-link" data-url="/Tasks/GetAllTasks" asp-area="">Load Tasks</a>
+            </div>
+                <div class="separator"></div>
+            <div class="sidebar-bottom">
+                <a class="nav-link w-75" asp-area="" asp-controller="Settings" asp-action="Index"><i class="fa fa-cog"></i> Settings</a>
+            </div>
+        </nav>
+       
+        
+        <div class="main-content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+            <footer class="footer text-muted">
+                <div class="container">
+                    &copy; 2025 - CentTask1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/GetAllTasks.js" asp-append-version="true"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    @RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

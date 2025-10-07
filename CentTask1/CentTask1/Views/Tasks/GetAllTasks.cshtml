@@ -1,0 +1,136 @@
+﻿@model IEnumerable<CentTask1.Models.ProjectTask>
+@{
+    Layout = null;
+}
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+
+ <!-- Important: No layout -->
+@{
+    ViewData["Title"] = "GetAllProjects";
+}
+<style>
+    div.dataTables_filter {
+        padding:0px;
+        float:right;
+        text-align:start;
+    }
+    div.dataTables_filter input {
+           float:left;
+        }
+
+    div.dataTables_paginate {
+        margin-top:23px;
+        float:right;
+    }
+
+    div.dataTables_info{
+        margin-top:23px;
+        float:left;
+    }
+
+    div.dataTables_length{
+        float:left;
+        width:100px;
+    }
+        /* tr{
+        background-color: white;
+            border-radius:2px;
+            color: black;
+            height:18px;
+        }
+        td{
+            color:black;
+        } */
+        .button{
+            display:flex;
+            justify-content:flex-end;
+        }
+</style>
+<h1 class="mt-2">Project Tasks</h1>
+
+
+@* modal *@
+<div class="w-75">
+
+<div class="modal fade " id="createOrEditProjectTask">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h4 class="modal-title text-info" id="modalTitle">Task</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+              
+ 
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+<p class="button">
+    <!-- Create -->
+    <a href="#" class="btn btn-primary openTaskModal" data-id="">Create</a>
+</p>
+<table class="table" id="myTable">
+    <thead >
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TWR)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
