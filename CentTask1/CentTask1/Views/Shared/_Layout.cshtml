@@ -82,14 +82,13 @@
 
                 <img src="~/assets/img/logo.png" alt="Logo" />
 
-                <a class="nav-link fw-bold  w-75 mx-auto" asp-area="" asp-controller="Home" asp-action="Index">
+                <a href="#" class="nav-link fw-bold w-75 mx-auto" id="loadHome">
 
                     <i class="fa fa-home"></i> Home
                     
                 </a>
                 <div class="separator"></div>
-
-                <a class="nav-link w-75 mx-auto sidebar-link" data-url="/Tasks/GetAllTasks" asp-area="">Load Tasks</a>
+                <a class="nav-link w-75 mx-auto sidebar-link" >Load Tasks</a>
             </div>
                 <div class="separator"></div>
             <div class="sidebar-bottom">
@@ -109,14 +108,15 @@
                 </div>
             </footer>
     </div>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/GetAllTasks.js" asp-append-version="true"></script>
 
-    <!-- DataTables JS -->
+    <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 

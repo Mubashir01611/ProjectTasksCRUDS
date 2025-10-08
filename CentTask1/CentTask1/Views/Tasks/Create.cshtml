@@ -5,7 +5,9 @@
 <div class="row">
     <div class="col-md-12">
         @* asp-action="@((Model.id == 0) ? "Create" : "Edit")" *@
-        <form  method="post" id="createOrEditProjectTaskForm">
+<form asp-action="Create" asp-controller="Tasks" method="post" id="createOrEditProjectTaskForm">
+
+        @* <form  method="post" id="createOrEditProjectTaskForm"> *@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @if (Model.id != 0)
             {
@@ -25,12 +27,12 @@
 
                 <div class="col-md-6">
                     <label asp-for="StartDate" class="control-label float-start text-start"></label>
-                    <input asp-for="StartDate" name="StartDate" class=" form-control" />
+                    <input asp-for="StartDate" name="StartDate" class=" form-control" type="date" />
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label asp-for="DueDate" class="control-label float-start text-start"></label>
-                    <input asp-for="DueDate" name="DueDate" class="form-control" />
+                    <input asp-for="DueDate" name="DueDate" class="form-control" type="date" />
                     <span asp-validation-for="DueDate" class="text-danger"></span>
 
                 </div>
@@ -66,3 +68,4 @@
 
     </div>
 </div>
+

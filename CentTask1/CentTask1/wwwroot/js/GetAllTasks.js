@@ -7,11 +7,12 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
 */
     function loadTasks() {
 
-        // var url = $(this).data("url");
-        var url = "Tasks/LoadTaskTable";
-
-        $.get(url, function (htmlContent) {
-            $("#taskContainer").html(htmlContent);
+         //var url = $(this).data("url");
+   //     var url = "Tasks/LoadTaskTable";
+        //var url = '@Url.Action("LoadTaskTable", "Tasks")';
+        $.get("Tasks/LoadTaskTable", function (htmlContent) {
+            $("#HomeContainer").hide(); 
+            $("#taskContainer").html(htmlContent).show();
             fetchTaskData();
         });
     }
@@ -97,6 +98,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
     //CreateOrEdit
     $(document).on('click', '#submitProjectTaskId', function (e) {
         debugger;
+
         e.preventDefault();
         var id = $(this).data("id");
 
@@ -173,5 +175,19 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         debugger;
         e.preventDefault();
         loadTasks();
+    });
+
+    //home
+    $("#loadHome").on("click", function (e) {
+        debugger;
+        e.preventDefault();
+        $.get("Home/Index")
+            .done(function (htmlContent) {
+                $("#taskContainer").hide();   
+                $("#HomeContainer").html(htmlContent).show(); 
+            })
+            .fail(function () {
+                alert("Failed to load Home content.");
+            });
     });
 });
