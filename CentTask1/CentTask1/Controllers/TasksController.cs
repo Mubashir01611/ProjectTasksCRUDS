@@ -87,6 +87,9 @@ namespace CentTask1.Controllers
             return Json(new { success = true });
         }
 
-
+        public IActionResult createsample()
+        {
+            return View();
+        }
     }
 }

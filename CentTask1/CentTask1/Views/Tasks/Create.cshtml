@@ -16,6 +16,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="name" class="control-label text-start float-start"></label>
+                    <span class="text-danger float-start"> *</span>
                     <input asp-for="name" name="name" class="form-control" />
                     <span asp-validation-for="name" class="text-danger"></span>
                 </div>
@@ -27,11 +28,13 @@
 
                 <div class="col-md-6">
                     <label asp-for="StartDate" class="control-label float-start text-start"></label>
+                    <span class="text-danger float-start"> *</span>
                     <input asp-for="StartDate" name="StartDate" class=" form-control" type="date" />
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label asp-for="DueDate" class="control-label float-start text-start"></label>
+                    <span class="text-danger float-start"> *</span>
                     <input asp-for="DueDate" name="DueDate" class="form-control" type="date" />
                     <span asp-validation-for="DueDate" class="text-danger"></span>
 
@@ -69,3 +72,8 @@
     </div>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

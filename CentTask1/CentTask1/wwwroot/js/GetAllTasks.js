@@ -39,8 +39,8 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.equipmentType}</td>
                     <td>${task.twr}</td>
                     <td>
-                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-id="${task.id}"></a>
-                        <a href="#" class="fa fa-eye  text-decoration-none text-dark me-1" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-url="" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>
                         <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
                     </td>
                 </tr>
@@ -65,6 +65,31 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             }
         });
     }
+
+    //modal detail
+    $(document).on('click', '.openTaskDetailModal', function (e) {
+        debugger;
+        e.preventDefault();
+        var id = $(this).data("id");
+        $.ajax({
+            type: "GET",
+            url: "Tasks/Details" + (id ? "?id=" + id : ""),
+            success: function (htmlContent) {
+                $("#modalBodyContent").html(htmlContent);
+            },
+            error: function (err) {
+                Swal.fire({
+                    title:'Error',
+                    text:'Internal Server Error',
+                    icon:'error',
+                });
+                console.log("error loading view", err);
+            }
+        });
+        $("#modalTitle").text("Task Detail");
+        $('#createOrEditProjectTask').modal('show');
+        $('#createOrEditProjectTask').modal.footer('hide');
+    });
 
     //modal open
     $(document).on('click', '.openTaskModal', function (e) {
