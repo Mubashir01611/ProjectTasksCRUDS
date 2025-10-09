@@ -18,7 +18,7 @@ namespace CentTask1.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult MainIndex()
         {
             return View();
         }

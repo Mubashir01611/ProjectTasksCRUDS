@@ -1,25 +1,37 @@
 ﻿using System.Threading.Tasks;
 using CentTask1.DBC;
-using CentTask1.DTO;
+using CentTask1.DTO.TaskDtos;
 using CentTask1.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Services
 {
-    public class ProjectTaskService
+    public class TaskService
     {
         private readonly DataContext _dataContext;
 
-        public ProjectTaskService(DataContext dataContext)
+        public TaskService(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
         //create
-        public async Task<ProjectTask> CreateTaskAsync(ProjectTask task)
+        public async Task<GetTaskDto> CreateTaskAsync(GetTaskDto task)
         {
+            var projectTask = new ProjectTask
+            {
+                id = task.id,
+                name = task.name,
+                description = task.description,
+                StartDate = task.StartDate,
+                DueDate = task.DueDate,
+                priority = task.priority,
+                AssignedTo = task.AssignedTo,
+                TWR = task.TWR,
+                EquipmentType = task.EquipmentType
+            };
             
-                _dataContext.ProjectTasks.Add(task);
+                _dataContext.ProjectTasks.Add(projectTask);
                 await _dataContext.SaveChangesAsync();
                 return task;
             
@@ -27,9 +39,9 @@ namespace CentTask1.Services
 
 
         //GetAllTasks
-        public async Task<IEnumerable<ProjectTaskDto>> GetAllTasksAsync()
+        public async Task<IEnumerable<GetTaskDto>> GetAllTasksAsync()
         {
-            var tasks =  _dataContext.ProjectTasks.Include(p => p.Project).Select(t => new ProjectTaskDto
+            var tasks =  _dataContext.ProjectTasks.Include(p => p.Project).Select(t => new GetTaskDto
             {
                 id = t.id,
                 name = t.name,
@@ -55,7 +67,7 @@ namespace CentTask1.Services
 
 
         //Update
-        public async Task<ProjectTask?> UpdateTaskAsync(int id, ProjectTask updatedTask)
+        public async Task<ProjectTask?> UpdateTaskAsync(int id, GetTaskDto updatedTask)
         {
             var existingTask = await _dataContext.ProjectTasks.FindAsync(id);
             try

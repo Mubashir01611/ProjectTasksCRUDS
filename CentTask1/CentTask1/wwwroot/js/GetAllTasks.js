@@ -12,6 +12,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         //var url = '@Url.Action("LoadTaskTable", "Tasks")';
         $.get("Tasks/LoadTaskTable", function (htmlContent) {
             $("#HomeContainer").hide(); 
+            $("#ProjectContainer").hide(); 
             $("#taskContainer").html(htmlContent).show();
             fetchTaskData();
         });
@@ -29,11 +30,12 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
 
                 data.forEach(function (task) {
                     var row = `
+
                 <tr>
                     <td>${task.name}</td>
                     <td>${task.description}</td>
-                    <td>${task.startDate}</td>
-                    <td>${task.dueDate}</td>
+                    <td>${task.startDate.substring(0, 10)}</td>
+                    <td>${task.dueDate.substring(0, 10)}</td>
                     <td>${task.priority}</td>
                     <td>${task.assignedTo}</td>
                     <td>${task.equipmentType}</td>
@@ -138,19 +140,33 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             url: url,
             data: formData,
             success: function (response) {
+                if (response.success) {
+                    // Close modal
+                    $('#createOrEditProjectTask').modal('hide');
+                    Swal.fire("Success!", "Task created successfully", "success");
+                    // Optionally clear form
+                    form[0].reset();
 
-                // Close modal
-                $('#createOrEditProjectTask').modal('hide');
+                    // Reload task table
+                    loadTasks();
 
-                // Optionally clear form
-                form[0].reset();
+                }
+                else {
+                    // If server returns validation errors, display them
+                    $("#modalBodyContent").html(response);
 
-                // Reload task table
-                loadTasks();
+                    // Rebind validation to newly injected form
+                    $.validator.unobtrusive.parse("#createOrEditProjectTaskForm");
+                Swal.fire("error!", "Invalid Form", "error");
+
+                }
             },
             error: function (err) {
+                    //$('#createOrEditProjectTask').modal('hide');
+                    $.validator.unobtrusive.parse("#createOrEditProjectTaskForm");
+                Swal.fire("error!", "Invalid Form", "error");
                 console.error("Error submitting form:", err);
-                alert("Something went wrong while submitting the form.");
+
             }
         });
     });
@@ -210,6 +226,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         $.get("Home/Index")
             .done(function (htmlContent) {
                 $("#taskContainer").hide();   
+                $("#ProjectContainer").hide();   
                 $("#HomeContainer").html(htmlContent).show(); 
             })
             .fail(function () {

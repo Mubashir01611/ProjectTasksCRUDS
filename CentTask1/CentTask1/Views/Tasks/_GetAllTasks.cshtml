@@ -86,8 +86,10 @@
     <!-- Create -->
     <a href="#" class="btn btn-primary openTaskModal" data-id="">Create</a>
 </p>
+<div class="row">
+    <div class="col-md-12">
 <table class="table" id="myTable">
-    <thead >
+    <thead  >
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.name)
@@ -124,12 +126,16 @@
     </tbody>
 </table>
 
+    </div>
+</div>
+
 
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/project.js" asp-append-version="true"></script>
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

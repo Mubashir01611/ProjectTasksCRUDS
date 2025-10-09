@@ -1,4 +1,5 @@
 ﻿using CentTask1.DBC;
+using CentTask1.DTO.TaskDtos;
 using CentTask1.Models;
 using CentTask1.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +8,9 @@ namespace CentTask1.Controllers
 {
     public class TasksController : Controller
     {
-        private readonly ProjectTaskService _projectTaskService;
+        private readonly TaskService _projectTaskService;
 
-        public TasksController(ProjectTaskService projectTaskService)
+        public TasksController(TaskService projectTaskService)
         {
             _projectTaskService = projectTaskService;
         }
@@ -17,7 +18,7 @@ namespace CentTask1.Controllers
         //created this function to load the table in div container 
         public IActionResult LoadTaskTable()
         {
-            return PartialView("GetAllTasks");
+            return PartialView("_GetAllTasks");
         }
         // GET all tasks from db to display in table
         [HttpGet]
@@ -36,7 +37,7 @@ namespace CentTask1.Controllers
                 return NotFound();
             }
 
-            return PartialView("Details", task);
+            return PartialView("_Details", task);
         }
 
         //CreateMethod to Load CreateOrEdit Modal
@@ -46,17 +47,17 @@ namespace CentTask1.Controllers
             ? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new ProjectTask()
             : new ProjectTask();
  
-            return PartialView("Create", task); // reuse same partial
+            return PartialView("_Create", task); // reuse same partial
         }
 
         //CreateOrEdit Method to handle form submission
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectTask task)
+        public async Task<IActionResult> Create(GetTaskDto task)
         {
 
             if (!ModelState.IsValid)
             {
-                return PartialView("Create", task); // reuse same view
+                return PartialView("_Create", task); // reuse same view
             }
 
             if (task.id > 0)

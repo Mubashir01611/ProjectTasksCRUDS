@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CentTask1.DTO
+namespace CentTask1.DTO.TaskDtos
 {
-    public class ProjectTaskDto
+    public class GetTaskDto
     {
         public int id { get; set; }
         public string name { get; set; }

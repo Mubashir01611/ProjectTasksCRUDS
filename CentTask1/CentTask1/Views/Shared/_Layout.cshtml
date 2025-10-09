@@ -55,9 +55,14 @@
             height: auto;
         }
         .sidebar .nav-link {
+            text-align:center;
             margin-top: 6px;
             margin-bottom: 0px;
             color: black;
+        }
+        .sidebar .nav-link:hover {
+           cursor:pointer;
+           color:orange;
         }
         .sidebar .separator {
             border-top: 1px solid #dee2e6;
@@ -93,7 +98,7 @@
                 </a>
                 <div class="separator"></div>
                 <a class="nav-link w-75 mx-auto sidebar-link" >Tasks</a>
-                <a class="nav-link w-75 mx-auto  " asp-controller="Projects" asp-action="Index">Projects</a>
+                <a class="nav-link w-75 mx-auto " id="getProjects">Projects</a>
             </div>
                 <div class="separator"></div>
             <div class="sidebar-bottom">
@@ -120,6 +125,7 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/GetAllTasks.js" asp-append-version="true"></script>
+    <script src="~/js/project.js" asp-append-version="true"></script>
 
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
