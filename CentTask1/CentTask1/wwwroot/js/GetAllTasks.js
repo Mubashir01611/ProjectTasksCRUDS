@@ -23,7 +23,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             url: "Tasks/GetAllTasks",
             dataType: "json",  
             success: function (data) {
-
+                console.log("Project Tasks Data",data); // for debugging
                 var tbody = $("#myTable tbody");
                 tbody.empty(); // clear old rows
 
@@ -38,6 +38,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.assignedTo}</td>
                     <td>${task.equipmentType}</td>
                     <td>${task.twr}</td>
+                    <td>${task.projectName}</td>
                     <td>
                         <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-url="" data-id="${task.id}"></a>
                         <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>

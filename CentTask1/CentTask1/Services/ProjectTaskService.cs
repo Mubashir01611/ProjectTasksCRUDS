@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CentTask1.DBC;
+using CentTask1.DTO;
 using CentTask1.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +27,22 @@ namespace CentTask1.Services
 
 
         //GetAllTasks
-        public async Task<IEnumerable<ProjectTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<ProjectTaskDto>> GetAllTasksAsync()
         {
-            return await _dataContext.ProjectTasks.ToListAsync();
+            var tasks =  _dataContext.ProjectTasks.Include(p => p.Project).Select(t => new ProjectTaskDto
+            {
+                id = t.id,
+                name = t.name,
+                description = t.description,
+                StartDate = t.StartDate,
+                DueDate = t.DueDate,
+                EquipmentType = t.EquipmentType,
+                AssignedTo = t.AssignedTo,
+                priority = t.priority,
+                TWR = t.TWR,
+                ProjectName = t.Project != null ? t.Project.Name : null
+            });
+            return tasks;
         }
 
         //GetById

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CentTask1.Entities;
 
 namespace CentTask1.Models
 {
@@ -24,5 +26,12 @@ namespace CentTask1.Models
         public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
         public string? TWR { get; set; }
+
+        // Foreign Key
+
+        // Navigation Property
+        [ForeignKey("ProjectId")]
+        public int? ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }

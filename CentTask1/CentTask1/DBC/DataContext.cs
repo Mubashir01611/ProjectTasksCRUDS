@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CentTask1.Entities;
+using CentTask1.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.DBC
 {
@@ -12,6 +14,20 @@ namespace CentTask1.DBC
         {
         }
 
-        public DbSet<CentTask1.Models.ProjectTask> ProjectTasks { get; set; }
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<Project> Projects { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ProjectTask>()
+                .HasOne(pt => pt.Project)              // Each task has one project
+                .WithMany(p => p.Tasks)                // Each project has many tasks
+                .HasForeignKey(pt => pt.ProjectId)     // Foreign key in ProjectTask
+                .OnDelete(DeleteBehavior.SetNull);     // Optional: set FK to null if project is deleted
+        }
+
     }
 }
