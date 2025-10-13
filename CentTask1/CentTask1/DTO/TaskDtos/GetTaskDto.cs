@@ -10,9 +10,9 @@ namespace CentTask1.DTO.TaskDtos
 
         public string? description { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         public string? priority { get; set; }
         public string? AssignedTo { get; set; }

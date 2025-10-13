@@ -39,7 +39,7 @@ namespace CentTask1.Controllers
             return View(project);
         }
 
-        // GET: Projects/Create
+        //Create
         public async Task<IActionResult> CreateProject(int? id)
         {
             Project task = id.HasValue
@@ -63,20 +63,35 @@ namespace CentTask1.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(GetProjectDto projectDto)
         {
-            if (ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-                var createdProject = await _projectService.CreateProjectAsync(projectDto);
-                return RedirectToAction(nameof(GetAllProjects));
+                return PartialView("_CreateProjectModal", projectDto);
             }
-            return View(projectDto);
+            if(projectDto.Id>0)
+            {
+                await _projectService.UpdateProjectAsync(projectDto.Id, projectDto);
+            }
+            else
+            {
+                await _projectService.CreateProjectAsync(projectDto);
+            }
+            return Json(new { success = true });
+            
         }
 
-        // POST: Projects/Delete/5
+        // Delete
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _projectService.DeleteProjectAsync(id);
-            return RedirectToAction(nameof(GetAllProjects));
+            var isDeleted = await _projectService.DeleteProjectAsync(id);
+            if (!isDeleted)
+            {
+                return Json(new { success = false });
+            }
+            else
+            {
+                return Json(new { success = true });
+            }
         }
     }
 }

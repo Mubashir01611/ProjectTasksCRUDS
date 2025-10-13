@@ -69,6 +69,14 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         });
     }
 
+    //DataTable yeh jb ham sidebar sy click krty hain to load hota hai
+    $(".sidebar-link").on("click", function (e) {
+        debugger;
+        e.preventDefault();
+        loadTasks();
+    });
+
+
     //modal detail
     $(document).on('click', '.openTaskDetailModal', function (e) {
         debugger;
@@ -128,7 +136,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         debugger;
 
         e.preventDefault();
-        var id = $(this).data("id");
+      //  var id = $(this).data("id");
 
         //var url = $(this).data("url"); // e.g. "/Tasks/Create"
         var url = "/Tasks/Create";
@@ -210,13 +218,6 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                 });
             }
         });
-    });
-
-    //DataTable yeh jb ham sidebar sy click krty hain to load hota hai
-    $(".sidebar-link").on("click", function (e) {
-        debugger;
-        e.preventDefault();
-        loadTasks();
     });
 
     //home

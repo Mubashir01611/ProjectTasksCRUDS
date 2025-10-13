@@ -1,64 +1,67 @@
 ﻿@model CentTask1.DTO.ProjectDto.GetProjectDto;
 
  
-        <form  method="post" id="createOrEditProjectForm">
+<form  method="post" id="createOrEditProjectForm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-    <div class="row">
+    @if (Model.Id != 0)
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+<div class="row">
                 <div class="col-md-6">
             <label asp-for="Name" class="control-label float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input asp-for="Name" class="form-control" />
+            <input asp-for="Name" name="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
          
                 <div class="col-md-6">
             <label asp-for="Description" class="control-label float-start"></label>
-            <input asp-for="Description" class="form-control" />
+            <input asp-for="Description" name="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
       
                 <div class="col-md-6">
             <label asp-for="StartDate" class="control-label float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input asp-for="StartDate" class="form-control" />
+            <input type="date" asp-for="StartDate" name="StartDate" class="form-control" />
             <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
          
                 <div class="col-md-6">
             <label asp-for="EndDate" class="control-label float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input asp-for="EndDate" class="form-control" />
+            <input type="date" asp-for="EndDate" name="EndDate" class="form-control" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
            
                 <div class="col-md-6">
             <label asp-for="Budget" class="control-label float-start"></label>
-            <input asp-for="Budget" class="form-control" />
+            <input asp-for="Budget" name="Budget" class="form-control" />
             <span asp-validation-for="Budget" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
             <label asp-for="ClientName" class="control-label float-start"></label>
-            <input asp-for="ClientName" class="form-control" />
+            <input asp-for="ClientName" name="ClientName" class="form-control" />
             <span asp-validation-for="ClientName" class="text-danger"></span>
                 </div>
          
                 <div class="col-md-6">
             <label asp-for="Status" class="control-label float-start"></label>
-            <input asp-for="Status" class="form-control" />
+            <input asp-for="Status" name="Status" class="form-control" />
             <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
         
                 <div class="col-md-6">
             <label asp-for="Manager" class="control-label float-start"></label>
-            <input asp-for="Manager" class="form-control" />
+            <input asp-for="Manager" name="Manager" class="form-control" />
             <span asp-validation-for="Manager" class="text-danger"></span>
                 </div>
 </div>          
     <div class="form-group float-sm-end mt-2">
         @* <input type="submit" value="Create" class="btn btn-primary" /> *@
         @* id="submitProjectTaskId" data-url="/Tasks/Create" *@
-        <input type="submit" value="Save" name="submit"  class="btn btn-primary mr-2" />
+        <input type="submit" value="Save" name="submit" class="btn btn-primary mr-2" id="submitProjectId"/>
         <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
     </div>  
         </form>

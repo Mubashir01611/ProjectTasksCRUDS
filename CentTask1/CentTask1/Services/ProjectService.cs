@@ -73,7 +73,7 @@ namespace CentTask1.Services
         }
 
         //Update
-        public async Task<GetProjectDto?> UpdateProjectAsync(int id, Project updatedProject)
+        public async Task<GetProjectDto?> UpdateProjectAsync(int id, GetProjectDto updatedProject)
         {
             var existingProject = await _dataContext.Projects.FindAsync(id);
             if (existingProject == null)

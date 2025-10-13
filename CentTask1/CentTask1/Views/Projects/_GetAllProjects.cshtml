@@ -1,4 +1,8 @@
 ﻿@model IEnumerable<CentTask1.DTO.ProjectDto.GetProjectDto>
+@{
+    Layout = null;
+}
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
@@ -9,6 +13,39 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+<style>
+    div.dataTables_filter {
+        padding: 0px;
+        float: right;
+        text-align: start;
+    }
+
+        div.dataTables_filter input {
+            float: left;
+        }
+
+    div.dataTables_paginate {
+        margin-top: 23px;
+        float: right;
+    }
+
+    div.dataTables_info {
+        margin-top: 23px;
+        float: left;
+    }
+
+    div.dataTables_length {
+        float: left;
+        width: 100px;
+    }
+
+    .button {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+
+
 
 @* modal *@
 <div class="w-75">
@@ -31,11 +68,15 @@
 
     </div>
 </div>
-<p>
-    <a href="#" class="btn btn-primary openProjectModal float-end" data-id="">Create New</a>
+
+<p class="button">
+    <a href="#" class="btn btn-primary openProjectModal"  >Create New</a>
 </p>
-<table class="table" id="myProjectTable">
-    <thead>
+
+   
+
+<table class="table " id="myProjectTable">
+    <thead >
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -66,7 +107,8 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+
+    <tbody  >
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -76,10 +118,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @Html.DisplayFor(modelItem => item.StartDate.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @Html.DisplayFor(modelItem => item.EndDate.Date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Budget)
@@ -94,18 +136,22 @@
                 @Html.DisplayFor(modelItem => item.Manager)
             </td>
             <td>
-                    <a class="fa fa-pencil text-primary text-decoration-none me-1" asp-action="Edit" asp-route-id="@item.Id"></a>
+                    <a class="fa fa-pencil text-primary text-decoration-none me-1 openProjectModal" data-id="@item.Id"></a>
                     <a class="fa fa-eye text-dark text-decoration-none me-1" asp-action="Details" asp-route-id="@item.Id"></a>
-                    <a class="fa fa-trash text-danger text-decoration-none" asp-action="Delete" asp-route-id="@item.Id"></a>
+                    <a class="fa fa-trash text-danger text-decoration-none deleteProject" data-id="@item.Id"></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
 
+@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
+
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

@@ -72,8 +72,7 @@ namespace CentTask1.Controllers
             return Json(new { success = true });
   
         }
- 
-      
+    
         //Delete
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -88,9 +87,6 @@ namespace CentTask1.Controllers
             return Json(new { success = true });
         }
 
-        public IActionResult createsample()
-        {
-            return View();
-        }
+        
     }
 }
