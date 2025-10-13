@@ -15,9 +15,20 @@ namespace CentTask1.Services
         }
 
         //create
-        public async Task<GetProjectDto> CreateProjectAsync(Project project)
+        public async Task<GetProjectDto> CreateProjectAsync(GetProjectDto project)
         {
-            _dataContext.Projects.Add(project);
+            var projectEntity = new Project
+            {
+                Name = project.Name,
+                Description = project.Description,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                Budget = project.Budget,
+                ClientName = project.ClientName,
+                Status = project.Status,
+                Manager = project.Manager
+            };
+            _dataContext.Projects.Add(projectEntity);
             await _dataContext.SaveChangesAsync();
             var projectDto = new GetProjectDto
             {

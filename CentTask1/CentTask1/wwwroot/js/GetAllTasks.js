@@ -95,7 +95,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
     });
 
     //modal open
-    $(document).on('click', '.openTaskModal', function (e) {
+    $(document).on('click', ".openTaskModal", function (e) {
         debugger;
         e.preventDefault();
         var id = $(this).data("id");
