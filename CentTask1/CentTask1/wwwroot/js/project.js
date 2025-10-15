@@ -8,24 +8,61 @@
        
     });
     function loadProjects() {
+        debugger;
+        $.get("/Projects/LoadProjects", function (htmlContent) {
+
+            $("#HomeContainer").hide();
+            $("#taskContainer").hide();
+
+            $("#ProjectContainer").html(htmlContent).show();
+            fetchProjectData();
+        });
+    }
+    function fetchProjectData()
+    {
+        debugger;
         $.ajax({
             type: "GET",
             url: "/Projects/GetAllProjects",
-            //dataType: JSON,
-            success: function (htmldata) {
-                $("#HomeContainer").hide();
-                $("#taskContainer").hide();
-                $("#ProjectContainer").html(htmldata).show();
-                // Initialize DataTable after content is loaded
-                if ($.fn.DataTable.isDataTable("#myProjectTable")) {
-                    $("#myProjectTable").DataTable().destroy();
-                }
-                $("#myProjectTable").DataTable({
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    info: true
+            dataType: "json",
+            success: function (data) {
+                var tableBody = $("#myProjectTable tbody");
+                tableBody.empty(); // Clear existing rows
+                data.forEach(function (project) {
+                    var row = `
+                    <tr>
+                    <td>${project.name}</td>
+                    <td>${project.description}</td>
+                    <td>${project.startDate.substring(0, 10)}</td>
+                    <td>${project.endDate.substring(0, 10)}</td>
+                    <td>${project.budget}</td>
+                    <td>${project.clientName}</td>
+                    <td>${project.status}</td>
+                    <td>${project.manager}</td>
+                    <td>
+                        <a href="#" class="fa fa-pencil openProjectModal text-decoration-none me-1" data-url="" data-id="${project.id}"></a>
+                        <a href="#" class="fa fa-eye  text-decoration-none openProjectDetailModal  text-dark me-1" data-id="${project.id}"></a>
+                        <a href="#" class="fa fa-trash text-danger deleteProject" data-id="${project.id}"></a>
+                    </td>
+                    </tr>
+                    `
+                    
+                    tableBody.append(row);
+
                 });
+                // Initialize DataTable after content is loaded
+                setTimeout(function () {
+                    if ($.fn.DataTable.isDataTable('#myProjectTable')) {
+                        $('#myProjectTable').DataTable().destroy();
+                    }//use parameters here in datatable
+
+                    $('#myProjectTable').DataTable({
+                        paging: true,
+                        searching: true,
+                        ordering: true,
+                        info: true
+                    });
+                }, 100);
 
             },
             error: function (err) {
@@ -34,12 +71,7 @@
             }
         });
     }
-    //$(document).ready(function () {
-    //    $('.select2').select2({
-    //        placeholder: "Search and select a project",
-    //        allowClear: true
-    //    });
-    //});
+   
     //open Modal
     $(document).on('click', ".openProjectModal", function (e) {
         debugger;

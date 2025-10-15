@@ -61,7 +61,7 @@ namespace CentTask1.Controllers
             : new ProjectTask
             {
                 StartDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(7)
+                DueDate = DateTime.Today
             };
 
             return PartialView("_Create", task); // reuse same partial
@@ -103,7 +103,7 @@ namespace CentTask1.Controllers
 
             return Json(new { success = true });
         }
-
+        [HttpGet]
         public async Task<IActionResult> GetProjectsForDropdown(string term)
         {
             var projects = await _projectService.GetAllProjectsAsync();

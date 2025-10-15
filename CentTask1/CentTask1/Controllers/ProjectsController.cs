@@ -14,12 +14,15 @@ namespace CentTask1.Controllers
         {
             _projectService = projectService;
         }
-
+        public IActionResult LoadProjects()
+        {
+          return PartialView("_GetAllProjects");
+        }
         // GET: Projects
         public async Task<IActionResult> GetAllProjects()
         {
             var projects = await _projectService.GetAllProjectsAsync();
-            return PartialView("_GetAllProjects", projects);
+            return Json(projects);
         }
 
         // GET: Projects/Details/5

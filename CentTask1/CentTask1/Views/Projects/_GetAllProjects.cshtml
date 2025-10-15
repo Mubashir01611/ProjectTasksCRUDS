@@ -92,7 +92,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+    @*     @foreach (var item in Model) {
             <tr>
                 <td>@(string.IsNullOrWhiteSpace(item.Name) ? "&nbsp;" : item.Name)</td>
                 <td>@(string.IsNullOrWhiteSpace(item.Description) ? "&nbsp;" : item.Description)</td>
@@ -109,6 +109,7 @@
                 </td>
             </tr>
         }
+    *@
     </tbody>
 </table>
 
@@ -122,4 +123,5 @@
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 

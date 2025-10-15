@@ -236,7 +236,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
 });
 $(function () {
     $('#projectSelect').select2({
-        theme: 'bootstrap4', 
+        theme: 'bootstrap5', 
         placeholder: 'Select a project',
         allowClear: true,
         ajax: {
