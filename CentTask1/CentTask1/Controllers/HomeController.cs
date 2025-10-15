@@ -15,7 +15,7 @@ namespace CentTask1.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return PartialView("_Index");
         }
 
         public IActionResult MainIndex()

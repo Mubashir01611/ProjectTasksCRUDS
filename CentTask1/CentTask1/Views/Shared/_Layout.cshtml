@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CentTask1</title>
+    <title> CentTask1</title>
 
 
     <!-- Bootstrap CSS -->
@@ -16,12 +16,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/CentTask1.styles.css" asp-append-version="true" />
+
     <style>
         body, html {
             height: 100%;
         }
-        .dashboard-container {
+        .dashboard-containe {
             position:absolute;
             right:0;
             min-height: 100%;
@@ -47,22 +49,24 @@
         }
         .sidebar-content {
             flex: 1;
+            padding: 13px;
         }
         .sidebar img {
-            display: block;
-            margin: 0 auto 1rem auto;
-            max-width: 120px;
+            margin: 19px 0px 25px 24px;
+            max-width: 169px;
             height: auto;
+            
         }
         .sidebar .nav-link {
-            text-align:center;
+            text-align:start;
+            margin-left:0px;
             margin-top: 6px;
             margin-bottom: 0px;
             color: black;
         }
         .sidebar .nav-link:hover {
            cursor:pointer;
-           color:orange;
+                color: #f65e0c;
         }
         .sidebar .separator {
             border-top: 1px solid #dee2e6;
@@ -79,29 +83,30 @@
             text-align:center;
             width:0%;
         }
-
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="dashboard-containe">
 
         <nav class="sidebar">
 
             <div class="sidebar-content">
 
-                <a asp-action="MainIndex">
+                @* <a asp-action="MainIndex"> *@
+                <a asp-action="Index">
                     <img src="~/assets/img/logo.png" alt="Logo" />
                 </a>
 
-
                 <a href="#" class="nav-link fw-bold w-75 mx-auto" id="loadHome">
 
-                    <i class="fa fa-home"></i> Home
+                    <i class="fa fa-home text-muted"></i> Home
                     
                 </a>
                 <div class="separator"></div>
-                <a class="nav-link w-75 mx-auto sidebar-link" >Tasks</a>
-                <a class="nav-link w-75 mx-auto " id="getProjects">Projects</a>
+               
+                <a class="nav-link w-75 mx-auto sidebar-link"> <i class="fa fa-tasks me-2 text-muted"></i>Tasks</a>
+                
+                <a class="nav-link w-75 mx-auto " id="getProjects"><i class="fa fa-folder-open me-2 text-muted"></i>Projects</a>
             </div>
                 <div class="separator"></div>
             <div class="sidebar-bottom">
@@ -129,11 +134,12 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/GetAllTasks.js" asp-append-version="true"></script>
     <script src="~/js/project.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    @RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

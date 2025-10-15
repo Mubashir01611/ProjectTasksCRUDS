@@ -24,7 +24,7 @@ namespace CentTask1.DBC
 
             modelBuilder.Entity<ProjectTask>()
                 .HasOne(pt => pt.Project)              // Each task has one project
-                .WithMany(p => p.Tasks)                // Each project has many tasks
+                .WithMany(p => p.ProjectTasks)                // Each project has many tasks
                 .HasForeignKey(pt => pt.ProjectId)     // Foreign key in ProjectTask
                 .OnDelete(DeleteBehavior.SetNull);     // Optional: set FK to null if project is deleted
         }

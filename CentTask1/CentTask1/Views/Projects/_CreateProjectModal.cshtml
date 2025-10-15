@@ -24,14 +24,14 @@
                 <div class="col-md-6">
             <label asp-for="StartDate" class="control-label float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input type="date" asp-for="StartDate" name="StartDate" class="form-control" />
+            <input asp-for="StartDate" type="date" name="StartDate" class="form-control" />
             <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
          
                 <div class="col-md-6">
             <label asp-for="EndDate" class="control-label float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input type="date" asp-for="EndDate" name="EndDate" class="form-control" />
+            <input asp-for="EndDate" type="date" name="EndDate" class="form-control" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
            
@@ -58,9 +58,7 @@
             <span asp-validation-for="Manager" class="text-danger"></span>
                 </div>
 </div>          
-    <div class="form-group float-sm-end mt-2">
-        @* <input type="submit" value="Create" class="btn btn-primary" /> *@
-        @* id="submitProjectTaskId" data-url="/Tasks/Create" *@
+    <div class="form-group float-sm-end mt-2"> 
         <input type="submit" value="Save" name="submit" class="btn btn-primary mr-2" id="submitProjectId"/>
         <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
     </div>  

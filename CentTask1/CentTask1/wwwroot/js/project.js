@@ -4,13 +4,17 @@
     $("#getProjects").on("click", function (e) {
         debugger;
         e.preventDefault();
+        loadProjects();
+       
+    });
+    function loadProjects() {
         $.ajax({
             type: "GET",
             url: "/Projects/GetAllProjects",
             //dataType: JSON,
             success: function (htmldata) {
-                $("#HomeContainer").hide(); 
-                $("#taskContainer").hide(); 
+                $("#HomeContainer").hide();
+                $("#taskContainer").hide();
                 $("#ProjectContainer").html(htmldata).show();
                 // Initialize DataTable after content is loaded
                 if ($.fn.DataTable.isDataTable("#myProjectTable")) {
@@ -22,16 +26,20 @@
                     ordering: true,
                     info: true
                 });
-                            
+
             },
             error: function (err) {
                 alert("Failed to load project content.");
                 console.error("Error loading projects:", err);
             }
         });
-       
-    });
-
+    }
+    //$(document).ready(function () {
+    //    $('.select2').select2({
+    //        placeholder: "Search and select a project",
+    //        allowClear: true
+    //    });
+    //});
     //open Modal
     $(document).on('click', ".openProjectModal", function (e) {
         debugger;
@@ -43,6 +51,11 @@
             url: "Projects/CreateProject" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
                 $("#projectModalBodyContent").html(htmlContent);
+                $('.select2').select2({
+                    placeholder: "Search and select a project",
+                    allowClear: true,
+                    dropdownParent: $('#createOrEditProject') // ensures dropdown appears inside modal
+                });
             },
             error: function (err) {
                 Swal.fire({
@@ -60,6 +73,7 @@
 
     });
     
+
     //CreateOrEdit
     $(document).on('click', '#submitProjectId', function (e) {
         debugger;
@@ -78,13 +92,13 @@
             success: function (response) {
                 if (response.success) {
                     // Close modal
-                    $('#createOrEditProjectTask').modal('hide');
                     Swal.fire("Success!", "Task created successfully", "success");
+                    $('#createOrEditProject').modal('hide');
+
                     // Optionally clear form
                     form[0].reset();
+                loadProjects();
 
-                    // Reload task table
-                  //  loadTasks();
 
                 }
                 else {
@@ -129,9 +143,9 @@
                     success: function (response) {
                         if (response.success) {
                             Swal.fire("Deleted!", "Project has been deleted.", "success");
-                            // Optionally, refresh the project list
-                            // $("#getProjects").click();
-                        } else {
+                            loadProjects();
+                        }
+                        else {
                             Swal.fire("Error!", "Failed to delete the project.", "error");
                         }
                     },
@@ -142,6 +156,30 @@
                 });
             }
         });
+    });
+
+    $(document).on('click', '.openProjectDetailModal', function (e) {
+        debugger;
+        e.preventDefault();
+        var id = $(this).data("id");
+        $.ajax({
+            type: "GET",
+            url: "Projects/Details" + (id ? "?id=" + id : ""),
+            success: function (htmlContent) {
+                $("#projectModalBodyContent").html(htmlContent);
+            },
+            error: function (err) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Internal Server Error',
+                    icon: 'error',
+                });
+                console.log("error loading view", err);
+            }
+        });
+        $("#modalTitle").text("Task Detail");
+        $('#createOrEditProject').modal('show');
+        //$('#createOrEditProjectForm').modal.footer('hide');
     });
 
 });

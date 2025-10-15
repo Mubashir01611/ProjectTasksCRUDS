@@ -3,6 +3,7 @@ using CentTask1.DBC;
 using CentTask1.DTO.TaskDtos;
 using CentTask1.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Services
@@ -28,7 +29,8 @@ namespace CentTask1.Services
                 priority = task.priority,
                 AssignedTo = task.AssignedTo,
                 TWR = task.TWR,
-                EquipmentType = task.EquipmentType
+                EquipmentType = task.EquipmentType,
+                ProjectId = int.TryParse(task.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null
             };
             
                 _dataContext.ProjectTasks.Add(projectTask);
@@ -70,6 +72,11 @@ namespace CentTask1.Services
         public async Task<ProjectTask?> UpdateTaskAsync(int id, GetTaskDto updatedTask)
         {
             var existingTask = await _dataContext.ProjectTasks.FindAsync(id);
+            if (existingTask == null)
+            {
+                // Handle not found: throw, return, or log as needed
+                throw new InvalidOperationException($"Task with id {updatedTask.id} not found.");
+            }
             try
             {
                 existingTask.name = updatedTask.name;
@@ -80,6 +87,8 @@ namespace CentTask1.Services
                 existingTask.AssignedTo = updatedTask.AssignedTo;
                 existingTask.priority = updatedTask.priority;  
                 existingTask.TWR = updatedTask.TWR;
+                existingTask.ProjectId = int.TryParse(updatedTask.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null;
+
                 await _dataContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

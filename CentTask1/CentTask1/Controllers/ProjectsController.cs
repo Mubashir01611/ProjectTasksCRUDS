@@ -36,7 +36,7 @@ namespace CentTask1.Controllers
                 return NotFound();
             }
 
-            return View(project);
+            return PartialView("_DetailsProjectModal",project);
         }
 
         //Create
@@ -50,8 +50,8 @@ namespace CentTask1.Controllers
                 Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
-                StartDate = task.StartDate,
-                EndDate = task.EndDate,
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(7),
                 Budget = task.Budget,
                 ClientName = task.ClientName,
                 Status = task.Status,

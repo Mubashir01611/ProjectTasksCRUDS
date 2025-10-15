@@ -43,6 +43,8 @@
         display: flex;
         justify-content: flex-end;
     }
+
+     
 </style>
 
 
@@ -68,80 +70,45 @@
 
     </div>
 </div>
-
+<h1 class="text-align-center mt-5">List of Projects</h1>
 <p class="button">
-    <a href="#" class="btn btn-primary openProjectModal"  >Create New</a>
+    <a href="#" class="btn btn-primary openProjectModal"  >Create Project</a>
 </p>
 
    
 
-<table class="table " id="myProjectTable">
-    <thead >
+<table class="table table-hover table-bordered align-middle" id="myProjectTable">
+    <thead class="bg-info text-light">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Budget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manager)
-            </th>
-            <th>
-                Actions
-            </th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Name)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Description)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Budget)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.ClientName)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Status)</th>
+            <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Manager)</th>
+            <th style=" text-align : center;">Actions</th>
         </tr>
     </thead>
-
-    <tbody  >
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manager)
-            </td>
-            <td>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@(string.IsNullOrWhiteSpace(item.Name) ? "&nbsp;" : item.Name)</td>
+                <td>@(string.IsNullOrWhiteSpace(item.Description) ? "&nbsp;" : item.Description)</td>
+                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                <td>@(item.Budget.HasValue ? item.Budget.Value.ToString("N0") : "&nbsp;")</td>
+                <td>@(string.IsNullOrWhiteSpace(item.ClientName) ? "&nbsp;" : item.ClientName)</td>
+                <td>@(string.IsNullOrWhiteSpace(item.Status) ? "&nbsp;" : item.Status)</td>
+                <td>@(string.IsNullOrWhiteSpace(item.Manager) ? "&nbsp;" : item.Manager)</td>
+                <td>
                     <a class="fa fa-pencil text-primary text-decoration-none me-1 openProjectModal" data-id="@item.Id"></a>
-                    <a class="fa fa-eye text-dark text-decoration-none me-1" asp-action="Details" asp-route-id="@item.Id"></a>
+                    <a class="fa fa-eye text-dark text-decoration-none me-1 openProjectDetailModal" data-id="@item.Id"></a>
                     <a class="fa fa-trash text-danger text-decoration-none deleteProject" data-id="@item.Id"></a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -155,5 +122,4 @@
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 

@@ -3,15 +3,20 @@ using CentTask1.DTO.TaskDtos;
 using CentTask1.Models;
 using CentTask1.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CentTask1.Controllers
 {
     public class TasksController : Controller
     {
+        private readonly ProjectService _projectService;
+        private readonly DataContext _context;
         private readonly TaskService _projectTaskService;
 
-        public TasksController(TaskService projectTaskService)
+        public TasksController(TaskService projectTaskService,DataContext context,ProjectService projectService)
         {
+            _projectService = projectService;
+             _context = context;
             _projectTaskService = projectTaskService;
         }
 
@@ -43,10 +48,22 @@ namespace CentTask1.Controllers
         //CreateMethod to Load CreateOrEdit Modal
         public async Task< IActionResult> CreateProjectTask(int? id)
         {
+            var projects = _context.Projects
+                .Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = p.Name
+                }).ToList();
+
+            ViewBag.ProjectList = projects;
             ProjectTask task = id.HasValue
             ? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new ProjectTask()
-            : new ProjectTask();
- 
+            : new ProjectTask
+            {
+                StartDate = DateTime.Today,
+                DueDate = DateTime.Today.AddDays(7)
+            };
+
             return PartialView("_Create", task); // reuse same partial
         }
 
@@ -87,6 +104,15 @@ namespace CentTask1.Controllers
             return Json(new { success = true });
         }
 
-        
+        public async Task<IActionResult> GetProjectsForDropdown(string term)
+        {
+            var projects = await _projectService.GetAllProjectsAsync();
+            var filtered = string.IsNullOrEmpty(term)
+                ? projects
+                : projects.Where(p => p.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
+
+            var result = filtered.Select(p => new { id = p.Id, text = p.Name }).ToList();
+            return Json(new { results = result });
+        }
     }
 }

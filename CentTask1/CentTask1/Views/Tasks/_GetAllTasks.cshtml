@@ -56,12 +56,12 @@
                 justify-content:flex-end;
             }
 </style>
-<h1 class="mt-2">Project Tasks</h1>
+<h1 class="mt-5">Lists of Tasks</h1>
 
 
 @* modal *@
 <div class="w-75">
-
+                            @* the is same as the form *@
 <div class="modal fade " id="createOrEditProjectTask">
 
     <div class="modal-dialog">
@@ -83,45 +83,28 @@
 </div>
 <p class="button">
     <!-- Create -->
-    <a href="#" class="btn btn-primary openTaskModal" data-id="">Create</a>
+    <a href="#" class="btn btn-primary openTaskModal" data-id="">Create Task</a>
 </p>
 <div class="row">
     <div class="col-md-12">
-<table class="table" id="myTable">
-    <thead  >
+        <table class="table table-hover table-bordered align-middle" id="myTable">
+            <thead class="bg-info text-light">
+
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.priority)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EquipmentType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TWR)
-            </th>
-            <th>
-                Project Name
-            </th>
-            <th>Actions</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.name)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.description)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.StartDate)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.DueDate)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.priority)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.AssignedTo)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EquipmentType)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.TWR)</th>
+                    <th style=" text-align : center;">Project Name</th>
+                    <th style=" text-align : center;">Actions</th>
         </tr>
     </thead>
     <tbody>
-       
+        @* Data rows are loaded via JS *@
     </tbody>
 </table>
 
@@ -133,12 +116,10 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@* <script src="~/js/GetAllTasks.js" asp-append-version="true"></script> *@
+<script src="~/js/site.js" asp-append-version="true"></script> 
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
 
 

@@ -53,7 +53,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                 setTimeout(function () {
                     if ($.fn.DataTable.isDataTable('#myTable')) {
                         $('#myTable').DataTable().destroy();
-                    }
+                    }//use parameters here in datatable
 
                     $('#myTable').DataTable({
                         paging: true,
@@ -75,7 +75,6 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         e.preventDefault();
         loadTasks();
     });
-
 
     //modal detail
     $(document).on('click', '.openTaskDetailModal', function (e) {
@@ -224,7 +223,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
     $("#loadHome").on("click", function (e) {
         debugger;
         e.preventDefault();
-        $.get("Home/Index")
+        $.get("/Home/Index")
             .done(function (htmlContent) {
                 $("#taskContainer").hide();   
                 $("#ProjectContainer").hide();   
@@ -233,5 +232,23 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             .fail(function () {
                 alert("Failed to load Home content.");
             });
+    });
+});
+$(function () {
+    $('#projectSelect').select2({
+        theme: 'bootstrap4', 
+        placeholder: 'Select a project',
+        allowClear: true,
+        ajax: {
+            url: '/Tasks/GetProjectsForDropdown',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return { term: params.term };
+            },
+            processResults: function (data) {
+                return { results: data.results };
+            }
+        }
     });
 });

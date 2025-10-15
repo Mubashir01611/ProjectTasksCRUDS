@@ -18,6 +18,7 @@ namespace CentTask1.DTO.TaskDtos
         public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
         public string? TWR { get; set; }
+        public string? ProjectId { get; set; }
         public string? ProjectName { get; set; }
     }
 }
