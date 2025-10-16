@@ -48,14 +48,14 @@ namespace CentTask1.Controllers
         //CreateMethod to Load CreateOrEdit Modal
         public async Task< IActionResult> CreateProjectTask(int? id)
         {
-            var projects = _context.Projects
-                .Select(p => new SelectListItem
-                {
-                    Value = p.Id.ToString(),
-                    Text = p.Name
-                }).ToList();
+            //var projects = _context.Projects
+            //    .Select(p => new SelectListItem
+            //    {
+            //        Value = p.Id.ToString(),
+            //        Text = p.Name
+            //    }).ToList();
 
-            ViewBag.ProjectList = projects;
+            //ViewBag.ProjectList = projects;
             ProjectTask task = id.HasValue
             ? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new ProjectTask()
             : new ProjectTask

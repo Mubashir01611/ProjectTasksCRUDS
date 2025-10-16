@@ -11,7 +11,7 @@ namespace CentTask1.DTO.ProjectDto
         public DateTime EndDate { get; set; }
         public double? Budget { get; set; }
         public string? ClientName { get; set; }
-        public string? Status { get; set; } = string.Empty;
+        public bool Status { get; set; }
         public string? Manager { get; set; }
     }
 }

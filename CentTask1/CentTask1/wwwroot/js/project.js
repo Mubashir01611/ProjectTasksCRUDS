@@ -37,8 +37,15 @@
                     <td>${project.endDate.substring(0, 10)}</td>
                     <td>${project.budget}</td>
                     <td>${project.clientName}</td>
-                    <td>${project.status}</td>
                     <td>${project.manager}</td>
+
+                    <td>
+                    <span class="badge ${project.status ? 'bg-success' : 'bg-danger'}">
+                    ${project.status ? 'Active' : 'Inactive'}
+                    </span>
+                   
+                    
+                    </td>
                     <td>
                         <a href="#" class="fa fa-pencil openProjectModal text-decoration-none me-1" data-url="" data-id="${project.id}"></a>
                         <a href="#" class="fa fa-eye  text-decoration-none openProjectDetailModal  text-dark me-1" data-id="${project.id}"></a>

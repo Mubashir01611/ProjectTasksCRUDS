@@ -45,18 +45,22 @@
             <input asp-for="ClientName" name="ClientName" class="form-control" />
             <span asp-validation-for="ClientName" class="text-danger"></span>
                 </div>
-         
-                <div class="col-md-6">
-            <label asp-for="Status" class="control-label float-start"></label>
-            <input asp-for="Status" name="Status" class="form-control" />
-            <span asp-validation-for="Status" class="text-danger"></span>
-                </div>
-        
-                <div class="col-md-6">
-            <label asp-for="Manager" class="control-label float-start"></label>
+
+        <div class="col-md-6 ">
+            <label asp-for="Manager" class="control-label float-start "></label>
             <input asp-for="Manager" name="Manager" class="form-control" />
             <span asp-validation-for="Manager" class="text-danger"></span>
-                </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-start align-items-center">
+            <label asp-for="Status" class="form-check-label float-start "></label>
+            @* asp-for="Status" *@
+            <input asp-for="Status" name="Status" type="checkbox" class="form-check-input ms-2" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+
+
+        </div>
+
+        
 </div>          
     <div class="form-group float-sm-end mt-2"> 
         <input type="submit" value="Save" name="submit" class="btn btn-primary mr-2" id="submitProjectId"/>

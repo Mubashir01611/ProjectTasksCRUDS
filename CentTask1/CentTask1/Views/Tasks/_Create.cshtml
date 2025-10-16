@@ -40,11 +40,11 @@
                     <input asp-for="priority" name="priority" class="form-control" />
                     @* <span asp-validation-for="priority" class="text-danger"></span> *@
                 </div>
-                <div class="col-md-6">
+                @* <div class="col-md-6">
                     <label asp-for="AssignedTo" class="control-label text-start float-start"></label>
                     <input asp-for="AssignedTo" name="AssignedTo" class="form-control" />
-                    @* <span asp-validation-for="AssignedTo" class="text-danger"></span> *@
-                </div>
+                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                </div> *@
 
                 <div class="col-md-6">
                     <label asp-for="EquipmentType" class="control-label text-start float-start"></label>
@@ -58,12 +58,12 @@
                 </div>
         <div class="col-md-6">
             <label asp-for="Project" class="control-label float-start"></label>
-            <select id="projectSelect" asp-for="ProjectId" class="form-control select2" asp-items="ViewBag.ProjectList">
-                <option value="">-- Select Project --</option>
+            <select id="projectSelect" asp-for="ProjectId" class="form-control select2" >
+                <option value="id"> </option>
             </select>
             <span asp-validation-for="id" class="text-danger"></span>
         </div>
-
+        @* asp-items="ViewBag.ProjectList *@
             </div>
             <div class="form-group mt-3 float-end">
                 <input type="submit" value="Save" name="submit" id="submitProjectTaskId" data-url="/Tasks/Create" class="btn btn-primary mr-2" />

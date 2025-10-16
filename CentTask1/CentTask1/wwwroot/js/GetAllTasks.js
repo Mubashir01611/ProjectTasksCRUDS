@@ -235,9 +235,11 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
     });
 });
 $(function () {
+        debugger;
     $('#projectSelect').select2({
-        theme: 'bootstrap5', 
+        //theme: 'bootstrap5', 
         placeholder: 'Select a project',
+        minimumInputLength: 1,
         allowClear: true,
         ajax: {
             url: '/Tasks/GetProjectsForDropdown',
