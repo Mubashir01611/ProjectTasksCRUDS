@@ -101,25 +101,86 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         $('#createOrEditProjectTask').modal.footer('hide');
     });
 
-    //modal open
+    // Initialize project select2 inside task modal with defensive load fallback
+    function initTaskProjectSelect(retryCount = 0) {
+        var $modal = $('#createOrEditProjectTask');
+        var $select = $modal.find('#projectSelect');
+
+        if (!$select.length) {
+            console.debug('[initTaskProjectSelect] no #projectSelect in modal');
+            return;
+        }
+
+        // If select2 is not available, try to load it dynamically (once)
+        if (typeof $.fn.select2 !== 'function') {
+            console.warn('[initTaskProjectSelect] select2 not loaded yet (attempt ' + retryCount + ')');
+            if (retryCount === 0) {
+                // load Select2 script dynamically from CDN, then re-run init
+                $.getScript('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js')
+                    .done(function () {
+                        console.debug('[initTaskProjectSelect] select2 loaded dynamically, initializing...');
+                        initTaskProjectSelect(1);
+                    })
+                    .fail(function () {
+                        console.error('[initTaskProjectSelect] failed to load select2 dynamically');
+                    });
+            } else if (retryCount < 5) {
+                // small retry loop in case of timing issues
+                setTimeout(function () { initTaskProjectSelect(retryCount + 1); }, 200);
+            } else {
+                console.error('[initTaskProjectSelect] select2 never loaded after retries');
+            }
+            return;
+        }
+
+        // destroy existing select2 instance if any (prevents duplicate init)
+        if ($select.hasClass('select2-hidden-accessible')) {
+            try { $select.select2('destroy'); } catch (ex) { console.warn('error destroying select2', ex); }
+        }
+
+        $select.select2({
+            theme: 'bootstrap5',
+            placeholder: 'Search and select a project',
+            allowClear: true,
+            dropdownParent: $modal,
+            ajax: {
+                url: '/Tasks/GetProjectsForDropdown',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return { term: params.term };
+                },
+                processResults: function (data) {
+                    return { results: data.results };
+                }
+            }
+        });
+
+        console.debug('[initTaskProjectSelect] initialized select2 on #projectSelect');
+    }
+
+    //modal open (load partial then initialize select2)
     $(document).on('click', ".openTaskModal", function (e) {
         debugger;
         e.preventDefault();
         var id = $(this).data("id");
-        // var url = $(this).data("url");
 
         $.ajax({
             type: "GET",
             url: "Tasks/CreateProjectTask" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
                 $("#modalBodyContent").html(htmlContent);
+
+                // re-parse unobtrusive validation
+                if ($.validator && $.validator.unobtrusive) {
+                    $.validator.unobtrusive.parse('#createOrEditProjectTaskForm');
+                }
+
+                // initialize Select2 (with retry if Select2 wasn't ready yet)
+                initTaskProjectSelect();
             },
             error: function (err) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Internal Server Error',
-                    icon: 'error'
-                });
+                Swal.fire({ title: 'Error!', text: 'Internal Server Error', icon: 'error' });   
                 console.error("Error loading view:", err);
             }
         });
@@ -232,25 +293,5 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             .fail(function () {
                 alert("Failed to load Home content.");
             });
-    });
-});
-$(function () {
-        debugger;
-    $('#projectSelect').select2({
-        //theme: 'bootstrap5', 
-        placeholder: 'Select a project',
-        minimumInputLength: 1,
-        allowClear: true,
-        ajax: {
-            url: '/Tasks/GetProjectsForDropdown',
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return { term: params.term };
-            },
-            processResults: function (data) {
-                return { results: data.results };
-            }
-        }
     });
 });

@@ -7,6 +7,7 @@
         loadProjects();
        
     });
+    //project load function(list)
     function loadProjects() {
         debugger;
         $.get("/Projects/LoadProjects", function (htmlContent) {
@@ -18,6 +19,7 @@
             fetchProjectData();
         });
     }
+    //project fetch function(list)
     function fetchProjectData()
     {
         debugger;

@@ -1,79 +1,75 @@
 ﻿@model CentTask1.Models.ProjectTask
 
-
 <form asp-action="Create" asp-controller="Tasks" method="post" id="createOrEditProjectTaskForm">
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (Model.id != 0)
-            {
-                <input type="hidden" asp-for="id" />
-            }
-            <div class="row">
-                <div class="col-md-6">
-                    <label asp-for="name" class="control-label text-start float-start"></label>
-                    <span class="text-danger float-start"> *</span>
-                    <input asp-for="name" name="name" class="form-control" />
-                    <span asp-validation-for="name" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="description" class="control-label text-start float-start"></label>
-                    <input asp-for="description" name="description" class="form-control" />
-                    @* <span asp-validation-for="description" class="text-danger"></span> *@
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="StartDate" class="control-label float-start text-start"></label>
-                    <span class="text-danger float-start"> *</span>
-                      <input type="date" asp-for="StartDate" name="StartDate"  class=" form-control" />
-                    <span asp-validation-for="StartDate" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="DueDate" class="control-label float-start text-start"></label>
-                    <span class="text-danger float-start"> *</span>
-                    <input type="date" asp-for="DueDate" name="DueDate"  class="form-control" />
-                    <span asp-validation-for="DueDate" class="text-danger"></span>
-
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="priority" class="control-label text-start float-start"></label>
-                    <input asp-for="priority" name="priority" class="form-control" />
-                    @* <span asp-validation-for="priority" class="text-danger"></span> *@
-                </div>
-                @* <div class="col-md-6">
-                    <label asp-for="AssignedTo" class="control-label text-start float-start"></label>
-                    <input asp-for="AssignedTo" name="AssignedTo" class="form-control" />
-                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
-                </div> *@
-
-                <div class="col-md-6">
-                    <label asp-for="EquipmentType" class="control-label text-start float-start"></label>
-                    <input asp-for="EquipmentType" name="EquipmentType" class="form-control" />
-                    @* <span asp-validation-for="EquipmentType" class="text-danger"></span> *@
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="TWR" class="control-label text-start float-start "></label>
-                    <input asp-for="TWR" name="TWR" class="form-control" />
-                    <span asp-validation-for="TWR" class="text-danger"></span>
-                </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (Model.id != 0)
+    {
+        <input type="hidden" asp-for="id" />
+    }
+    <div class="row">
         <div class="col-md-6">
-            <label asp-for="Project" class="control-label float-start"></label>
-            <select id="projectSelect" asp-for="ProjectId" class="form-control select2" >
-                <option value="id"> </option>
-            </select>
-            <span asp-validation-for="id" class="text-danger"></span>
+            <label asp-for="name" class="control-label text-start float-start"></label>
+            <span class="text-danger float-start"> *</span>
+            <input asp-for="name" name="name" class="form-control" />
+            <span asp-validation-for="name" class="text-danger"></span>
         </div>
-        @* asp-items="ViewBag.ProjectList *@
-            </div>
-            <div class="form-group mt-3 float-end">
-                <input type="submit" value="Save" name="submit" id="submitProjectTaskId" data-url="/Tasks/Create" class="btn btn-primary mr-2" />
-                <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+        <div class="col-md-6">
+            <label asp-for="description" class="control-label text-start float-start"></label>
+            <input asp-for="description" name="description" class="form-control" />
+        </div>
 
-            </div>
-        </form>
+        <div class="col-md-6">
+            <label asp-for="StartDate" class="control-label float-start text-start"></label>
+            <span class="text-danger float-start"> *</span>
+              <input type="date" asp-for="StartDate" name="StartDate"  class=" form-control" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="DueDate" class="control-label float-start text-start"></label>
+            <span class="text-danger float-start"> *</span>
+            <input type="date" asp-for="DueDate" name="DueDate"  class="form-control" />
+            <span asp-validation-for="DueDate" class="text-danger"></span>
+        </div>
 
-@*     </div>
-</div> *@
+        <div class="col-md-6">
+            <label asp-for="priority" class="control-label text-start float-start"></label>
+            <input asp-for="priority" name="priority" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="EquipmentType" class="control-label text-start float-start"></label>
+            <input asp-for="EquipmentType" name="EquipmentType" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="TWR" class="control-label text-start float-start "></label>
+            <input asp-for="TWR" name="TWR" class="form-control" />
+            <span asp-validation-for="TWR" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ProjectId" class="control-label float-start"></label>
+            @* Select2 expects the <select> to have the proper name attribute that matches the model property. *@
+            <select asp-for="ProjectId" id="projectSelect" class="form-control js-data-example" name="ProjectId" style="width:100%">
+                <option value="">Select a project</option>
+                @* If editing and server provided a Project relation, render a selected option so Select2 shows the current value immediately. *@
+                @if (Model.ProjectId.HasValue)
+                {
+                    var selectedText = Model.Project?.Name ?? "Selected Project";
+                    <option value="@Model.ProjectId" selected="selected">@selectedText</option>
+                }
+            </select>
+            <span asp-validation-for="ProjectId" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="form-group mt-3 float-end">
+        <input type="submit" value="Save" name="submit" id="submitProjectTaskId" data-url="/Tasks/Create" class="btn btn-primary mr-2" />
+        <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+    </div>
+</form>
+
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
@@ -81,4 +77,30 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // This script will initialize Select2 if the partial is loaded directly.
+        // When the partial is injected into the modal via AJAX the parent script also initializes,
+        // but keeping this ensures it works when the partial is used standalone.
+        (function () {
+            if (typeof $ === 'undefined' || !$('#projectSelect').length) return;
+
+            $('#projectSelect').select2({
+                theme: 'bootstrap5', // adjust to bootstrap4 if you're using bootstrap4
+                placeholder: 'Search and select a project',
+                allowClear: true,
+                dropdownParent: $('#createOrEditProjectTask'),
+                ajax: {
+                    url: '/Tasks/GetProjectsForDropdown',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { term: params.term };
+                    },
+                    processResults: function (data) {
+                        return { results: data.results };
+                    }
+                }
+            });
+        })();
+    </script>
 }
