@@ -51,16 +51,14 @@
             <span asp-validation-for="EndDate" class="text-danger"></span>
           
             <br />
-            
-            <label asp-for="ProjectName" class="control-label float-start"></label>
-            @* Select2 expects the <select> to have the proper name attribute that matches the model property. *@
-            <select asp-for="ProjectId" id="projectSelect" class="form-control js-data-example " style="width:100%">
+
+            <label asp-for="ProjectId" class="form-label">Project</label>
+            <select asp-for="ProjectId" class="form-select js-select2" id="projectSelect">
                 <option value="">Select a project</option>
-                @* If editing and server provided a Project relation, render a selected option so Select2 shows the current value immediately. *@
                 @if (Model.ProjectId != null)
                 {
                     var selectedText = Model.ProjectName ?? "Selected Project";
-                    <option value="@Model.ProjectId" selected="selected">@selectedText</option>
+                    <option value="@Model.ProjectId" selected>@selectedText</option>
                 }
             </select>
             <span asp-validation-for="ProjectId" class="text-danger"></span>

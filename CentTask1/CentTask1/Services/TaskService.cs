@@ -13,34 +13,52 @@ namespace CentTask1.Services
 {
     public class TaskService : ITaskService
     {
+        private readonly ILogger<ProjectTask> _logger;
         private readonly DataContext _dataContext;
 
-        public TaskService(DataContext dataContext)
+        public TaskService(DataContext dataContext,ILogger<ProjectTask> logger)
         {
+            _logger = logger;
             _dataContext = dataContext;
         }
         //create
         public async Task<TaskCreateViewModel> CreateTaskAsync(TaskCreateViewModel task)
         {
-            var projectTask = new ProjectTask
+            try
             {
-                TaskId = Guid.NewGuid(),
-                TaskName = task.TaskName,
-                Description = task.Description,
-                StartDate = task.StartDate,
-                EndDate = task.EndDate,
-                Priority = task.Priority,
-                AssignedTo = task.AssignedTo,
-                TWR = task.TWR,
-                EquipmentType = task.EquipmentType,
-                CreatedOn = DateTime.UtcNow,
-                IsDeleted = false,
-                ProjectId = int.TryParse(task.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null
-            };
-            
+                var projectTask = new ProjectTask
+                {
+                    TaskId = Guid.NewGuid(),
+                    TaskName = task.TaskName,
+                    Description = task.Description,
+                    StartDate = task.StartDate,
+                    EndDate = task.EndDate,
+                    Priority = task.Priority,
+                    AssignedTo = task.AssignedTo,
+                    TWR = task.TWR,
+                    EquipmentType = task.EquipmentType,
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false,
+                    ProjectId = int.TryParse(task.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null
+                };
+
                 _dataContext.ProjectTasks.Add(projectTask);
                 await _dataContext.SaveChangesAsync();
-                return task;
+                return new TaskCreateViewModel
+                {
+                    TaskId = projectTask.TaskId,
+                    TaskName = projectTask.TaskName,
+                    Message = "Task created successfully!"
+                };
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating project");
+                // Log the exception (you can use a logging framework here)
+                throw new InvalidOperationException("An error occurred while creating the task.", ex);
+            }   
+           
             
         }
 
@@ -48,20 +66,32 @@ namespace CentTask1.Services
         //GetAllTasks
         public async Task<IEnumerable<TaskGetViewModel>> GetAllTasksAsync()
         {
-            var tasks = _dataContext.ProjectTasks.Include(p => p.Project).Select(t => new TaskGetViewModel
+            try
             {
-                TaskId = t.TaskId,
-                TaskName = t.TaskName,
-                Description = t.Description,
-                StartDate = t.StartDate,
-                EndDate = t.EndDate,
-                EquipmentType = t.EquipmentType,
-                AssignedTo = t.AssignedTo,
-                Priority = t.Priority,
-                TWR = t.TWR,
-                ProjectName = t.Project != null ? t.Project.Name : null
-            });
-            return tasks;
+                var projectTasks = _dataContext.ProjectTasks
+                .Where(pt => pt.IsDeleted == false)
+                .Include(pt => pt.Project)
+                .Select(t => new TaskGetViewModel
+                {
+                    TaskId = t.TaskId,
+                    TaskName = t.TaskName,
+                    Description = t.Description,
+                    StartDate = t.StartDate,
+                    EndDate = t.EndDate,
+                    EquipmentType = t.EquipmentType,
+                    AssignedTo = t.AssignedTo,
+                    Priority = t.Priority,
+                    TWR = t.TWR,
+                    ProjectName = t.Project != null ? t.Project.Name : null
+                });
+
+                return projectTasks;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving project tasks");
+                throw new InvalidOperationException("An error occurred while retrieving tasks.", ex);
+            }
         }
 
         //GetById
@@ -126,15 +156,25 @@ namespace CentTask1.Services
         ////Delete
         public async Task<bool> DeleteTaskAsync(Guid id)
         {
-            var task = await _dataContext.ProjectTasks
-                .FirstOrDefaultAsync(m => m.TaskId == id);
-            if (task == null)
+            try
             {
-                return false;
+                var task = await _dataContext.ProjectTasks
+              .FirstOrDefaultAsync(m => m.TaskId == id);
+                if (task == null)
+                {
+                    return false;
+                }
+                task.IsDeleted = true;
+                _dataContext.ProjectTasks.Update(task);
+                await _dataContext.SaveChangesAsync();
+                return true;
             }
-            _dataContext.ProjectTasks.Remove(task);
-            await _dataContext.SaveChangesAsync();
-            return true;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting project task");
+                throw new InvalidOperationException("An error occurred while deleting the task.", ex);
+            }
+          
         }
 
         private bool TaskExists(Guid id)

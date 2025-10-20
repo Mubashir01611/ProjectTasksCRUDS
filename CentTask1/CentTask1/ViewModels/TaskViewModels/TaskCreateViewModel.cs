@@ -12,5 +12,6 @@ namespace CentTask1.ViewModels.TaskViewModels
         public string? TWR { get; set; }
         public string? ProjectId { get; set; }
         public string? ProjectName { get; set; }
+        public string? Message { get; set; }
     }
 }

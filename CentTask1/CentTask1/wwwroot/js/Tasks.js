@@ -41,9 +41,9 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.twr}</td>
                     <td>${task.projectName}</td>
                     <td>
-                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-url="" data-id="${task.id}"></a>
-                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>
-                        <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-url="" data-id="${task.taskId}"></a>
+                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.taskId}"></a>
+                        <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.taskId}"></a>
                     </td>
                 </tr>
             `;
@@ -210,7 +210,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                 if (response.success) {
                     // Close modal
                     $('#createOrEditProjectTask').modal('hide');
-                    Swal.fire("Success!", "Task created successfully", "success");
+                    Swal.fire( "Success!", "Task created successfully", "success" );
                     // Optionally clear form
                     form[0].reset();
 
@@ -247,7 +247,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "This task will be permanently deleted!",
+            text: "This task will be deleted!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -259,7 +259,15 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     type: "POST",
                     url: "/Tasks/DeleteConfirmed",
                     data: { id: id },
-                    success: function () {
+                    success: function (response) {
+                        if (!response.success) {
+                            Swal.fire(
+                                'Error!',
+                                response.message || 'Something went wrong while deleting.',
+                                'error'
+                            );
+                            return;
+                        }
                         Swal.fire(
                             'Deleted!',
                             'Task has been deleted.',

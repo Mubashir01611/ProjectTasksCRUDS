@@ -77,8 +77,9 @@ namespace CentTask1.Controllers
             //else
             //{
             //}
-                await _projectTaskService.CreateTaskAsync(task);
-
+              var result=  await _projectTaskService.CreateTaskAsync(task);
+            //abhi kaliye mai is method ko use nahi kr rha mgr, in future is py kaam karna hai
+          //  TempData["SwalMessage"] = result.Message;
             return Json(new { success = true });
   
         }
