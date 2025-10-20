@@ -55,17 +55,31 @@
                 display:flex;
                 justify-content:flex-end;
             }
+            .modal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1300px;
+            }
+            .modal-div{
+                /* border:22px solid orange     ; */
+            }
+
+    .modal-content {
+        width: 858px;
+                /* border:12px solid red; */
+            }
 </style>
 <h1 class="mt-5">Lists of Tasks</h1>
 
 
 @* modal *@
-<div class="w-75">
+<div  >
                             @* the is same as the form *@
-<div class="modal fade " id="createOrEditProjectTask">
+    <div class="modal fade " id="createOrEditProjectTask">
 
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog modal-div">
+            <div class="modal-content modal-div2">
             <div class="modal-header">
                     <h4 class="modal-title text-info" id="modalTitle">Task</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -96,7 +110,6 @@
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.StartDate)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EndDate)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Priority)</th>
-                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.AssignedTo)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EquipmentType)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.TWR)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.ProjectName)</th>

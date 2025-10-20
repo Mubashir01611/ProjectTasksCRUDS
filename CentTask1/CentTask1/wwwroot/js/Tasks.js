@@ -35,9 +35,8 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.taskName}</td>
                     <td>${task.description}</td>
                     <td>${task.startDate.substring(0, 10)}</td>
-                    <td>${task.dueDate.substring(0, 10)}</td>
+                    <td>${task.endDate.substring(0, 10)}</td>
                     <td>${task.priority}</td>
-                    <td>${task.assignedTo}</td>
                     <td>${task.equipmentType}</td>
                     <td>${task.twr}</td>
                     <td>${task.projectName}</td>

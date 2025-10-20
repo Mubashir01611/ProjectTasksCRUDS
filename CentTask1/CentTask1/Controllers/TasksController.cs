@@ -47,14 +47,15 @@ namespace CentTask1.Controllers
 
         //CreateMethod to Load CreateOrEdit Modal
         public async Task< IActionResult> CreateProjectTask(Guid? id)
-        { 
-            ProjectTask task = id.HasValue
-            ? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new ProjectTask()
-            : new ProjectTask
-            {
-                StartDate = DateTime.Today,
-                EndDate = DateTime.Today
-            };
+        {
+            TaskCreateViewModel task = new TaskCreateViewModel();
+            //TaskCreateViewModel task = id.HasValue
+            //? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new TaskCreateViewModel()
+            //: new TaskCreateViewModel
+            //{
+            //    StartDate = DateTime.Today,
+            //    EndDate = DateTime.Today
+            //};
 
             return PartialView("_Create", task); // reuse same partial
         }
@@ -64,10 +65,10 @@ namespace CentTask1.Controllers
         public async Task<IActionResult> Create(TaskCreateViewModel task)
         {
 
-            if (!ModelState.IsValid)
-            {
-                return PartialView("_Create", task); // reuse same view
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return PartialView("_Create", task); // reuse same view
+            //}
 
             //if (task.Id != )
             //{

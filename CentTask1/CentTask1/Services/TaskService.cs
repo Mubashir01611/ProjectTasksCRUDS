@@ -24,7 +24,7 @@ namespace CentTask1.Services
         {
             var projectTask = new ProjectTask
             {
-                TaskId = task.TaskId,
+                TaskId = Guid.NewGuid(),
                 TaskName = task.TaskName,
                 Description = task.Description,
                 StartDate = task.StartDate,
