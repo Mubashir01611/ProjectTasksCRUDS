@@ -1,11 +1,7 @@
-﻿using System.Threading.Tasks;
-using CentTask1.DBC;
-using CentTask1.DTO.TaskDtos;
+﻿using CentTask1.DBC;
 using CentTask1.Interfaces;
 using CentTask1.Models;
-using CentTask1.ViewModels.ProjectViewModels;
 using CentTask1.ViewModels.TaskViewModels;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,11 +20,12 @@ namespace CentTask1.Services
         //create
         public async Task<TaskCreateViewModel> CreateTaskAsync(TaskCreateViewModel task)
         {
+
             try
             {
                 var projectTask = new ProjectTask
                 {
-                    TaskId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     TaskName = task.TaskName,
                     Description = task.Description,
                     StartDate = task.StartDate,
@@ -46,7 +43,7 @@ namespace CentTask1.Services
                 await _dataContext.SaveChangesAsync();
                 return new TaskCreateViewModel
                 {
-                    TaskId = projectTask.TaskId,
+                    Id = projectTask.Id,
                     TaskName = projectTask.TaskName,
                     Message = "Task created successfully!"
                 };
@@ -73,7 +70,7 @@ namespace CentTask1.Services
                 .Include(pt => pt.Project)
                 .Select(t => new TaskGetViewModel
                 {
-                    TaskId = t.TaskId,
+                    Id = t.Id,
                     TaskName = t.TaskName,
                     Description = t.Description,
                     StartDate = t.StartDate,
@@ -98,10 +95,10 @@ namespace CentTask1.Services
         public async Task<TaskDetailViewModel?> GetTaskByIdAsync(Guid id)
         {
             var projectTask = await _dataContext.ProjectTasks
-                .FirstOrDefaultAsync(m => m.TaskId == id && m.IsDeleted == false);
+                .FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false);
             var taskDetailViewModel = projectTask == null ? null : new TaskDetailViewModel
             {
-                TaskId = projectTask.TaskId,
+                Id = projectTask.Id,
                 TaskName = projectTask.TaskName,
                 Description = projectTask.Description,
                 StartDate = projectTask.StartDate,
@@ -125,7 +122,7 @@ namespace CentTask1.Services
             if (existingTask == null)
             {
                 // Handle not found: throw, return, or log as needed
-                throw new InvalidOperationException($"Task with id {updatedTask.TaskId} not found.");
+                throw new InvalidOperationException($"Task with id {updatedTask.Id} not found.");
             }
             try
             {
@@ -143,7 +140,7 @@ namespace CentTask1.Services
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TaskExists(updatedTask.TaskId))
+                if (!TaskExists(updatedTask.Id))
                 {
                     return null;
                 }
@@ -155,7 +152,7 @@ namespace CentTask1.Services
 
             var taskViewModel = new TaskUpdateViewModel
             {
-                TaskId = existingTask.TaskId,
+                Id = existingTask.Id,
                 TaskName = existingTask.TaskName,
                 Description = existingTask.Description,
                 StartDate = existingTask.StartDate,
@@ -174,7 +171,7 @@ namespace CentTask1.Services
             try
             {
                 var task = await _dataContext.ProjectTasks
-              .FirstOrDefaultAsync(m => m.TaskId == id);
+              .FirstOrDefaultAsync(m => m.Id == id);
                 if (task == null)
                 {
                     return false;
@@ -194,7 +191,7 @@ namespace CentTask1.Services
 
         private bool TaskExists(Guid id)
         {
-            return _dataContext.ProjectTasks.Any(e => e.TaskId == id);
+            return _dataContext.ProjectTasks.Any(e => e.Id == id);
         }
 
     }

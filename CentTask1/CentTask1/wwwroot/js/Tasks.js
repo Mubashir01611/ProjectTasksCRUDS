@@ -41,9 +41,9 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.twr}</td>
                     <td>${task.projectName}</td>
                     <td>
-                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1" data-url="" data-id="${task.taskId}"></a>
-                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.taskId}"></a>
-                        <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.taskId}"></a>
+                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
                     </td>
                 </tr>
             `;
@@ -163,10 +163,10 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         debugger;
         e.preventDefault();
         var id = $(this).data("id");
-
+        var url = $(this).data("url"); // e.g. "/Tasks/CreateProjectTask" or "/Tasks/EditProjectTask"
         $.ajax({
             type: "GET",
-            url: "Tasks/CreateProjectTask" + (id ? "?id=" + id : ""),
+            url: url + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
                 $("#modalBodyContent").html(htmlContent);
 

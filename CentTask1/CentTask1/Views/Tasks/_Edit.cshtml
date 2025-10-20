@@ -1,15 +1,15 @@
-﻿@model CentTask1.ViewModels.TaskViewModels.TaskCreateViewModel;  
+﻿@model CentTask1.ViewModels.TaskViewModels.TaskDetailViewModel;
 <style>
-    .col-md-6{
-        margin-bottom:15px;
+    .col-md-6 {
+        margin-bottom: 15px;
     }
 </style>
-<form asp-action="Create" asp-controller="Tasks" method="post" id="createOrEditProjectTaskForm">
+<form asp-action="Edit" asp-controller="Tasks" method="post" id="editProjectTaskForm">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    
-        <input type="hidden" asp-for="Id" />
-   
+
+    <input type="hidden" asp-for="Id" />
+
     <div class="row">
         <div class="col-md-6">
             <label asp-for="TaskName" class="control-label text-start float-start"></label>
@@ -48,19 +48,19 @@
             <span class="text-danger float-start"> *</span>
             <input type="date" asp-for="EndDate" class="form-control" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
-          
+
             <br />
-            
-           <label asp-for="ProjectId" class="form-label">Project</label>
-    <select asp-for="ProjectId" class="form-select js-select2" id="projectSelect">
-        <option value="">Select a project</option>
-        @if (Model.ProjectId != null)
-        {
-            var selectedText = Model.ProjectName ?? "Selected Project";
-            <option value="@Model.ProjectId" selected>@selectedText</option>
-        }
-    </select>
-    <span asp-validation-for="ProjectId" class="text-danger"></span>
+
+            <label asp-for="ProjectId" class="form-label">Project</label>
+            <select asp-for="ProjectId" class="form-select js-select2" id="projectSelect">
+                <option value="">Select a project</option>
+                @if (Model.ProjectId != null)
+                {
+                    var selectedText = Model.ProjectName ?? "Selected Project";
+                    <option value="@Model.ProjectId" selected>@selectedText</option>
+                }
+            </select>
+            <span asp-validation-for="ProjectId" class="text-danger"></span>
         </div>
     </div>
     <div class="row">
@@ -69,7 +69,7 @@
 
         </div>
         <div class="col-md-6">
-            <input type="submit" value="Save" name="submit" id="submitProjectTaskId" data-url="/Tasks/Create" class="btn btn-primary mr-2" />
+            <input type="submit" value="Save" name="submit" id="submitProjectTaskEditForm" data-url="/Tasks/Edit" class="btn btn-primary mr-2" />
 
         </div>
     </div>

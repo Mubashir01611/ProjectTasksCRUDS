@@ -20,7 +20,7 @@ namespace CentTask1.DBC
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectTask>()
-                .HasKey(p => p.TaskId);  // Explicitly define GUID as PK
+                .HasKey(p => p.Id);  // Explicitly define GUID as PK
             modelBuilder.Entity<Project>()
                 .HasKey(p => p.Id);  // Explicitly define GUID as PK
         }

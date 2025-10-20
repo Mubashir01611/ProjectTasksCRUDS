@@ -55,7 +55,7 @@ namespace CentTask1.Controllers
             //{
             //    StartDate = DateTime.Today,
             //    EndDate = DateTime.Today
-            //};
+            //};//guid 
 
             return PartialView("_Create", task); // reuse same partial
         }
@@ -65,10 +65,10 @@ namespace CentTask1.Controllers
         public async Task<IActionResult> Create(TaskCreateViewModel task)
         {
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return PartialView("_Create", task); // reuse same view
-            //}
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_Create", task); // reuse same view
+            }
 
             //if (task.Id != )
             //{
@@ -77,13 +77,32 @@ namespace CentTask1.Controllers
             //else
             //{
             //}
-              var result=  await _projectTaskService.CreateTaskAsync(task);
+             await _projectTaskService.CreateTaskAsync(task);
             //abhi kaliye mai is method ko use nahi kr rha mgr, in future is py kaam karna hai
           //  TempData["SwalMessage"] = result.Message;
             return Json(new { success = true });
   
         }
-    
+    public async Task<IActionResult> EditProjectTaskForm(Guid id)
+        {
+            var task = await _projectTaskService.GetTaskByIdAsync(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+           
+            return PartialView("_Edit", task); // reuse same partial
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit(TaskUpdateViewModel task)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_Edit", task); // reuse same view
+            }
+            await _projectTaskService.UpdateTaskAsync(task.Id, task);
+            return Json(new { success = true });
+        }
         //Delete
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

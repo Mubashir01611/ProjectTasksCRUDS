@@ -4,7 +4,7 @@ namespace CentTask1.ViewModels.TaskViewModels
 {
     public class TaskDetailViewModel : BaseViewModel
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string TaskName { get; set; }
         public string? Description { get; set; }
         public string? Priority { get; set; }
