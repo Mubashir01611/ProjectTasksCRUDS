@@ -7,7 +7,7 @@ namespace CentTask1.Interfaces
     {
         Task<TaskCreateViewModel> CreateTaskAsync(TaskCreateViewModel task);
         Task<IEnumerable<TaskGetViewModel>> GetAllTasksAsync();
-        Task<ProjectTask?> GetTaskByIdAsync(Guid id);
+        Task<TaskDetailViewModel?> GetTaskByIdAsync(Guid id);
         Task<TaskUpdateViewModel?> UpdateTaskAsync(Guid id, TaskUpdateViewModel updatedTask);
         Task<bool> DeleteTaskAsync(Guid id); 
     }

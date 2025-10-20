@@ -57,7 +57,7 @@
         </div>
 
 
-        <div class="col-md-6">
+        @* <div class="col-md-6">
             <dt class="text-start">
             @Html.DisplayNameFor(model => model.AssignedTo)
         </dt>
@@ -65,7 +65,7 @@
             @Html.DisplayFor(model => model.AssignedTo)
         </dd>
 
-        </div>
+        </div> *@
 
 
         <div class="col-md-6">
@@ -85,6 +85,15 @@
         </dt>
             <dd class="text-start">
             @Html.DisplayFor(model => model.TWR)
+        </dd>
+
+        </div>
+        <div class="col-md-6">
+            <dt class="text-start">
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+            <dd class="text-start">
+            @Html.DisplayFor(model => model.CreatedOn)
         </dd>
 
         </div>

@@ -95,11 +95,26 @@ namespace CentTask1.Services
         }
 
         //GetById
-        public async Task<ProjectTask?> GetTaskByIdAsync(Guid id)
+        public async Task<TaskDetailViewModel?> GetTaskByIdAsync(Guid id)
         {
             var projectTask = await _dataContext.ProjectTasks
                 .FirstOrDefaultAsync(m => m.TaskId == id && m.IsDeleted == false);
-            return projectTask;
+            var taskDetailViewModel = projectTask == null ? null : new TaskDetailViewModel
+            {
+                TaskId = projectTask.TaskId,
+                TaskName = projectTask.TaskName,
+                Description = projectTask.Description,
+                StartDate = projectTask.StartDate,
+                EndDate = projectTask.EndDate,
+                EquipmentType = projectTask.EquipmentType,
+                Priority = projectTask.Priority,
+                TWR = projectTask.TWR,
+                ProjectName = projectTask.Project != null ? projectTask.Project.Name : null,
+                CreatedOn = projectTask.CreatedOn,
+
+            };
+                //Assigned
+            return taskDetailViewModel;
         }
 
 

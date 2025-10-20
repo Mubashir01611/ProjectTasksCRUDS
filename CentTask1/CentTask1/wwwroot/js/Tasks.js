@@ -97,7 +97,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         });
         $("#modalTitle").text("Task Detail");
         $('#createOrEditProjectTask').modal('show');
-        $('#createOrEditProjectTask').modal.footer('hide');
+        //$('#createOrEditProjectTask').modal.footer('hide');
     });
 
     // Initialize project select2 inside task modal with defensive load fallback
