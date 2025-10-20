@@ -1,11 +1,12 @@
 ﻿using CentTask1.DBC;
 using CentTask1.DTO.ProjectDto;
 using CentTask1.Entities;
+using CentTask1.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Services
 {
-    public class ProjectService
+    public class ProjectService: IProjectService
     {
         private readonly DataContext _dataContext;
 

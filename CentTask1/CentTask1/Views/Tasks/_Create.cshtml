@@ -1,22 +1,22 @@
-﻿@model CentTask1.Models.ProjectTask
+﻿@model CentTask1.ViewModels.TaskViewModels.TaskCreateViewModel;  
 
 <form asp-action="Create" asp-controller="Tasks" method="post" id="createOrEditProjectTaskForm">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    @if (Model.id != 0)
+    @* @if (Model.Id != 0)
     {
-        <input type="hidden" asp-for="id" />
-    }
+        <input type="hidden" asp-for="i" />
+    } *@
     <div class="row">
         <div class="col-md-6">
-            <label asp-for="name" class="control-label text-start float-start"></label>
+            <label asp-for="TaskName" class="control-label text-start float-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input asp-for="name" name="name" class="form-control" />
-            <span asp-validation-for="name" class="text-danger"></span>
+            <input asp-for="TaskName" name="name" class="form-control" />
+            <span asp-validation-for="TaskName" class="text-danger"></span>
         </div>
         <div class="col-md-6">
-            <label asp-for="description" class="control-label text-start float-start"></label>
-            <input asp-for="description" name="description" class="form-control" />
+            <label asp-for="Description" class="control-label text-start float-start"></label>
+            <input asp-for="Description" name="description" class="form-control" />
         </div>
 
         <div class="col-md-6">
@@ -26,15 +26,15 @@
             <span asp-validation-for="StartDate" class="text-danger"></span>
         </div>
         <div class="col-md-6">
-            <label asp-for="DueDate" class="control-label float-start text-start"></label>
+            <label asp-for="EndDate" class="control-label float-start text-start"></label>
             <span class="text-danger float-start"> *</span>
-            <input type="date" asp-for="DueDate" name="DueDate"  class="form-control" />
-            <span asp-validation-for="DueDate" class="text-danger"></span>
+            <input type="date" asp-for="EndDate" name="DueDate" class="form-control" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
         </div>
 
         <div class="col-md-6">
-            <label asp-for="priority" class="control-label text-start float-start"></label>
-            <input asp-for="priority" name="priority" class="form-control" />
+            <label asp-for="Priority" class="control-label text-start float-start"></label>
+            <input asp-for="Priority" name="priority" class="form-control" />
         </div>
 
         <div class="col-md-6">
@@ -48,14 +48,14 @@
         </div>
 
         <div class="col-md-6">
-            <label asp-for="ProjectId" class="control-label float-start"></label>
+            <label asp-for="ProjectName" class="control-label float-start"></label>
             @* Select2 expects the <select> to have the proper name attribute that matches the model property. *@
             <select asp-for="ProjectId" id="projectSelect" class="form-control js-data-example" name="ProjectId" style="width:100%">
                 <option value="">Select a project</option>
                 @* If editing and server provided a Project relation, render a selected option so Select2 shows the current value immediately. *@
-                @if (Model.ProjectId.HasValue)
+                @if (Model.ProjectId !=null)
                 {
-                    var selectedText = Model.Project?.Name ?? "Selected Project";
+                    var selectedText = Model.ProjectName ?? "Selected Project";
                     <option value="@Model.ProjectId" selected="selected">@selectedText</option>
                 }
             </select>

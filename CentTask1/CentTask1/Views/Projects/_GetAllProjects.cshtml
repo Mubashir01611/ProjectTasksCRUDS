@@ -92,24 +92,7 @@
         </tr>
     </thead>
     <tbody>
-    @*     @foreach (var item in Model) {
-            <tr>
-                <td>@(string.IsNullOrWhiteSpace(item.Name) ? "&nbsp;" : item.Name)</td>
-                <td>@(string.IsNullOrWhiteSpace(item.Description) ? "&nbsp;" : item.Description)</td>
-                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
-                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
-                <td>@(item.Budget.HasValue ? item.Budget.Value.ToString("N0") : "&nbsp;")</td>
-                <td>@(string.IsNullOrWhiteSpace(item.ClientName) ? "&nbsp;" : item.ClientName)</td>
-                <td>@(string.IsNullOrWhiteSpace(item.Status) ? "&nbsp;" : item.Status)</td>
-                <td>@(string.IsNullOrWhiteSpace(item.Manager) ? "&nbsp;" : item.Manager)</td>
-                <td>
-                    <a class="fa fa-pencil text-primary text-decoration-none me-1 openProjectModal" data-id="@item.Id"></a>
-                    <a class="fa fa-eye text-dark text-decoration-none me-1 openProjectDetailModal" data-id="@item.Id"></a>
-                    <a class="fa fa-trash text-danger text-decoration-none deleteProject" data-id="@item.Id"></a>
-                </td>
-            </tr>
-        }
-    *@
+    
     </tbody>
 </table>
 

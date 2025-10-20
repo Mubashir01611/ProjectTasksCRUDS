@@ -1,24 +1,24 @@
-﻿@model CentTask1.Models.ProjectTask
+﻿@model CentTask1.ViewModels.TaskViewModels.TaskDetailViewModel
 
 <div>
  
     <dl class="row">
         <div class="col-md-6 ">
             <dt class="text-start">
-            @Html.DisplayNameFor(model => model.name)
+                @Html.DisplayNameFor(model => model.TaskName)
         </dt>
             <dd class="text-start">
-            @Html.DisplayFor(model => model.name)
+                @Html.DisplayFor(model => model.TaskName)
         </dd>
 
         </div>
 
         <div class="col-md-6">
             <dt class="text-start">
-            @Html.DisplayNameFor(model => model.description)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
             <dd class="text-start">
-            @Html.DisplayFor(model => model.description)
+                @Html.DisplayFor(model => model.Description)
         </dd>
 
         </div>
@@ -37,10 +37,10 @@
 
         <div class="col-md-6">
             <dt class="text-start">
-            @Html.DisplayNameFor(model => model.DueDate)
+            @Html.DisplayNameFor(model => model.EndDate)
         </dt>
             <dd class="text-start">
-            @Html.DisplayFor(model => model.DueDate)
+            @Html.DisplayFor(model => model.EndDate)
         </dd>
 
         </div>
@@ -48,10 +48,10 @@
 
         <div class="col-md-6">
             <dt class="text-start">
-            @Html.DisplayNameFor(model => model.priority)
+            @Html.DisplayNameFor(model => model.Priority)
         </dt>
             <dd class="text-start">
-            @Html.DisplayFor(model => model.priority)
+                @Html.DisplayFor(model => model.Priority)
         </dd>
 
         </div>

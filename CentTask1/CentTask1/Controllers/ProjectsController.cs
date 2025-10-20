@@ -1,5 +1,6 @@
 ﻿using CentTask1.DTO.ProjectDto;
 using CentTask1.Entities;
+using CentTask1.Interfaces;
 using CentTask1.Models;
 using CentTask1.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ namespace CentTask1.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly ProjectService _projectService;
+        private readonly IProjectService _projectService;
 
-        public ProjectsController(ProjectService projectService)
+        public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
         }

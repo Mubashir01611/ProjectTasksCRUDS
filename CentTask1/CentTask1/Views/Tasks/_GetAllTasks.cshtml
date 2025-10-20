@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CentTask1.Models.ProjectTask>
+﻿@model IEnumerable<CentTask1.ViewModels.TaskViewModels.TaskGetViewModel>
 @{
     Layout = null;
 }
@@ -91,15 +91,15 @@
             <thead class="bg-info text-light">
 
         <tr>
-                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.name)</th>
-                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.description)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.TaskName)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Description)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.StartDate)</th>
-                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.DueDate)</th>
-                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.priority)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EndDate)</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.Priority)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.AssignedTo)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.EquipmentType)</th>
                     <th style=" text-align : center;">@Html.DisplayNameFor(model => model.TWR)</th>
-                    <th style=" text-align : center;">Project Name</th>
+                    <th style=" text-align : center;">@Html.DisplayNameFor(model => model.ProjectName)</th>
                     <th style=" text-align : center;">Actions</th>
         </tr>
     </thead>

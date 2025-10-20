@@ -1,7 +1,9 @@
 ﻿using CentTask1.DBC;
 using CentTask1.DTO.TaskDtos;
+using CentTask1.Interfaces;
 using CentTask1.Models;
 using CentTask1.Services;
+using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,14 +11,12 @@ namespace CentTask1.Controllers
 {
     public class TasksController : Controller
     {
-        private readonly ProjectService _projectService;
-        private readonly DataContext _context;
-        private readonly TaskService _projectTaskService;
+        private readonly IProjectService _projectService; 
+        private readonly ITaskService _projectTaskService;
 
-        public TasksController(TaskService projectTaskService,DataContext context,ProjectService projectService)
+        public TasksController(ITaskService projectTaskService, IProjectService projectService)
         {
-            _projectService = projectService;
-             _context = context;
+            _projectService = projectService; 
             _projectTaskService = projectTaskService;
         }
 
@@ -34,7 +34,7 @@ namespace CentTask1.Controllers
         }
 
         //Details
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
             var task = await _projectTaskService.GetTaskByIdAsync(id);
             if (task == null)
@@ -46,22 +46,14 @@ namespace CentTask1.Controllers
         }
 
         //CreateMethod to Load CreateOrEdit Modal
-        public async Task< IActionResult> CreateProjectTask(int? id)
-        {
-            //var projects = _context.Projects
-            //    .Select(p => new SelectListItem
-            //    {
-            //        Value = p.Id.ToString(),
-            //        Text = p.Name
-            //    }).ToList();
-
-            //ViewBag.ProjectList = projects;
+        public async Task< IActionResult> CreateProjectTask(Guid? id)
+        { 
             ProjectTask task = id.HasValue
             ? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new ProjectTask()
             : new ProjectTask
             {
                 StartDate = DateTime.Today,
-                DueDate = DateTime.Today
+                EndDate = DateTime.Today
             };
 
             return PartialView("_Create", task); // reuse same partial
@@ -69,7 +61,7 @@ namespace CentTask1.Controllers
 
         //CreateOrEdit Method to handle form submission
         [HttpPost]
-        public async Task<IActionResult> Create(GetTaskDto task)
+        public async Task<IActionResult> Create(TaskCreateViewModel task)
         {
 
             if (!ModelState.IsValid)
@@ -77,14 +69,14 @@ namespace CentTask1.Controllers
                 return PartialView("_Create", task); // reuse same view
             }
 
-            if (task.id > 0)
-            {
-                await _projectTaskService.UpdateTaskAsync(task.id, task);
-            }
-            else
-            {
+            //if (task.Id != )
+            //{
+            //    await _projectTaskService.UpdateTaskAsync(task.Id, task);
+            //}
+            //else
+            //{
+            //}
                 await _projectTaskService.CreateTaskAsync(task);
-            }
 
             return Json(new { success = true });
   
@@ -92,7 +84,7 @@ namespace CentTask1.Controllers
     
         //Delete
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var isDeleted = await _projectTaskService.DeleteTaskAsync(id);
 

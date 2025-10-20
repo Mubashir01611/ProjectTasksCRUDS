@@ -32,7 +32,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     var row = `
 
                 <tr>
-                    <td>${task.name}</td>
+                    <td>${task.taskName}</td>
                     <td>${task.description}</td>
                     <td>${task.startDate.substring(0, 10)}</td>
                     <td>${task.dueDate.substring(0, 10)}</td>

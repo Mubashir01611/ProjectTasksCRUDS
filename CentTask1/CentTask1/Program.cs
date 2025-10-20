@@ -1,4 +1,5 @@
 using CentTask1.DBC;
+using CentTask1.Interfaces;
 using CentTask1.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<TaskService>();
-builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<ITaskService,TaskService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
@@ -29,7 +30,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=MainIndex}/{id?}");
-   // pattern: "{controller=Home}/{action=TestCase}/{id?}");
+    pattern: "{controller=Home}/{action=MainIndex}/{id?}"); 
 
 app.Run();

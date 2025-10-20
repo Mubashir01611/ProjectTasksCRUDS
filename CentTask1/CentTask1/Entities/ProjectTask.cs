@@ -1,34 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CentTask1.Entities;
+using CentTask1.ViewModels.BaseViewModels;
 
 namespace CentTask1.Models
 {
-    public class ProjectTask
-    {
-        public int id { get; set; }
+    public class ProjectTask : BaseViewModel
+    { 
 
         [Required(ErrorMessage = "Name is required.")]
         [MinLength(5, ErrorMessage = "Name must be at least 5 characters.")]
-        public string name { get; set; }
-
-        public string? description { get; set; }
-
-        [Required(ErrorMessage = "Start Date is required.")]
-        [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
-
-        [Required(ErrorMessage = "Due Date is required.")]
-        [DataType(DataType.Date)]
-        public DateTime DueDate { get; set; } 
-
-        public string? priority { get; set; }
+        public string TaskName { get; set; } 
+        public string? Description { get; set; } 
+        public string? Priority { get; set; }
         public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
-        public string? TWR { get; set; }
-
-        // Foreign Key
-
+        public string? TWR { get; set; } 
+        // Foreign Key 
         // Navigation Property
         [ForeignKey("ProjectId")]
         public int? ProjectId { get; set; }
