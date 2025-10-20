@@ -34,7 +34,7 @@ namespace CentTask1.Services
                     StartDate = task.StartDate,
                     EndDate = task.EndDate,
                     Priority = task.Priority,
-                    AssignedTo = task.AssignedTo,
+                    //AssignedTo = task.AssignedTo,
                     TWR = task.TWR,
                     EquipmentType = task.EquipmentType,
                     CreatedOn = DateTime.UtcNow,
@@ -79,7 +79,7 @@ namespace CentTask1.Services
                     StartDate = t.StartDate,
                     EndDate = t.EndDate,
                     EquipmentType = t.EquipmentType,
-                    AssignedTo = t.AssignedTo,
+                    //AssignedTo = t.AssignedTo,
                     Priority = t.Priority,
                     TWR = t.TWR,
                     ProjectName = t.Project != null ? t.Project.Name : null
@@ -98,7 +98,7 @@ namespace CentTask1.Services
         public async Task<ProjectTask?> GetTaskByIdAsync(Guid id)
         {
             var projectTask = await _dataContext.ProjectTasks
-                .FirstOrDefaultAsync(m => m.TaskId == id);
+                .FirstOrDefaultAsync(m => m.TaskId == id && m.IsDeleted == false);
             return projectTask;
         }
 
@@ -119,7 +119,7 @@ namespace CentTask1.Services
                 existingTask.StartDate = updatedTask.StartDate;
                 existingTask.EndDate = updatedTask.EndDate;
                 existingTask.EquipmentType = updatedTask.EquipmentType;
-                existingTask.AssignedTo = updatedTask.AssignedTo;
+                //existingTask.AssignedTo = updatedTask.AssignedTo;
                 existingTask.Priority = updatedTask.Priority;
                 existingTask.TWR = updatedTask.TWR;
                 existingTask.ProjectId = int.TryParse(updatedTask.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null;
@@ -146,7 +146,7 @@ namespace CentTask1.Services
                 StartDate = existingTask.StartDate,
                 EndDate = existingTask.EndDate,
                 EquipmentType = existingTask.EquipmentType,
-                AssignedTo = existingTask.AssignedTo,
+                //AssignedTo = existingTask.AssignedTo,
                 Priority = existingTask.Priority,
                 TWR = existingTask.TWR,
                 ProjectId = existingTask.ProjectId?.ToString()

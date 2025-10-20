@@ -13,7 +13,7 @@ namespace CentTask1.Models
         public string TaskName { get; set; } 
         public string? Description { get; set; } 
         public string? Priority { get; set; }
-        public string? AssignedTo { get; set; }
+        //public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
         public string? TWR { get; set; } 
         // Foreign Key 
