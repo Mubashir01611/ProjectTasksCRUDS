@@ -79,14 +79,20 @@
 
         <div class="col-md-6 mb-3">
             <label asp-for="ProjectId" class="form-label ">Project</label>
-            <select asp-for="ProjectId" class="form-select js-select2" id="projectSelect">
-                <option value="">Select a project</option>
+
+      
+
+<select asp-for="ProjectId"
+        class="form-select js-select2"
+        id="projectSelect">
+    <option value="">Select a project</option>
                 @if (Model.ProjectId != null)
                 {
                     var selectedText = Model.ProjectName ?? "Selected Project";
                     <option value="@Model.ProjectId" selected>@selectedText</option>
                 }
-            </select>
+        </select>
+
             <span asp-validation-for="ProjectId" class="text-danger"></span>
         </div>
     </div>
@@ -100,8 +106,7 @@
             <input type="submit" value="Save" name="submit"
                    class="btn btn-primary  w-75 submitForm"
                    data-url="/Tasks/Edit"
-                    data-form-id="editProjectTaskForm" />
-                    @* id="submitProjectTaskEditForm"  *@
+                    data-form-id="editProjectTaskForm" /> 
 
         </div>
     </div>

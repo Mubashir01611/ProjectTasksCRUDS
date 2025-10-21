@@ -154,7 +154,16 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                 }
             }
         });
+        // Check for selected value (edit mode)
+        var selectedId = $select.data('selected-id') || $select.val();
+        var selectedText = $select.data('selected-text') || $select.find('option:selected').text();
 
+
+        if (selectedId && selectedText) {
+            var option = new Option(selectedText, selectedId, true, true);
+            $select.append(option).trigger('change');
+            console.debug('[initTaskProjectSelect] manually selected project:', selectedText);
+        }
         console.debug('[initTaskProjectSelect] initialized select2 on #projectSelect');
     }
 

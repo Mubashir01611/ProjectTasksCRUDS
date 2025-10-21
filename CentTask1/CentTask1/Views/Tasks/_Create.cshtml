@@ -109,7 +109,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
+  @*   <script>
         // This script will initialize Select2 if the partial is loaded directly.
         // When the partial is injected into the modal via AJAX the parent script also initializes,
         // but keeping this ensures it works when the partial is used standalone.
@@ -134,5 +134,5 @@
                 }
             });
         })();
-    </script>
+    </script> *@
 }
