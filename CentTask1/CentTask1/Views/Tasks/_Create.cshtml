@@ -7,6 +7,7 @@
         padding: 0.375rem 0.75rem !important;
         height: auto !important;
         min-height: 38px;
+        width:100%;
         display: flex;
         align-items: center;
     }
@@ -14,11 +15,19 @@
     .select2-container--bootstrap5 .select2-selection__rendered {
         line-height: normal !important;
         padding-left: 0 !important;
+        display: block;
     }
 
     .select2-container--bootstrap5 .select2-selection__arrow {
         top: 50% !important;
         transform: translateY(-50%);
+        display: block;
+    }
+
+    .form-label{
+        margin-bottom: .5rem;
+        display: block;
+        text-align: start;
     }
 </style>
 
@@ -29,27 +38,27 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="TaskName" class="form-label float-start">Task Name <span class="text-danger">*</span></label>
+            <label asp-for="TaskName" class="form-label ">Task Name <span class="text-danger">*</span></label>
             <input asp-for="TaskName" class="form-control" />
             <span asp-validation-for="TaskName" class="text-danger"></span>
         </div>
 
 
         <div class="col-md-6 mb-3">
-            <label asp-for="Description" class="form-label float-start">Description</label>
+            <label asp-for="Description" class="form-label ">Description</label>
             <input asp-for="Description" class="form-control" />
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="StartDate" class="form-label float-start">Start Date <span class="text-danger">*</span></label>
+            <label asp-for="StartDate" class="form-label ">Start Date <span class="text-danger">*</span></label>
             <input type="date" asp-for="StartDate"   class="form-control datepicker" placeholder="dd/mm/yyyy" />
             <span asp-validation-for="StartDate" class="text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label asp-for="EndDate" class="form-label float-start">End Date <span class="text-danger">*</span></label>
+            <label asp-for="EndDate" class="form-label ">End Date <span class="text-danger">*</span></label>
             <input type="date" asp-for="EndDate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
         </div>
@@ -57,20 +66,20 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="TWR" class="form-label float-start">TWR</label>
+            <label asp-for="TWR" class="form-label ">TWR</label>
             <input asp-for="TWR" class="form-control" />
             <span asp-validation-for="TWR" class="text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label asp-for="Priority" class="form-label float-start">Priority</label>
+            <label asp-for="Priority" class="form-label ">Priority</label>
             <input asp-for="Priority" class="form-control" />
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="EquipmentType" class="form-label float-start">Equipment Type</label>
+            <label asp-for="EquipmentType" class="form-label ">Equipment Type</label>
             <input asp-for="EquipmentType" class="form-control" />
         </div>
 
