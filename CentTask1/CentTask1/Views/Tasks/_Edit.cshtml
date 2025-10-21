@@ -1,57 +1,84 @@
 ﻿@model CentTask1.ViewModels.TaskViewModels.TaskDetailViewModel;
-<style>
-    .col-md-6 {
-        margin-bottom: 15px;
+ 
+    <style >
+    /* Fix Select2 input border and alignment */
+    .select2-container--bootstrap5 .select2-selection {
+        border: 1px solid #ced4da !important;
+        border-radius: 0.375rem !important;
+        padding: 0.375rem 0.75rem !important;
+        height: auto !important;
+        min-height: 38px;
+        display: flex;
+        align-items: center;
     }
+
+    .select2-container--bootstrap5 .select2-selection__rendered {
+        line-height: normal !important;
+        padding-left: 0 !important;
+    }
+
+    .select2-container--bootstrap5 .select2-selection__arrow {
+        top: 50% !important;
+        transform: translateY(-50%);
+    } 
+
 </style>
-<form asp-action="Edit" asp-controller="Tasks" method="post" id="editProjectTaskForm">
+<form asp-action="Edit" asp-controller="Tasks" method="post" class="createOrEditForm" id="editProjectTaskForm">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="Id" />
 
+
     <div class="row">
-        <div class="col-md-6">
-            <label asp-for="TaskName" class="control-label text-start float-start"></label>
-            <span class="text-danger float-start"> *</span>
+        <div class="col-md-6 mb-3">
+            <label asp-for="TaskName" class="form-label float-start">Task Name <span class="text-danger">*</span></label>
             <input asp-for="TaskName" class="form-control" />
             <span asp-validation-for="TaskName" class="text-danger"></span>
-            <br />
-
-            <label asp-for="Description" class="control-label text-start float-start"></label>
-            <input asp-for="Description" class="form-control" />
-            <br />
-
-            <label asp-for="StartDate" class="control-label float-start text-start"></label>
-            <span class="text-danger float-start"> *</span>
-            <input type="date" asp-for="StartDate" class=" form-control" />
-            <span asp-validation-for="StartDate" class="text-danger"></span>
-            <br />
-
-            <label asp-for="TWR" class="control-label text-start float-start "></label>
-            <input asp-for="TWR" class="form-control mb-5" />
-            <span asp-validation-for="TWR" class="text-danger"></span>
-
-
         </div>
-        <div class="col-md-6">
 
-            <label asp-for="Priority" class="control-label text-start float-start"></label>
-            <input asp-for="Priority" class="form-control" />
-            <br />
 
-            <label asp-for="EquipmentType" class="control-label text-start float-start"></label>
-            <input asp-for="EquipmentType" class="form-control" />
-            <br />
+        <div class="col-md-6 mb-3">
+            <label asp-for="Description" class="form-label float-start">Description</label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+    </div>
 
-            <label asp-for="EndDate" class="control-label float-start text-start"></label>
-            <span class="text-danger float-start"> *</span>
-            <input type="date" asp-for="EndDate" class="form-control" />
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label float-start">Start Date <span class="text-danger">*</span></label>
+            <input type="date" asp-for="StartDate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label float-start">End Date <span class="text-danger">*</span></label>
+            <input type="date" asp-for="EndDate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+    </div>
 
-            <br />
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="TWR" class="form-label float-start">TWR</label>
+            <input asp-for="TWR" class="form-control" />
+            <span asp-validation-for="TWR" class="text-danger"></span>
+        </div>
 
-            <label asp-for="ProjectId" class="form-label">Project</label>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Priority" class="form-label float-start">Priority</label>
+            <input asp-for="Priority" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="EquipmentType" class="form-label float-start">Equipment Type</label>
+            <input asp-for="EquipmentType" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="ProjectId" class="form-label ">Project</label>
             <select asp-for="ProjectId" class="form-select js-select2" id="projectSelect">
                 <option value="">Select a project</option>
                 @if (Model.ProjectId != null)
@@ -63,13 +90,18 @@
             <span asp-validation-for="ProjectId" class="text-danger"></span>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row mt-4">
         <div class="col-md-6">
-            <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+            <a class="btn btn-outline-danger w-75" data-bs-dismiss="modal">Cancel</a>
 
         </div>
         <div class="col-md-6">
-            <input type="submit" value="Save" name="submit" id="submitProjectTaskEditForm" data-url="/Tasks/Edit" class="btn btn-primary mr-2" />
+            <input type="submit" value="Save" name="submit"
+                   class="btn btn-primary  w-75 submitForm"
+                   data-url="/Tasks/Edit"
+                    data-form-id="editProjectTaskForm" />
+                    @* id="submitProjectTaskEditForm"  *@
 
         </div>
     </div>

@@ -41,7 +41,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     <td>${task.twr}</td>
                     <td>${task.projectName}</td>
                     <td>
-                        <a href="#" class="fa fa-pencil openTaskModal text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
+                        <a href="#" class="fa fa-pencil text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
                         <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>
                         <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
                     </td>
@@ -96,13 +96,13 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             }
         });
         $("#modalTitle").text("Task Detail");
-        $('#createOrEditProjectTask').modal('show');
+        $('.createOrEditModal').modal('show');
         //$('#createOrEditProjectTask').modal.footer('hide');
     });
 
     // Initialize project select2 inside task modal with defensive load fallback
     function initTaskProjectSelect(retryCount = 0) {
-        var $modal = $('#createOrEditProjectTask');
+        var $modal = $('.createOrEditModal');
         var $select = $modal.find('#projectSelect');
 
         if (!$select.length) {
@@ -158,7 +158,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         console.debug('[initTaskProjectSelect] initialized select2 on #projectSelect');
     }
 
-    //modal open (load partial then initialize select2)
+    //modal open dynamically for create and edit
     $(document).on('click', ".openTaskModal", function (e) {
         debugger;
         e.preventDefault();
@@ -172,7 +172,7 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
 
                 // re-parse unobtrusive validation
                 if ($.validator && $.validator.unobtrusive) {
-                    $.validator.unobtrusive.parse('#createOrEditProjectTaskForm');
+                    $.validator.unobtrusive.parse('.createOrEditForm');
                 }
 
                 // initialize Select2 (with retry if Select2 wasn't ready yet)
@@ -186,22 +186,20 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
         // Dynamically set modal title
         var title = id ? "Update Task" : "Create Task";
         $("#modalTitle").text(title);
-        $('#createOrEditProjectTask').modal('show');
+        $('.createOrEditModal').modal('show');
     });
 
 
-    //CreateOrEdit
-    $(document).on('click', '#submitProjectTaskId', function (e) {
+    //CreateOrEdit submit
+    $(document).on('click', '.submitForm', function (e) {
         debugger;
 
         e.preventDefault();
-      //  var id = $(this).data("id");
-
-        //var url = $(this).data("url"); // e.g. "/Tasks/Create"
-        var url = "/Tasks/Create";
-        var form = $('#createOrEditProjectTaskForm'); // form's id
-        var formData = form.serialize(); // convert form fields to query string
-
+        var $btn = $(this);
+        var url = $btn.data("url"); // e.g. "/Tasks/Create" or "/Tasks/Edit"
+        var formId = $btn.data("form-id"); // e.g. "createOrEditProjectTaskForm" or "editProjectTaskForm"
+        var $form = $('#' + formId);
+        var formData = $form.serialize();
         $.ajax({
             type: "POST",
             url: url,
@@ -209,10 +207,10 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
             success: function (response) {
                 if (response.success) {
                     // Close modal
-                    $('#createOrEditProjectTask').modal('hide');
+                    $('.createOrEditModal').modal('hide');
                     Swal.fire( "Success!", "Task created successfully", "success" );
                     // Optionally clear form
-                    form[0].reset();
+                    $form[0].reset();
 
                     // Reload task table
                     loadTasks();
@@ -223,14 +221,14 @@ or oper waly function ko use kr ky ik complete DataTable bna deta hai
                     $("#modalBodyContent").html(response);
 
                     // Rebind validation to newly injected form
-                    $.validator.unobtrusive.parse("#createOrEditProjectTaskForm");
+                    $.validator.unobtrusive.parse(".createOrEditForm");
                 Swal.fire("error!", "Invalid Form", "error");
 
                 }
             },
             error: function (err) {
                     //$('#createOrEditProjectTask').modal('hide');
-                    $.validator.unobtrusive.parse("#createOrEditProjectTaskForm");
+                $.validator.unobtrusive.parse(".createOrEditForm");
                 Swal.fire("error!", "Invalid Form", "error");
                 console.error("Error submitting form:", err);
 

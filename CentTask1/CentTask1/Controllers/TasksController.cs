@@ -93,7 +93,7 @@ namespace CentTask1.Controllers
            
             return PartialView("_Edit", task); // reuse same partial
         }
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Edit(TaskUpdateViewModel task)
         {
             if (!ModelState.IsValid)

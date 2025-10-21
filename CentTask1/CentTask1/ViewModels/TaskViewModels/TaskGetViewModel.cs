@@ -1,7 +1,10 @@
-﻿namespace CentTask1.ViewModels.TaskViewModels
+﻿using System.ComponentModel;
+
+namespace CentTask1.ViewModels.TaskViewModels
 {
     public class TaskGetViewModel : BaseViewModels.BaseViewModel
     {
+        //[DisplayName="Task Name"]
         public string TaskName { get; set; }
         public string? Description { get; set; }
         public string? Priority { get; set; }
