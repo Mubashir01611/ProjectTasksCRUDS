@@ -92,11 +92,11 @@
             url: "Projects/CreateProject" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
                 $("#projectModalBodyContent").html(htmlContent);
-                $('.select2').select2({
-                    placeholder: "Search and select a project",
-                    allowClear: true,
-                    dropdownParent: $('#createOrEditProject') // ensures dropdown appears inside modal
-                });
+                //$('.select2').select2({
+                //    placeholder: "Search and select a project",
+                //    allowClear: true,
+                //    dropdownParent: $('#createOrEditProject') // ensures dropdown appears inside modal
+                //});
             },
             error: function (err) {
                 Swal.fire({

@@ -13,7 +13,7 @@ namespace CentTask1.Entities
         public string? Description { get; set; }
         public double? Budget { get; set; }
         public string? ClientName { get; set; }
-        public bool? Status { get; set; } 
+        public bool Status { get; set; } 
         public string? Manager { get; set; }
 
         // Navigation Property

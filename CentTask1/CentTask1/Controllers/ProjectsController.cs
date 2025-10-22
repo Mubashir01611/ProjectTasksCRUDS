@@ -45,7 +45,7 @@ namespace CentTask1.Controllers
         }
 
         //Create
-        public async Task<IActionResult> CreateProject(int? id)
+        public async Task<IActionResult> CreateProject(Guid? id)
         {
             ProjectCreateViewModel createViewModel = new ProjectCreateViewModel();
             //Project task = id.HasValue
