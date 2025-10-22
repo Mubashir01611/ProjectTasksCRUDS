@@ -8,7 +8,7 @@ namespace CentTask1.ViewModels.ProjectViewModels
         public string? Description { get; set; }
         public double? Budget { get; set; }
         public string? ClientName { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; } 
         public string? Manager { get; set; }
     }
 }

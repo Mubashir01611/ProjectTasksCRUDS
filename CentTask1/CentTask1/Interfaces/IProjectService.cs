@@ -7,7 +7,7 @@ namespace CentTask1.Interfaces
     public interface IProjectService
     {
         Task<ProjectCreateViewModel> CreateProjectAsync(ProjectCreateViewModel project);
-        Task<IEnumerable<GetProjectDto>> GetAllProjectsAsync();
+        Task<IEnumerable<ProjectGetViewModel>> GetAllProjectsAsync();
         Task<Project?> GetProjectByIdAsync(Guid id);
         Task<GetProjectDto?> UpdateProjectAsync(Guid id, GetProjectDto updatedProject);
         Task<bool> DeleteProjectAsync(Guid id);

@@ -50,19 +50,19 @@ namespace CentTask1.Services
         }
 
         //GetAllProjects
-        public async Task<IEnumerable<GetProjectDto>> GetAllProjectsAsync()
+        public async Task<IEnumerable<ProjectGetViewModel>> GetAllProjectsAsync()
         {
             var projects = await  _dataContext.Projects.ToListAsync();
-            var projectDtos = projects.Select(project => new GetProjectDto
+            var projectDtos = projects.Select(project => new ProjectGetViewModel
             {
-              //  Id = project.Id,
-                Name = project.ProjectName,
+                Id = project.Id,
+                ProjectName = project.ProjectName,
                 Description = project.Description,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 Budget = project.Budget,
                 ClientName = project.ClientName,
-                //Status = project.Status,
+                Status = project.Status,
                 Manager = project.Manager
             }).ToList();
             return projectDtos;

@@ -122,9 +122,9 @@ namespace CentTask1.Controllers
             var projects = await _projectService.GetAllProjectsAsync();
             var filtered = string.IsNullOrEmpty(term)
                 ? projects
-                : projects.Where(p => p.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
+                : projects.Where(p => p.ProjectName.Contains(term, StringComparison.OrdinalIgnoreCase));
 
-            var result = filtered.Select(p => new { id = p.Id, text = p.Name }).ToList();
+            var result = filtered.Select(p => new { id = p.Id, text = p.ProjectName }).ToList();
             return Json(new { results = result });
         }
     }

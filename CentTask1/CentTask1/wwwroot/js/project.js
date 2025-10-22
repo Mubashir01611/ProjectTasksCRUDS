@@ -28,6 +28,7 @@
             url: "/Projects/GetAllProjects",
             dataType: "json",
             success: function (data) {
+                console.log("list of projects", data);
                 var tableBody = $("#myProjectTable tbody");
                 tableBody.empty(); // Clear existing rows
                 data.forEach(function (project) {
@@ -45,7 +46,6 @@
                     <span class="badge ${project.status ? 'bg-success' : 'bg-danger'}">
                     ${project.status ? 'Active' : 'Inactive'}
                     </span>
-                   
                     
                     </td>
                     <td>
