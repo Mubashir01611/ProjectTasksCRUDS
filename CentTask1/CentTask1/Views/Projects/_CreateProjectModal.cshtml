@@ -1,6 +1,12 @@
 ﻿@model CentTask1.DTO.ProjectDto.GetProjectDto;
 
- 
+ <style>
+    .form-label {
+        margin-bottom: .5rem;
+        display: block;
+        text-align: start;
+    }
+ </style>
 <form  method="post" id="createOrEditProjectForm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @if (Model.Id != 0)
@@ -8,51 +14,57 @@
         <input type="hidden" asp-for="Id" />
     }
 <div class="row">
-                <div class="col-md-6">
-            <label asp-for="Name" class="control-label float-start"></label>
-            <span class="text-danger float-start"> *</span>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Name" class="form-label">Project Name<span class="text-danger "> *</span></label>
+            
             <input asp-for="Name" name="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-         
-                <div class="col-md-6">
-            <label asp-for="Description" class="control-label float-start"></label>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
             <input asp-for="Description" name="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-      
-                <div class="col-md-6">
-            <label asp-for="StartDate" class="control-label float-start"></label>
-            <span class="text-danger float-start"> *</span>
+</div>
+<div class="row">
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label">Start Date <span class="text-danger "> *</span></label>
+           
             <input asp-for="StartDate" type="date" name="StartDate" class="form-control" />
             <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
-         
-                <div class="col-md-6">
-            <label asp-for="EndDate" class="control-label float-start"></label>
-            <span class="text-danger float-start"> *</span>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label">End Date <span class="text-danger "> *</span></label>
+           
             <input asp-for="EndDate" type="date" name="EndDate" class="form-control" />
             <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
-           
-                <div class="col-md-6">
-            <label asp-for="Budget" class="control-label float-start"></label>
+</div>
+<div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Budget" class="form-label">Budget</label>
             <input asp-for="Budget" name="Budget" class="form-control" />
             <span asp-validation-for="Budget" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
-            <label asp-for="ClientName" class="control-label float-start"></label>
+        <div class="col-md-6 mb-3">
+            <label asp-for="ClientName" class="form-label">Client Name</label>
             <input asp-for="ClientName" name="ClientName" class="form-control" />
             <span asp-validation-for="ClientName" class="text-danger"></span>
                 </div>
 
-        <div class="col-md-6 ">
-            <label asp-for="Manager" class="control-label float-start "></label>
+</div>
+<div class="row">
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Manager" class="form-label ">Manager</label>
             <input asp-for="Manager" name="Manager" class="form-control" />
             <span asp-validation-for="Manager" class="text-danger"></span>
         </div>
-        <div class="col-md-6 d-flex justify-content-start align-items-center">
-            <label asp-for="Status" class="form-check-label float-start "></label>
+        <div class="col-md-6 d-flex justify-content-start align-items-center mb-3">
+            <label asp-for="Status" class="form-check-label  ">Status</label>
             @* asp-for="Status" *@
             <input asp-for="Status" name="Status" type="checkbox" class="form-check-input ms-2" />
             <span asp-validation-for="Status" class="text-danger"></span>
@@ -60,12 +72,24 @@
 
         </div>
 
-        
-</div>          
-    <div class="form-group float-sm-end mt-2"> 
-        <input type="submit" value="Save" name="submit" class="btn btn-primary mr-2" id="submitProjectId"/>
-        <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
-    </div>  
+</div>
+    <div class="row mt-4">
+<div class="col-md-6">
+            <a class="btn btn-outline-danger w-75" data-bs-dismiss="modal">Cancel</a>
+
+</div>
+<div class="col-md-6">
+     
+        <input type="submit"
+            value="Save" 
+            name="submit"
+               class="btn btn-primary w-75"
+               id="submitProjectId"/>
+                
+</div>
+</div>
+
+             
         </form>
 
 
