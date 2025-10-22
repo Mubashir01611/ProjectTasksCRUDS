@@ -1,4 +1,4 @@
-﻿@model CentTask1.DTO.ProjectDto.GetProjectDto;
+﻿@model CentTask1.ViewModels.ProjectViewModels.ProjectCreateViewModel;
 
  <style>
     .form-label {
@@ -9,16 +9,16 @@
  </style>
 <form  method="post" id="createOrEditProjectForm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    @if (Model.Id != 0)
+    @* @if (Model.Id != 0)
     {
+    } *@
         <input type="hidden" asp-for="Id" />
-    }
 <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="Name" class="form-label">Project Name<span class="text-danger "> *</span></label>
+            <label asp-for="ProjectName" class="form-label">Project Name<span class="text-danger "> *</span></label>
             
-            <input asp-for="Name" name="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="ProjectName" name="Name" class="form-control" />
+            <span asp-validation-for="ProjectName" class="text-danger"></span>
                 </div>
 
         <div class="col-md-6 mb-3">
@@ -83,11 +83,11 @@
         <input type="submit"
             value="Save" 
             name="submit"
-               class="btn btn-primary w-75"
-               id="submitProjectId"/>
+            class="btn btn-primary w-75"
+            id="submitProjectId"/>
                 
-</div>
-</div>
+       </div>
+    </div>
 
              
         </form>

@@ -2,6 +2,7 @@
 using CentTask1.DTO.ProjectDto;
 using CentTask1.Entities;
 using CentTask1.Interfaces;
+using CentTask1.ViewModels.ProjectViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Services
@@ -16,25 +17,27 @@ namespace CentTask1.Services
         }
 
         //create
-        public async Task<GetProjectDto> CreateProjectAsync(GetProjectDto project)
+        public async Task<ProjectCreateViewModel> CreateProjectAsync(ProjectCreateViewModel project)
         {
             var projectEntity = new Project
             {
-                Name = project.Name,
+                ProjectName = project.ProjectName,
                 Description = project.Description,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 Budget = project.Budget,
                 ClientName = project.ClientName,
                 Status = project.Status,
-                Manager = project.Manager
+                Manager = project.Manager,
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false
             };
             _dataContext.Projects.Add(projectEntity);
             await _dataContext.SaveChangesAsync();
-            var projectDto = new GetProjectDto
+            var projectDto = new ProjectCreateViewModel
             {
                 Id = project.Id,
-                Name = project.Name,
+                ProjectName = project.ProjectName,
                 Description = project.Description,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
@@ -52,21 +55,21 @@ namespace CentTask1.Services
             var projects = await  _dataContext.Projects.ToListAsync();
             var projectDtos = projects.Select(project => new GetProjectDto
             {
-                Id = project.Id,
-                Name = project.Name,
+              //  Id = project.Id,
+                Name = project.ProjectName,
                 Description = project.Description,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 Budget = project.Budget,
                 ClientName = project.ClientName,
-                Status = project.Status,
+                //Status = project.Status,
                 Manager = project.Manager
             }).ToList();
             return projectDtos;
         }
 
         //GetById
-        public async Task<Project?> GetProjectByIdAsync(int id)
+        public async Task<Project?> GetProjectByIdAsync(Guid id)
         {
             var project= await _dataContext.Projects
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -74,14 +77,14 @@ namespace CentTask1.Services
         }
 
         //Update
-        public async Task<GetProjectDto?> UpdateProjectAsync(int id, GetProjectDto updatedProject)
+        public async Task<GetProjectDto?> UpdateProjectAsync(Guid id, GetProjectDto updatedProject)
         {
             var existingProject = await _dataContext.Projects.FindAsync(id);
             if (existingProject == null)
             {
                 return null;
             }
-            existingProject.Name = updatedProject.Name;
+            existingProject.ProjectName = updatedProject.Name;
             existingProject.Description = updatedProject.Description;
             existingProject.StartDate = updatedProject.StartDate;
             existingProject.EndDate = updatedProject.EndDate;
@@ -93,21 +96,21 @@ namespace CentTask1.Services
 
             var projectDto = new GetProjectDto
             {
-                Id = existingProject.Id,
-                Name = existingProject.Name,
+             //   Id = existingProject.Id,
+                Name = existingProject.ProjectName,
                 Description = existingProject.Description,
                 StartDate = existingProject.StartDate,
                 EndDate = existingProject.EndDate,
                 Budget = existingProject.Budget,
                 ClientName = existingProject.ClientName,
-                Status = existingProject.Status,
+              //  Status = existingProject.Status,
                 Manager = existingProject.Manager
             };
             return projectDto;
         }
 
         //Delete
-        public async Task<bool> DeleteProjectAsync(int id)
+        public async Task<bool> DeleteProjectAsync(Guid id)
         {
             var project = await _dataContext.Projects.FindAsync(id);
             if (project == null)
@@ -120,7 +123,7 @@ namespace CentTask1.Services
         }
 
 
-        private bool ProjectExists(int id)
+        private bool ProjectExists(Guid id)
         {
             return _dataContext.Projects.Any(e => e.Id == id);
         }

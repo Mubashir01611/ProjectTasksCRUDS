@@ -19,7 +19,7 @@ namespace CentTask1.Models
         // Foreign Key 
         // Navigation Property
         [ForeignKey("ProjectId")]
-        public int? ProjectId { get; set; }
+        public Guid? ProjectId { get; set; }
         public Project Project { get; set; }
     }
 }

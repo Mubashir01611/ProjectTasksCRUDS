@@ -36,7 +36,7 @@ namespace CentTask1.Services
                     EquipmentType = task.EquipmentType,
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false,
-                    ProjectId = int.TryParse(task.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null
+                    ProjectId = task.ProjectId == null ? null : Guid.Parse( task.ProjectId)
                 };
 
                 _dataContext.ProjectTasks.Add(projectTask);
@@ -79,7 +79,7 @@ namespace CentTask1.Services
                     //AssignedTo = t.AssignedTo,
                     Priority = t.Priority,
                     TWR = t.TWR,
-                    ProjectName = t.Project != null ? t.Project.Name : null
+                    ProjectName = t.Project != null ? t.Project.ProjectName : null
                 });
 
                 return projectTasks;
@@ -107,7 +107,7 @@ namespace CentTask1.Services
                 EquipmentType = projectTask.EquipmentType,
                 Priority = projectTask.Priority,
                 TWR = projectTask.TWR,
-                ProjectName = projectTask.Project != null ? projectTask.Project.Name : null,
+                ProjectName = projectTask.Project != null ? projectTask.Project.ProjectName : null,
                 ProjectId = projectTask.ProjectId.ToString() ?? null,
                 CreatedOn = projectTask.CreatedOn,
 
@@ -136,7 +136,7 @@ namespace CentTask1.Services
                 //existingTask.AssignedTo = updatedTask.AssignedTo;
                 existingTask.Priority = updatedTask.Priority;
                 existingTask.TWR = updatedTask.TWR;
-                existingTask.ProjectId = int.TryParse(updatedTask.ProjectId, out var projectIdValue) ? projectIdValue : (int?)null;
+                existingTask.ProjectId = updatedTask.ProjectId == null ? null  : Guid.Parse(updatedTask.ProjectId);
 
                 await _dataContext.SaveChangesAsync();
             }
