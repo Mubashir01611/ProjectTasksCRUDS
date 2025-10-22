@@ -3,6 +3,7 @@ using CentTask1.DTO.ProjectDto;
 using CentTask1.Entities;
 using CentTask1.Interfaces;
 using CentTask1.ViewModels.ProjectViewModels;
+using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Services
@@ -52,39 +53,57 @@ namespace CentTask1.Services
         //GetAllProjects
         public async Task<IEnumerable<ProjectGetViewModel>> GetAllProjectsAsync()
         {
-            var projects = await  _dataContext.Projects.ToListAsync();
-            var projectDtos = projects.Select(project => new ProjectGetViewModel
+            var projects = await  _dataContext.Projects.Where(p => p.IsDeleted == false).Select(
+                project => new ProjectGetViewModel
+                {
+                    Id = project.Id,
+                    ProjectName = project.ProjectName,
+                    Description = project.Description,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    Budget = project.Budget,
+                    ClientName = project.ClientName,
+                    Status = project.Status,
+                    Manager = project.Manager
+                }
+                ).ToListAsync();
+            return projects;
+        }
+
+        //GetById
+        public async Task<ProjectDetailViewModel?> GetProjectByIdAsync(Guid id)
+        {
+            var project= await _dataContext.Projects
+                .FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false);
+            if (project == null)
+                return null;
+
+            var projectDetail = new ProjectDetailViewModel
             {
                 Id = project.Id,
                 ProjectName = project.ProjectName,
                 Description = project.Description,
-                StartDate = project.StartDate,
-                EndDate = project.EndDate,
                 Budget = project.Budget,
                 ClientName = project.ClientName,
                 Status = project.Status,
-                Manager = project.Manager
-            }).ToList();
-            return projectDtos;
-        }
-
-        //GetById
-        public async Task<Project?> GetProjectByIdAsync(Guid id)
-        {
-            var project= await _dataContext.Projects
-                .FirstOrDefaultAsync(m => m.Id == id);
-            return project;
+                Manager = project.Manager,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                CreatedOn = project.CreatedOn,
+                UpdatedOn = project.UpdatedOn
+            };
+            return projectDetail;
         }
 
         //Update
-        public async Task<GetProjectDto?> UpdateProjectAsync(Guid id, GetProjectDto updatedProject)
+        public async Task<ProjectUpdateViewModel?> UpdateProjectAsync(Guid id, ProjectUpdateViewModel updatedProject)
         {
             var existingProject = await _dataContext.Projects.FindAsync(id);
             if (existingProject == null)
             {
                 return null;
             }
-            existingProject.ProjectName = updatedProject.Name;
+            existingProject.ProjectName = updatedProject.ProjectName;
             existingProject.Description = updatedProject.Description;
             existingProject.StartDate = updatedProject.StartDate;
             existingProject.EndDate = updatedProject.EndDate;
@@ -92,18 +111,19 @@ namespace CentTask1.Services
             existingProject.ClientName = updatedProject.ClientName;
             existingProject.Status = updatedProject.Status;
             existingProject.Manager = updatedProject.Manager;
+            existingProject.UpdatedOn = DateTime.UtcNow;
             await _dataContext.SaveChangesAsync();
 
-            var projectDto = new GetProjectDto
+            var projectDto = new ProjectUpdateViewModel
             {
-             //   Id = existingProject.Id,
-                Name = existingProject.ProjectName,
+                Id = existingProject.Id,
+                ProjectName = existingProject.ProjectName,
                 Description = existingProject.Description,
                 StartDate = existingProject.StartDate,
                 EndDate = existingProject.EndDate,
                 Budget = existingProject.Budget,
                 ClientName = existingProject.ClientName,
-              //  Status = existingProject.Status,
+                Status = existingProject.Status,
                 Manager = existingProject.Manager
             };
             return projectDto;
@@ -117,7 +137,8 @@ namespace CentTask1.Services
             {
                 return false;
             }
-            _dataContext.Projects.Remove(project);
+            project.IsDeleted = true;
+            _dataContext.Projects.Update(project);
             await _dataContext.SaveChangesAsync();
             return true;
         }

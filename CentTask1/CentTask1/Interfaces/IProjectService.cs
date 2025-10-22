@@ -8,8 +8,8 @@ namespace CentTask1.Interfaces
     {
         Task<ProjectCreateViewModel> CreateProjectAsync(ProjectCreateViewModel project);
         Task<IEnumerable<ProjectGetViewModel>> GetAllProjectsAsync();
-        Task<Project?> GetProjectByIdAsync(Guid id);
-        Task<GetProjectDto?> UpdateProjectAsync(Guid id, GetProjectDto updatedProject);
+        Task<ProjectDetailViewModel?> GetProjectByIdAsync(Guid id);
+        Task<ProjectUpdateViewModel?> UpdateProjectAsync(Guid id, ProjectUpdateViewModel updatedProject);
         Task<bool> DeleteProjectAsync(Guid id);
     }
 }

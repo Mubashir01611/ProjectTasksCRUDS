@@ -28,13 +28,12 @@
             url: "/Projects/GetAllProjects",
             dataType: "json",
             success: function (data) {
-                console.log("list of projects", data);
                 var tableBody = $("#myProjectTable tbody");
                 tableBody.empty(); // Clear existing rows
                 data.forEach(function (project) {
                     var row = `
                     <tr>
-                    <td>${project.name}</td>
+                    <td>${project.projectName}</td>
                     <td>${project.description}</td>
                     <td>${project.startDate.substring(0, 10)}</td>
                     <td>${project.endDate.substring(0, 10)}</td>
@@ -92,12 +91,7 @@
             url: "Projects/CreateProject" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
                 $("#projectModalBodyContent").html(htmlContent);
-                //$('.select2').select2({
-                //    placeholder: "Search and select a project",
-                //    allowClear: true,
-                //    dropdownParent: $('#createOrEditProject') // ensures dropdown appears inside modal
-                //});
-            },
+                  },
             error: function (err) {
                 Swal.fire({
                     title: 'Error!',

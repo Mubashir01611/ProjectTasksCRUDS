@@ -1,4 +1,4 @@
-﻿@model CentTask1.Entities.Project
+﻿@model CentTask1.ViewModels.ProjectViewModels.ProjectDetailViewModel;
  <style>
     .col-sm-6 {
         margin-bottom: 9px;
@@ -50,6 +50,18 @@
         </dt>
         <dd class = "col-sm-6">
             @Html.DisplayFor(model => model.Manager)
+        </dd>
+        <dt class="col-sm-6 ">
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt class="col-sm-6 ">
+            @Html.DisplayNameFor(model => model.UpdatedOn)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.UpdatedOn)
         </dd>
         <dt class="col-sm-6 ">
             @Html.DisplayNameFor(model => model.Status)

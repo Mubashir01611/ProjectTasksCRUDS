@@ -94,7 +94,6 @@ namespace CentTask1.Services
         //GetById
         public async Task<TaskDetailViewModel?> GetTaskByIdAsync(Guid id)
         {
-            var ddd = _dataContext.ProjectTasks.ToList();
             var projectTask = await _dataContext.ProjectTasks.Include(p => p.Project)
                 .FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false);
             var taskDetailViewModel = projectTask == null ? null : new TaskDetailViewModel
