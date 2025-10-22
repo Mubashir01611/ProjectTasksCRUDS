@@ -48,7 +48,7 @@
                     
                     </td>
                     <td>
-                        <a href="#" class="fa fa-pencil openProjectModal text-decoration-none me-1" data-url="" data-id="${project.id}"></a>
+                        <a href="#" class="fa fa-pencil openProjectModal text-decoration-none me-1"  data-id="${project.id}"></a>
                         <a href="#" class="fa fa-eye  text-decoration-none openProjectDetailModal  text-dark me-1" data-id="${project.id}"></a>
                         <a href="#" class="fa fa-trash text-danger deleteProject" data-id="${project.id}"></a>
                     </td>
@@ -90,8 +90,7 @@
             type: "GET",
             url: "Projects/CreateProject" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
-                $("#projectModalBodyContent").html(htmlContent);
-                  },
+                $("#projectModalBodyContent").html(htmlContent);},
             error: function (err) {
                 Swal.fire({
                     title: 'Error!',
@@ -103,7 +102,7 @@
         });
         // Dynamically set modal title
         var title = id ? "Update Project" : "Create Project";
-        $("#modalTitle").text(title);
+        $("#projectModalTitle").text(title);
         $('#createOrEditProject').modal('show');
 
     });
@@ -115,7 +114,7 @@
         e.preventDefault();
        // var id = $(this).data("id");
 
-        //var url = $(this).data("url"); // e.g. "/Tasks/Create"
+        var url = $(this).data("url"); // e.g. "/Tasks/Create"
         var url = "/Projects/Create";
         var form = $('#createOrEditProjectForm'); // form's id
         var formData = form.serialize(); // convert form fields to query string
@@ -212,9 +211,8 @@
                 console.log("error loading view", err);
             }
         });
-        $("#modalTitle").text("Task Detail");
-        $('#createOrEditProject').modal('show');
-        //$('#createOrEditProjectForm').modal.footer('hide');
+        $("#projectModalTitle").text("Project Detail");
+        $('#createOrEditProject').modal('show'); 
     });
 
 });

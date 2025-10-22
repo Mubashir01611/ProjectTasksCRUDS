@@ -1,5 +1,4 @@
-﻿using CentTask1.DBC;
-using CentTask1.DTO.ProjectDto;
+﻿using CentTask1.DBC; 
 using CentTask1.Entities;
 using CentTask1.Interfaces;
 using CentTask1.ViewModels.ProjectViewModels;
@@ -96,7 +95,7 @@ namespace CentTask1.Services
         }
 
         //Update
-        public async Task<ProjectUpdateViewModel?> UpdateProjectAsync(Guid id, ProjectUpdateViewModel updatedProject)
+        public async Task<ProjectUpdateViewModel?> UpdateProjectAsync(Guid id, ProjectCreateViewModel updatedProject)
         {
             var existingProject = await _dataContext.Projects.FindAsync(id);
             if (existingProject == null)
@@ -142,11 +141,6 @@ namespace CentTask1.Services
             await _dataContext.SaveChangesAsync();
             return true;
         }
-
-
-        private bool ProjectExists(Guid id)
-        {
-            return _dataContext.Projects.Any(e => e.Id == id);
-        }
+ 
     }
 }

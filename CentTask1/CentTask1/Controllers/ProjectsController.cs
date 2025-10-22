@@ -1,8 +1,4 @@
-﻿using CentTask1.DTO.ProjectDto;
-using CentTask1.Entities;
-using CentTask1.Interfaces;
-using CentTask1.Models;
-using CentTask1.Services;
+﻿using CentTask1.Interfaces; 
 using CentTask1.ViewModels.ProjectViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,21 +44,22 @@ namespace CentTask1.Controllers
         public async Task<IActionResult> CreateProject(Guid? id)
         {
             ProjectCreateViewModel createViewModel = new ProjectCreateViewModel();
-            //Project task = id.HasValue
-            //? await _projectService.GetProjectByIdAsync(id.Value) ?? new Project()
-            //: new Project();
-            //var dto = new ProjectCreateViewModel
-            //{
-            //    Id = task.Id,
-            //    Name = task.Name,
-            //    Description = task.Description,
-            //    StartDate = DateTime.Today,
-            //    EndDate = DateTime.Today.AddDays(7),
-            //    Budget = task.Budget,
-            //    ClientName = task.ClientName,
-            //    Status = task.Status,
-            //    Manager = task.Manager
-            //};
+            if(id.HasValue)
+            {
+                var project = await _projectService.GetProjectByIdAsync(id.Value);
+                createViewModel = new ProjectCreateViewModel
+                {
+                    Id = project.Id,
+                    ProjectName = project.ProjectName,
+                    Description = project.Description,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    Budget = project.Budget,
+                    ClientName = project.ClientName,
+                    Status = project.Status,
+                    Manager = project.Manager
+                };
+            }
             return PartialView("_CreateProjectModal", createViewModel);
         }
 
@@ -73,15 +70,16 @@ namespace CentTask1.Controllers
             {
                 return PartialView("_CreateProjectModal", projectDto);
             }
+            if (projectDto.Id != Guid.Empty)
+            {
+                // Update mode
+                await _projectService.UpdateProjectAsync(projectDto.Id, projectDto);
+            }
+            else
+            {
+                // Create mode
                 await _projectService.CreateProjectAsync(projectDto);
-            //if(projectDto.Id>0)
-            //{
-            //    await _projectService.UpdateProjectAsync(projectDto.Id, projectDto);
-            //}
-            //else
-            //{
-            //    await _projectService.CreateProjectAsync(projectDto);
-            //}
+            }
             return Json(new { success = true });
             
         }

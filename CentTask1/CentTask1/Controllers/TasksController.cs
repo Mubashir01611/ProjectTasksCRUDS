@@ -1,11 +1,6 @@
-﻿using CentTask1.DBC;
-using CentTask1.DTO.TaskDtos;
-using CentTask1.Interfaces;
-using CentTask1.Models;
-using CentTask1.Services;
+﻿using CentTask1.Interfaces;
 using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CentTask1.Controllers
 {
@@ -49,14 +44,6 @@ namespace CentTask1.Controllers
         public async Task< IActionResult> CreateProjectTask(Guid? id)
         {
             TaskCreateViewModel task = new TaskCreateViewModel();
-            //TaskCreateViewModel task = id.HasValue
-            //? await _projectTaskService.GetTaskByIdAsync(id.Value) ?? new TaskCreateViewModel()
-            //: new TaskCreateViewModel
-            //{
-            //    StartDate = DateTime.Today,
-            //    EndDate = DateTime.Today
-            //};//guid 
-
             return PartialView("_Create", task); // reuse same partial
         }
 
@@ -70,13 +57,6 @@ namespace CentTask1.Controllers
                 return PartialView("_Create", task); // reuse same view
             }
 
-            //if (task.Id != )
-            //{
-            //    await _projectTaskService.UpdateTaskAsync(task.Id, task);
-            //}
-            //else
-            //{
-            //}
              await _projectTaskService.CreateTaskAsync(task);
             //abhi kaliye mai is method ko use nahi kr rha mgr, in future is py kaam karna hai
           //  TempData["SwalMessage"] = result.Message;
