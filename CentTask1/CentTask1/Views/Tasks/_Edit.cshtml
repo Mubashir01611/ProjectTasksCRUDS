@@ -130,26 +130,26 @@
         // This script will initialize Select2 if the partial is loaded directly.
         // When the partial is injected into the modal via AJAX the parent script also initializes,
         // but keeping this ensures it works when the partial is used standalone.
-        (function () {
-            if (typeof $ === 'undefined' || !$('#projectSelect').length) return;
+        // (function () {
+        //     if (typeof $ === 'undefined' || !$('#projectSelect').length) return;
 
-            $('#projectSelect').select2({
-                theme: 'bootstrap5', // adjust to bootstrap4 if you're using bootstrap4
-                placeholder: 'Search and select a project',
-                allowClear: true,
-                dropdownParent: $('#createOrEditProjectTask'),
-                ajax: {
-                    url: '/Tasks/GetProjectsForDropdown',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return { term: params.term };
-                    },
-                    processResults: function (data) {
-                        return { results: data.results };
-                    }
-                }
-            });
-        })();
+        //     $('#projectSelect').select2({
+        //         theme: 'bootstrap5', adjust to bootstrap4 if you're using bootstrap4
+        //         placeholder: 'Search and select a project',
+        //         allowClear: true,
+        //         dropdownParent: $('#createOrEditProjectTask'),
+        //         ajax: {
+        //             url: '/Tasks/GetProjectsForDropdown',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             data: function (params) {
+        //                 return { term: params.term };
+        //             },
+        //             processResults: function (data) {
+        //                 return { results: data.results };
+        //             }
+        //         }
+        //     });
+        // })();
     </script>
 }

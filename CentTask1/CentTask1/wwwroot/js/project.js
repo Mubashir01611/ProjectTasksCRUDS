@@ -1,28 +1,44 @@
 ﻿$(function () {
-       
-    //PROJECT LIST
-    $("#getProjects").on("click", function (e) {
-        debugger;
+    
+    // PROJECT LIST
+    $(document).on("click", "#getProjects", function (e) {
         e.preventDefault();
         loadProjects();
-       
     });
+
     //project load function(list)
     function loadProjects() {
-        debugger;
-        $.get("/Projects/LoadProjects", function (htmlContent) {
+    
+        // fetch partial
+        $.get("/Projects/LoadProjects")
+            .done(function (htmlContent) {
+                $("#HomeContainer").hide();
+                $("#taskContainer").hide();
 
-            $("#HomeContainer").hide();
-            $("#taskContainer").hide();
+                $("#ProjectContainer").html(htmlContent).show();
 
-            $("#ProjectContainer").html(htmlContent).show();
-            fetchProjectData();
-        });
+                // now the overlay element (if in partial) exists — show it
+                //toggleLoader(true);
+
+                fetchProjectData();
+            })
+            .fail(function (err) {
+                console.error("Error loading projects partial:", err);
+                $("#ProjectContainer").html('<div class="text-center p-5 text-danger"><h4>Error loading projects</h4></div>');
+                toggleLoader(false);
+            });
     }
     //project fetch function(list)
-    function fetchProjectData()
-    {
+    function fetchProjectData() {
         debugger;
+        toggleLoader(true);
+
+        //// Watchdog to avoid stuck overlay
+        //var overlayWatch = setTimeout(function () {
+        //    console.warn('[fetchProjectData] project overlay watchdog fired — hiding overlay.');
+        //    hideProjectOverlay();
+        //}, 8000);
+
         $.ajax({
             type: "GET",
             url: "/Projects/GetAllProjects",
@@ -34,18 +50,16 @@
                     var row = `
                     <tr>
                     <td>${project.projectName}</td>
-                    <td>${project.description}</td>
-                    <td>${project.startDate.substring(0, 10)}</td>
-                    <td>${project.endDate.substring(0, 10)}</td>
-                    <td>${project.budget}</td>
-                    <td>${project.clientName}</td>
-                    <td>${project.manager}</td>
-
+                    <td>${project.description ?? ''}</td>
+                    <td>${project.startDate ? project.startDate.substring(0, 10) : ''}</td>
+                    <td>${project.endDate ? project.endDate.substring(0, 10) : ''}</td>
+                    <td>${project.budget ?? ''}</td>
+                    <td>${project.clientName ?? ''}</td>
+                    <td>${project.manager ?? ''}</td>
                     <td>
-                    <span class="badge ${project.status ? 'bg-success' : 'bg-danger'}">
-                    ${project.status ? 'Active' : 'Inactive'}
-                    </span>
-                    
+                        <span class="badge ${project.status ? 'bg-success' : 'bg-danger'}">
+                        ${project.status ? 'Active' : 'Inactive'}
+                        </span>
                     </td>
                     <td>
                         <a href="#" class="fa fa-pencil openProjectModal text-decoration-none me-1"  data-id="${project.id}"></a>
@@ -54,32 +68,33 @@
                     </td>
                     </tr>
                     `
-                    
                     tableBody.append(row);
-
                 });
-                // Initialize DataTable after content is loaded
-                setTimeout(function () {
-                    if ($.fn.DataTable.isDataTable('#myProjectTable')) {
-                        $('#myProjectTable').DataTable().destroy();
-                    }//use parameters here in datatable
 
-                    $('#myProjectTable').DataTable({
-                        paging: true,
-                        searching: true,
-                        ordering: true,
-                        info: true
-                    });
-                }, 100);
+                if ($.fn.DataTable.isDataTable('#myProjectTable')) {
+                    try { $('#myProjectTable').DataTable().destroy(); } catch (ex) { console.warn('Error destroying project DataTable', ex); }
+                }
 
+                toggleLoader(false);
+                $('#myProjectTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true,
+                });
+
+                // short fallback hide if needed
+               
             },
             error: function (err) {
                 alert("Failed to load project content.");
                 console.error("Error loading projects:", err);
+                clearTimeout(overlayWatch);
+                toggleLoader(false);
             }
         });
     }
-   
+
     //open Modal
     $(document).on('click', ".openProjectModal", function (e) {
         debugger;
@@ -90,7 +105,8 @@
             type: "GET",
             url: "Projects/CreateProject" + (id ? "?id=" + id : ""),
             success: function (htmlContent) {
-                $("#projectModalBodyContent").html(htmlContent);},
+                $("#projectModalBodyContent").html(htmlContent);
+            },
             error: function (err) {
                 Swal.fire({
                     title: 'Error!',
@@ -132,8 +148,6 @@
                     // Optionally clear form
                     form[0].reset();
                 loadProjects();
-
-
                 }
                 else {
                     // If server returns validation errors, display them
@@ -199,9 +213,7 @@
         $.ajax({
             type: "GET",
             url: "Projects/Details" + (id ? "?id=" + id : ""),
-            success: function (htmlContent) {
-                $("#projectModalBodyContent").html(htmlContent);
-            },
+
             error: function (err) {
                 Swal.fire({
                     title: 'Error',

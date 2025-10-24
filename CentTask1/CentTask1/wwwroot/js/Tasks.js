@@ -1,79 +1,97 @@
 ﻿$(function () {
-    /*
-yeh func ajax sy partial view load krta hai 
-or usko index ky div mai inject karta hai
-or oper waly function ko use kr ky ik complete DataTable bna deta hai
- 
-*/
-    function loadTasks() {
+  
+   
 
-         //var url = $(this).data("url");
-   //     var url = "Tasks/LoadTaskTable";
-        //var url = '@Url.Action("LoadTaskTable", "Tasks")';
-        $.get("Tasks/LoadTaskTable", function (htmlContent) {
-            $("#HomeContainer").hide(); 
-            $("#ProjectContainer").hide(); 
-            $("#taskContainer").html(htmlContent).show();
-            fetchTaskData();
+    // Sidebar Tasks button
+    $(document).on("click", "a.sidebar-link", function (e) {
+        e.preventDefault();
+        //e.stopPropagation();
+        debugger;
+      
+        loadTasks(); 
+    });
+
+    function loadTasks() {
+      
+        $.ajax({
+            type: "GET",
+            url: "Tasks/LoadTaskTable",
+           
+             
+            success: function (htmlContent) {
+                $("#HomeContainer").hide();
+                $("#ProjectContainer").hide();
+                //toggleLoader(false);
+                $("#taskContainer").html(htmlContent).show();
+
+                // Fetch data and initialize table
+
+                fetchTaskData();
+             
+            },
+            error: function (err) {
+                console.error("Error loading partial view:", err);
+                //toggleLoader(false);
+                $("#taskContainer").html(
+                    '<div class="text-center p-5 text-danger"><h4>Error loading tasks</h4></div>'
+                );
+            },
+           
         });
+
     }
-    //Yeh func js ky zariye ajax sy data fetch kr k table ke body m dalta hai
+
     function fetchTaskData() {
+        toggleLoader(true);
         $.ajax({
             type: "GET",
             url: "Tasks/GetAllTasks",
-            dataType: "json",  
+            dataType: "json",
             success: function (data) {
-                console.log("Project Tasks Data",data); // for debugging
+                console.log("Project Tasks Data", data);
                 var tbody = $("#myTable tbody");
-                tbody.empty(); // clear old rows
+                tbody.empty();
 
                 data.forEach(function (task) {
-                    var row = `
-
-                <tr>
-                    <td>${task.taskName}</td>
-                    <td>${task.description}</td>
-                    <td>${task.startDate.substring(0, 10)}</td>
-                    <td>${task.endDate.substring(0, 10)}</td>
-                    <td>${task.priority}</td>
-                    <td>${task.equipmentType}</td>
-                    <td>${task.twr}</td>
-                    <td>${task.projectName}</td>
-                    <td>
-                        <a href="#" class="fa fa-pencil text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
-                        <a href="#" class="fa fa-eye  text-decoration-none openTaskDetailModal  text-dark me-1" data-id="${task.id}"></a>
-                        <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
-                    </td>
-                </tr>
-            `;
-                    tbody.append(row);
+                    tbody.append(`
+                    <tr>
+                        <td>${task.taskName}</td>
+                        <td>${task.description ?? ''}</td>
+                        <td>${task.startDate ? task.startDate.substring(0, 10) : ''}</td>
+                        <td>${task.endDate ? task.endDate.substring(0, 10) : ''}</td>
+                        <td>${task.priority ?? ''}</td>
+                        <td>${task.equipmentType ?? ''}</td>
+                        <td>${task.twr ?? ''}</td>
+                        <td>${task.projectName ?? ''}</td>
+                        <td>
+                            <a href="#" class="fa fa-pencil text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
+                            <a href="#" class="fa fa-eye text-decoration-none openTaskDetailModal text-dark me-1" data-id="${task.id}"></a>
+                            <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
+                        </td>
+                    </tr>
+                `);
                 });
-                setTimeout(function () {
-                    if ($.fn.DataTable.isDataTable('#myTable')) {
-                        $('#myTable').DataTable().destroy();
-                    }//use parameters here in datatable
+                toggleLoader(false);
+                if ($.fn.DataTable.isDataTable('#myTable')) {
+                    $('#myTable').DataTable().clear().destroy();
+                }
 
-                    $('#myTable').DataTable({
-                        paging: true,
-                        searching: true,
-                        ordering: true,
-                        info: true
-                    });
-                }, 100);
+                // reinitialize DataTable
+               $('#myTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true
+                });
             },
             error: function (err) {
-                console.error("Error loading view:", err);
+                console.error("Error loading tasks:", err);
+                $("#taskContainer").html('<div class="text-center p-5 text-danger"><h4>Error loading tasks</h4></div>');
+           
             }
         });
     }
 
-    //DataTable yeh jb ham sidebar sy click krty hain to load hota hai
-    $(".sidebar-link").on("click", function (e) {
-        debugger;
-        e.preventDefault();
-        loadTasks();
-    });
 
     //modal detail
     $(document).on('click', '.openTaskDetailModal', function (e) {

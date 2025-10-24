@@ -22,7 +22,7 @@
             position:absolute;
             right:0;
             min-height: 100%;
-            width:100%;
+            width: 99%;
             display: flex;
             flex-direction: row;
         }
@@ -54,7 +54,7 @@
         }
         .sidebar .nav-link {
             text-align:start;
-            margin-left:0px;
+            margin-left: 41px;
             margin-top: 6px;
             margin-bottom: 0px;
             color: black;
@@ -70,7 +70,7 @@
             text-align: center;
         }
         .main-content {
-            width:99%;
+            width: 1254px;
             margin-left:250px;
             padding:4px;  
         }
@@ -78,36 +78,39 @@
             text-align:center;
             width:0%;
         }
+      
+
+
     </style>
 </head>
 <body>
     <div class="dashboard-containe">
 
-        <nav class="sidebar">
+            <nav class="sidebar">
 
-            <div class="sidebar-content">
+                <div class="sidebar-content">
 
-                @* <a asp-action="MainIndex"> *@
-                <a asp-action="Index">
-                    <img src="~/assets/img/logo.png" alt="Logo" />
-                </a>
+                    @* <a asp-action="MainIndex"> *@
+                    <a asp-action="Index">
+                        <img src="~/assets/img/logo.png" alt="Logo" />
+                    </a>
 
-                <a href="#" class="nav-link fw-bold w-75 mx-auto" id="loadHome">
+                    <a href="#" class="nav-link fw-bold w-75 mx-auto" id="loadHome">
 
-                    <i class="fa fa-home text-muted"></i> Home
+                        <i class="fa fa-home text-muted"></i> Home
                     
-                </a>
-                <div class="separator"></div>
+                    </a>
+                    <div class="separator"></div>
                
-                <a class="nav-link w-75 mx-auto sidebar-link"> <i class="fa fa-tasks me-2 text-muted"></i>Tasks</a>
+                    <a class="nav-link w-75 mx-auto sidebar-link"> <i class="fa fa-tasks me-2 text-muted"></i>Tasks</a>
                 
-                <a class="nav-link w-75 mx-auto " id="getProjects"><i class="fa fa-folder-open me-2 text-muted"></i>Projects</a>
-            </div>
-                <div class="separator"></div>
-            <div class="sidebar-bottom">
-                <a class="nav-link w-75" asp-area="" asp-controller="Settings" asp-action="Index"><i class="fa fa-cog"></i> Settings</a>
-            </div>
-        </nav>
+                    <a class="nav-link w-75 mx-auto " id="getProjects"><i class="fa fa-folder-open me-2 text-muted"></i>Projects</a>
+                </div>
+                    <div class="separator"></div>
+                <div class="sidebar-bottom">
+                    <a class="nav-link w-75" asp-area="" asp-controller="Settings" asp-action="Index"><i class="fa fa-cog"></i> Settings</a>
+                </div>
+            </nav>
        
         
         <div class="main-content">
@@ -121,24 +124,27 @@
                 </div>
             </footer>
     </div>
-    <!-- jQuery (must be before Select2 and your custom scripts) -->
+  
+    <!-- jQuery (pehle) -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Load Select2 BEFORE your custom JS -->
+    <!-- Bootstrap -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ✅ SweetAlert2 ADD KAREIN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Validation scripts -->
+    <!-- Validation -->
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-    <!-- Your custom scripts (can safely call select2 now) -->
+    <!-- Custom scripts -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/Tasks.js" asp-append-version="true"></script>
     <script src="~/js/project.js" asp-append-version="true"></script>
 
-    <!-- DataTables -->
+    <!-- DataTables (last) -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 

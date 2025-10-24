@@ -20,9 +20,9 @@
         text-align: start;
     }
 
-        div.dataTables_filter input {
-            float: left;
-        }
+    div.dataTables_filter input {
+        float: left;
+    }
 
     div.dataTables_paginate {
         margin-top: 23px;
@@ -44,53 +44,27 @@
         justify-content: flex-end;
     }
 
-    .modal {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 1300px;
-    }
-
-    .modal-div {
-        /* border:22px solid orange     ; */
-    }
-
-    .modal-content {
-        width: 858px;
-        /* border:12px solid red; */
-    }
-     
 </style>
 
-
-
-@* modal *@
-<div class="w-75">
-
-    <div class="modal fade " id="createOrEditProject">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-info" id="projectModalTitle"></h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                </div>
-                <div class="modal-body" id="projectModalBodyContent">
-
+@* Modal (larger) *@
+<div>
+    <div class="modal fade" id="createOrEditProject" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-custom" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-info" id="projectModalTitle"></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="projectModalBodyContent"></div>
                 </div>
             </div>
-
         </div>
-
     </div>
-</div>
+
 <h1 class="text-align-center mt-5">List of Projects</h1>
 <p class="button">
     <a href="#" class="btn btn-primary openProjectModal" >Create Project</a>
 </p>
-
-   
 
 <table class="table table-hover table-bordered align-middle" id="myProjectTable">
     <thead class="bg-info text-light">
@@ -107,19 +81,11 @@
         </tr>
     </thead>
     <tbody>
-    
     </tbody>
 </table>
-
-@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
-@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-
-
-
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
+    @* loader *@
+    <div id="Spinner" class="text-center my-4" style="display:none;">
+        <div class="spinner-border text-info" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
