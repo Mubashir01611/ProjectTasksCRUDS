@@ -1,13 +1,7 @@
 ﻿$(function () {
-  
-   
-
     // Sidebar Tasks button
     $(document).on("click", "a.sidebar-link", function (e) {
         e.preventDefault();
-        //e.stopPropagation();
-        debugger;
-      
         loadTasks(); 
     });
 
@@ -16,8 +10,6 @@
         $.ajax({
             type: "GET",
             url: "Tasks/LoadTaskTable",
-           
-             
             success: function (htmlContent) {
                 $("#HomeContainer").hide();
                 $("#ProjectContainer").hide();
@@ -25,11 +17,11 @@
                 $("#taskContainer").html(htmlContent).show();
 
                 // Fetch data and initialize table
-
                 fetchTaskData();
-             
             },
             error: function (err) {
+                toggleLoader(false);
+                Swal.fire({ title: 'Error!', text: 'Error loading tasks', icon: 'error' });
                 console.error("Error loading partial view:", err);
                 //toggleLoader(false);
                 $("#taskContainer").html(
@@ -85,6 +77,8 @@
                 });
             },
             error: function (err) {
+                Swal.fire({ title: 'Error!', text: 'Error loading tasks', icon: 'error' });
+
                 console.error("Error loading tasks:", err);
                 $("#taskContainer").html('<div class="text-center p-5 text-danger"><h4>Error loading tasks</h4></div>');
            
@@ -114,8 +108,7 @@
             }
         });
         $("#modalTitle").text("Task Detail");
-        $('.createOrEditModal').modal('show');
-        //$('#createOrEditProjectTask').modal.footer('hide');
+        $('.createOrEditModal').modal('show'); 
     });
 
     // Initialize project select2 inside task modal with defensive load fallback
@@ -225,7 +218,7 @@
         var $btn = $(this);
         var url = $btn.data("url"); // e.g. "/Tasks/Create" or "/Tasks/Edit"
         var formId = $btn.data("form-id"); // e.g. "createOrEditProjectTaskForm" or "editProjectTaskForm"
-        var $form = $('#' + formId);
+        var $form = $('#' + formId);// e.g. "#createOrEditProjectTaskForm"
         var formData = $form.serialize();
         $.ajax({
             type: "POST",

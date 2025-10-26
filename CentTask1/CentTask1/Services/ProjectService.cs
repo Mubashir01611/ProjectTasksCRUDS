@@ -4,6 +4,7 @@ using CentTask1.Interfaces;
 using CentTask1.ViewModels.ProjectViewModels;
 using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CentTask1.Services
 {
@@ -141,6 +142,37 @@ namespace CentTask1.Services
             await _dataContext.SaveChangesAsync();
             return true;
         }
- 
+        //new method for server side processing
+        public IQueryable<ProjectGetViewModel> GetProjectsQueryable()
+        {
+            return _dataContext.Projects
+                .Where(p => !p.IsDeleted)
+                .Select(project => new ProjectGetViewModel
+                {
+                    Id = project.Id,
+                    ProjectName = project.ProjectName,
+                    Description = project.Description,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    Budget = project.Budget,
+                    ClientName = project.ClientName,
+                    Status = project.Status,
+                    Manager = project.Manager
+                });
+        }
+    }
+    //seperate class to handle dynamic ordering
+    public static class IQueryableExtensions
+    {
+        public static IQueryable<T> OrderByDynamic<T>(this IQueryable<T> query, string propertyName, bool ascending)
+        {
+            var param = Expression.Parameter(typeof(T), "p");
+            var prop = Expression.Property(param, propertyName);
+            var exp = Expression.Lambda(prop, param);
+            string method = ascending ? "OrderBy" : "OrderByDescending";
+            Type[] types = new Type[] { query.ElementType, exp.Body.Type };
+            var mce = Expression.Call(typeof(Queryable), method, types, query.Expression, exp);
+            return query.Provider.CreateQuery<T>(mce);
+        }
     }
 }

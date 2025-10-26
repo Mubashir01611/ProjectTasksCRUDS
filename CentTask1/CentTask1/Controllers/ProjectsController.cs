@@ -1,6 +1,8 @@
-﻿using CentTask1.Interfaces; 
+﻿using CentTask1.Interfaces;
+using CentTask1.Services;
 using CentTask1.ViewModels.ProjectViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Controllers
 {
@@ -97,6 +99,67 @@ namespace CentTask1.Controllers
             {
                 return Json(new { success = true });
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetProjectsDataTable()
+        {
+            // Read DataTables parameters
+            var draw = Request.Form["draw"].FirstOrDefault();
+            var start = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
+            var length = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "10");
+            var searchValue = Request.Form["search[value]"].FirstOrDefault();
+            var sortColumnIndex = Convert.ToInt32(Request.Form["order[0][column]"].FirstOrDefault() ?? "0");
+            var sortColumn = Request.Form[$"columns[{sortColumnIndex}][data]"].FirstOrDefault();
+            var sortDirection = Request.Form["order[0][dir]"].FirstOrDefault() ?? "asc";
+
+            // Get all projects (you can optimize with IQueryable for large datasets)
+            var query = _projectService.GetProjectsQueryable();
+
+            // Filtering
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                query = query.Where(p =>
+                    p.ProjectName.Contains(searchValue) ||
+                    (p.Description != null && p.Description.Contains(searchValue)) ||
+                    (p.ClientName != null && p.ClientName.Contains(searchValue)) ||
+                    (p.Manager != null && p.Manager.Contains(searchValue))
+                );
+            }
+
+            // Sorting
+            if (!string.IsNullOrEmpty(sortColumn))
+            {
+                query = sortDirection == "asc"
+                    ? query.OrderByDynamic(sortColumn, true)
+                    : query.OrderByDynamic(sortColumn, false);
+            }
+
+            var recordsTotal = await query.CountAsync();
+
+            // Paging
+            var data = await query.Skip(start).Take(length).ToListAsync();
+
+            // Format dates for DataTables
+            var formattedData = data.Select(p => new {
+                p.Id,
+                p.ProjectName,
+                p.Description,
+                startDate = p.StartDate.ToString("yyyy-MM-dd"),
+                endDate = p.EndDate.ToString("yyyy-MM-dd"),
+                p.Budget,
+                p.ClientName,
+                p.Manager,
+                p.Status
+            });
+
+            // DataTables response
+            return Json(new {
+                draw = draw,
+                recordsFiltered = recordsTotal,
+                recordsTotal = recordsTotal,
+                data = formattedData
+            });
         }
     }
 }

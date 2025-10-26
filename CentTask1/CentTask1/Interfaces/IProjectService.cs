@@ -9,5 +9,6 @@ namespace CentTask1.Interfaces
         Task<ProjectDetailViewModel?> GetProjectByIdAsync(Guid id);
         Task<ProjectUpdateViewModel?> UpdateProjectAsync(Guid id, ProjectCreateViewModel updatedProject);
         Task<bool> DeleteProjectAsync(Guid id);
+        IQueryable<ProjectGetViewModel> GetProjectsQueryable();
     }
 }
