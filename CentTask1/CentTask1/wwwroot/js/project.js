@@ -34,13 +34,16 @@
         if ($.fn.DataTable.isDataTable('#myProjectTable')) {
             try { $('#myProjectTable').DataTable().clear().destroy(); } catch (ex) { console.warn('DataTable destroy failed', ex); }
         }
-
         // Initialize DataTable with server-side processing
         $('#myProjectTable').DataTable({
             serverSide: true,
             processing: true,
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
+            dom: 'Blfrtip', // Add this line to enable buttons
+            buttons: [
+                 'excel', 'pdf', 'print'
+            ],
             ajax: {
                 url: '/Projects/GetProjectsDataTable',
                 type: 'POST',
@@ -81,7 +84,8 @@
                 }
             ],
             order: [[0, 'asc']]
-        });
+   });
+
     }
 
     // open project modal (unchanged)
