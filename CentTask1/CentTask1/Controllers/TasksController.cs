@@ -1,6 +1,8 @@
 ﻿using CentTask1.Interfaces;
 using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.AspNetCore.Mvc;
+using CentTask1.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentTask1.Controllers
 {
@@ -21,11 +23,68 @@ namespace CentTask1.Controllers
             return PartialView("_GetAllTasks");
         }
         // GET all tasks from db to display in table
-        [HttpGet]
-        public async Task<IActionResult> GetAllTasks ()
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllTasks ()
+        //{
+        //    var projectTasks = await _projectTaskService.GetAllTasksAsync();
+        //    return Json(projectTasks);
+        //}
+        //get all task using queryable
+        [HttpPost]
+        public async Task<IActionResult> GetTasksDataTable()
         {
-            var projectTasks = await _projectTaskService.GetAllTasksAsync();
-            return Json(projectTasks);
+            var draw = Request.Form["draw"].FirstOrDefault();
+            var start = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
+            var length = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "10");
+            var searchValue = Request.Form["search[value]"].FirstOrDefault();
+            var sortColumnIndex = Convert.ToInt32(Request.Form["order[0][column]"].FirstOrDefault() ?? "0");
+            var sortColumn = Request.Form[$"columns[{sortColumnIndex}][data]"].FirstOrDefault();
+            var sortDirection = Request.Form["order[0][dir]"].FirstOrDefault() ?? "asc";
+
+            var taskList = await _projectTaskService.GetAllTasksAsync();
+            var query = taskList.AsQueryable();
+
+            // Filtering
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                query = query.Where(p =>
+                    p.TaskName.Contains(searchValue) ||
+                    (p.Description != null && p.Description.Contains(searchValue)) ||
+                    (p.TaskName != null && p.TaskName.Contains(searchValue)) ||
+                    (p.ProjectName != null && p.ProjectName.Contains(searchValue))
+                );
+            }
+
+            // Sorting
+            if (!string.IsNullOrEmpty(sortColumn))
+            {
+                query = sortDirection == "asc"
+                    ? query.OrderByDynamic(sortColumn, true)
+                    : query.OrderByDynamic(sortColumn, false);
+            }
+
+            var recordsTotal = query.Count();
+            var data = query.Skip(start).Take(length).ToList();
+
+            var formattedData = data.Select(p => new {
+                p.Id,
+                p.TaskName,
+                p.Description,
+                startDate = p.StartDate.ToString("yyyy-MM-dd"),
+                endDate = p.EndDate.ToString("yyyy-MM-dd"),
+                p.Priority,
+                p.EquipmentType,
+                p.TWR,
+                p.ProjectName
+            });
+
+            return Json(new
+            {
+                draw = draw,
+                recordsFiltered = recordsTotal,
+                recordsTotal = recordsTotal,
+                data = formattedData
+            });
         }
 
         //Details

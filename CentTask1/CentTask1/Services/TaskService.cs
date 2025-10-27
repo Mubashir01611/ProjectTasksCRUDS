@@ -1,6 +1,7 @@
 ﻿using CentTask1.DBC;
 using CentTask1.Interfaces;
 using CentTask1.Models;
+using CentTask1.ViewModels.ProjectViewModels;
 using CentTask1.ViewModels.TaskViewModels;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -61,12 +62,10 @@ namespace CentTask1.Services
 
 
         //GetAllTasks
-        public async Task<IEnumerable<TaskGetViewModel>> GetAllTasksAsync()
+        public async Task<List<TaskGetViewModel>> GetAllTasksAsync()
         {
-            try
-            {
-                var projectTasks = _dataContext.ProjectTasks
-                .Where(pt => pt.IsDeleted == false)
+            return await _dataContext.ProjectTasks
+                .Where(p => !p.IsDeleted)
                 .Include(pt => pt.Project)
                 .Select(t => new TaskGetViewModel
                 {
@@ -76,20 +75,13 @@ namespace CentTask1.Services
                     StartDate = t.StartDate,
                     EndDate = t.EndDate,
                     EquipmentType = t.EquipmentType,
-                    //AssignedTo = t.AssignedTo,
                     Priority = t.Priority,
                     TWR = t.TWR,
                     ProjectName = t.Project != null ? t.Project.ProjectName : null
-                });
-
-                return projectTasks;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving project tasks");
-                throw new InvalidOperationException("An error occurred while retrieving tasks.", ex);
-            }
+                })
+                .ToListAsync(); // Materialize here to avoid open DataReader issues
         }
+
 
         //GetById
         public async Task<TaskDetailViewModel?> GetTaskByIdAsync(Guid id)

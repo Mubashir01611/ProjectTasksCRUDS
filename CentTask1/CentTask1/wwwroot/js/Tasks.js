@@ -35,57 +35,47 @@
 
     function fetchTaskData() {
         toggleLoader(true);
-        $.ajax({
-            type: "GET",
-            url: "Tasks/GetAllTasks",
-            dataType: "json",
-            success: function (data) {
-                console.log("Project Tasks Data", data);
-                var tbody = $("#myTable tbody");
-                tbody.empty();
-
-                data.forEach(function (task) {
-                    tbody.append(`
-                    <tr>
-                        <td>${task.taskName}</td>
-                        <td>${task.description ?? ''}</td>
-                        <td>${task.startDate ? task.startDate.substring(0, 10) : ''}</td>
-                        <td>${task.endDate ? task.endDate.substring(0, 10) : ''}</td>
-                        <td>${task.priority ?? ''}</td>
-                        <td>${task.equipmentType ?? ''}</td>
-                        <td>${task.twr ?? ''}</td>
-                        <td>${task.projectName ?? ''}</td>
-                        <td>
-                            <a href="#" class="fa fa-pencil text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${task.id}"></a>
-                            <a href="#" class="fa fa-eye text-decoration-none openTaskDetailModal text-dark me-1" data-id="${task.id}"></a>
-                            <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${task.id}"></a>
-                        </td>
-                    </tr>
-                `);
-                });
-                toggleLoader(false);
-                if ($.fn.DataTable.isDataTable('#myTable')) {
-                    $('#myTable').DataTable().clear().destroy();
-                }
-
-                // reinitialize DataTable
-               $('#myTable').DataTable({
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    info: true
-                });
+        if ($.fn.DataTable.isDataTable('#myTable')) {
+            $('#myTable').DataTable().clear().destroy();
+        }
+        $('#myTable').DataTable({
+            serverSide: true,
+            processing: true,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100],
+            ajax: {
+                url: '/Tasks/GetTasksDataTable',
+                type: 'POST',
+                dataType: 'json',
+                data: function (d) { return d; },
+                beforeSend: function () { toggleLoader(true); },
+                complete: function () { toggleLoader(false); }
             },
-            error: function (err) {
-                Swal.fire({ title: 'Error!', text: 'Error loading tasks', icon: 'error' });
-
-                console.error("Error loading tasks:", err);
-                $("#taskContainer").html('<div class="text-center p-5 text-danger"><h4>Error loading tasks</h4></div>');
-           
-            }
+            columns: [
+                { data: 'taskName' },
+                { data: 'description' },
+                { data: 'startDate' },
+                { data: 'endDate' },
+                { data: 'priority' },
+                { data: 'equipmentType' },
+                { data: 'twr' },
+                { data: 'projectName' },
+                {
+                    data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    render: function (id, type, row) {
+                        return `
+                            <a href="#" class="fa fa-pencil text-decoration-none me-1 openTaskModal" data-url="Tasks/EditProjectTaskForm" data-id="${id}"></a>
+                            <a href="#" class="fa fa-eye text-decoration-none openTaskDetailModal text-dark me-1" data-id="${id}"></a>
+                            <a href="#" class="fa fa-trash text-danger deleteTask" data-id="${id}"></a>
+                        `;
+                    }
+                }
+            ],
+            order: [[0, 'asc']]
         });
     }
-
 
     //modal detail
     $(document).on('click', '.openTaskDetailModal', function (e) {
