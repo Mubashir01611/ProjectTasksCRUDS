@@ -62,9 +62,9 @@ namespace CentTask1.Services
 
 
         //GetAllTasks
-        public async Task<List<TaskGetViewModel>> GetAllTasksAsync()
+        public IQueryable<TaskGetViewModel> GetAllTasksAsync()
         {
-            return await _dataContext.ProjectTasks
+            return _dataContext.ProjectTasks
                 .Where(p => !p.IsDeleted)
                 .Include(pt => pt.Project)
                 .Select(t => new TaskGetViewModel
@@ -78,8 +78,7 @@ namespace CentTask1.Services
                     Priority = t.Priority,
                     TWR = t.TWR,
                     ProjectName = t.Project != null ? t.Project.ProjectName : null
-                })
-                .ToListAsync(); // Materialize here to avoid open DataReader issues
+                }); // Materialize here to avoid open DataReader issues
         }
 
 

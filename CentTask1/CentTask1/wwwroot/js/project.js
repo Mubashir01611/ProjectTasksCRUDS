@@ -39,6 +39,8 @@
         $('#myProjectTable').DataTable({
             serverSide: true,
             processing: true,
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
                 url: '/Projects/GetProjectsDataTable',
                 type: 'POST',

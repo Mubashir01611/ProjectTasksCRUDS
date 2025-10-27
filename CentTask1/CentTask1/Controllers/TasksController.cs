@@ -35,14 +35,14 @@ namespace CentTask1.Controllers
         {
             var draw = Request.Form["draw"].FirstOrDefault();
             var start = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
-            var length = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "10");
+            var length = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "5");
             var searchValue = Request.Form["search[value]"].FirstOrDefault();
             var sortColumnIndex = Convert.ToInt32(Request.Form["order[0][column]"].FirstOrDefault() ?? "0");
             var sortColumn = Request.Form[$"columns[{sortColumnIndex}][data]"].FirstOrDefault();
             var sortDirection = Request.Form["order[0][dir]"].FirstOrDefault() ?? "asc";
 
-            var taskList = await _projectTaskService.GetAllTasksAsync();
-            var query = taskList.AsQueryable();
+            var query =  _projectTaskService.GetAllTasksAsync();
+            //var query = taskList.AsQueryable();
 
             // Filtering
             if (!string.IsNullOrEmpty(searchValue))
@@ -63,8 +63,8 @@ namespace CentTask1.Controllers
                     : query.OrderByDynamic(sortColumn, false);
             }
 
-            var recordsTotal = query.Count();
-            var data = query.Skip(start).Take(length).ToList();
+            var recordsTotal = await query.CountAsync();
+            var data = await query.Skip(start).Take(length).ToListAsync();
 
             var formattedData = data.Select(p => new {
                 p.Id,

@@ -41,7 +41,7 @@
         $('#myTable').DataTable({
             serverSide: true,
             processing: true,
-            pageLength: 10,
+            pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
                 url: '/Tasks/GetTasksDataTable',
