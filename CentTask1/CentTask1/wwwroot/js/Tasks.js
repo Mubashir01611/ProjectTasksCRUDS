@@ -44,7 +44,7 @@
             dom: 'Blfrtip', // Add this line to enable buttons
             buttons: [
                 //'excel', 'pdf', 'print'
-                'print'
+                //'print'
             ],
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],

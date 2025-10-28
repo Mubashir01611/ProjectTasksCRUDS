@@ -40,56 +40,58 @@
             processing: true,
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
-            dom: 'Blfrtip', // Add this line to enable buttons
-            buttons: [
-                {
-                    extend: 'print',
-                    text: 'Print All',
-                    action: function (e, dt, button, config) {
-                        $.ajax({
-                            url: '/Projects/GetProjectsDataTable',
-                            type: 'POST',
-                            data: {
-                                draw: 1,
-                                start: 0,
-                                length: -1 // ✅ -1 means "fetch all" (custom logic needed in backend)
-                            },
-                            success: function (response) {
-                                // Create a temporary table for printing
-                                let tableHtml = '<table class="table table-bordered"><thead><tr>' +
-                                    '<th>Project Name</th><th>Description</th><th>Start Date</th><th>End Date</th>' +
-                                    '<th>Budget</th><th>Client Name</th><th>Manager</th><th>Status</th></tr></thead><tbody>';
+            //dom: 'Blfrtip', // Add this line to enable buttons
 
-                                response.data.forEach(row => {
-                                    tableHtml += `<tr>
-                            <td>${row.projectName}</td>
-                            <td>${row.description}</td>
-                            <td>${row.startDate}</td>
-                            <td>${row.endDate}</td>
-                            <td>${row.budget}</td>
-                            <td>${row.clientName}</td>
-                            <td>${row.manager}</td>
-                            <td>${row.status ? 'Active' : 'Inactive'}</td>
-                        </tr>`;
-                                });
+            ///commented this code for styling purposes
+//            buttons: [
+//                {
+//                    extend: 'print',
+//                    text: 'Print All',
+//                    action: function (e, dt, button, config) {
+//                        $.ajax({
+//                            url: '/Projects/GetProjectsDataTable',
+//                            type: 'POST',
+//                            data: {
+//                                draw: 1,
+//                                start: 0,
+//                                length: -1 // ✅ -1 means "fetch all" (custom logic needed in backend)
+//                            },
+//                            success: function (response) {
+//                                // Create a temporary table for printing
+//                                let tableHtml = '<table class="table table-bordered"><thead><tr>' +
+//                                    '<th>Project Name</th><th>Description</th><th>Start Date</th><th>End Date</th>' +
+//                                    '<th>Budget</th><th>Client Name</th><th>Manager</th><th>Status</th></tr></thead><tbody>';
 
-                                tableHtml += '</tbody></table>';
+//                                response.data.forEach(row => {
+//                                    tableHtml += `<tr>
+//                            <td>${row.projectName}</td>
+//                            <td>${row.description}</td>
+//                            <td>${row.startDate}</td>
+//                            <td>${row.endDate}</td>
+//                            <td>${row.budget}</td>
+//                            <td>${row.clientName}</td>
+//                            <td>${row.manager}</td>
+//                            <td>${row.status ? 'Active' : 'Inactive'}</td>
+//                        </tr>`;
+//                                });
 
-                                // Open print window
-                                let win = window.open('', '', 'height=700,width=900');
-                                win.document.write('<html><head><title>All Projects</title>');
-                                win.document.write('<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>');
-                                win.document.write('</head><body>');
-                                win.document.write(tableHtml);
-                                win.document.write('</body></html>');
-                                win.document.close();
-                                win.print();
-                            }
-                        });
-                    }
-                }
-            ]
-,
+//                                tableHtml += '</tbody></table>';
+
+//                                // Open print window
+//                                let win = window.open('', '', 'height=700,width=900');
+//                                win.document.write('<html><head><title>All Projects</title>');
+//                                win.document.write('<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>');
+//                                win.document.write('</head><body>');
+//                                win.document.write(tableHtml);
+//                                win.document.write('</body></html>');
+//                                win.document.close();
+//                                win.print();
+//                            }
+//                        });
+//                    }
+//                }
+//            ]
+//,
 
             ajax: {
                 url: '/Projects/GetProjectsDataTable',
