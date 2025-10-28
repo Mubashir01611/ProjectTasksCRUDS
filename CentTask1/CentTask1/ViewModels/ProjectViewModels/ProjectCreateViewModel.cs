@@ -11,6 +11,7 @@ namespace CentTask1.ViewModels.ProjectViewModels
         public double? Budget { get; set; }
         [Display(Name = "Client Name")]
         public string? ClientName { get; set; }
+        [Display(Name = "Project Status")]
         public bool Status { get; set; } 
         public string? Manager { get; set; }
     }
