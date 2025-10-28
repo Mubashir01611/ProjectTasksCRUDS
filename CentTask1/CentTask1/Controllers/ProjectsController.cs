@@ -108,7 +108,8 @@ namespace CentTask1.Controllers
             // Read DataTables parameters
             var draw = Request.Form["draw"].FirstOrDefault();
             var start = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
-            var length = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "5");
+            var lengthRaw = Request.Form["length"].FirstOrDefault();
+            var length = lengthRaw == "-1" ? int.MaxValue : Convert.ToInt32(lengthRaw ?? "5");
             var searchValue = Request.Form["search[value]"].FirstOrDefault();
             var sortColumnIndex = Convert.ToInt32(Request.Form["order[0][column]"].FirstOrDefault() ?? "0");
             var sortColumn = Request.Form[$"columns[{sortColumnIndex}][data]"].FirstOrDefault();
@@ -116,6 +117,10 @@ namespace CentTask1.Controllers
 
             // Get all projects (you can optimize with IQueryable for large datasets)
             var query = _projectService.GetProjectsQueryable();
+            if (length == -1)
+            {
+                length = int.MaxValue; // ✅ Fetch all rows
+            }
 
             // Filtering
             if (!string.IsNullOrEmpty(searchValue))

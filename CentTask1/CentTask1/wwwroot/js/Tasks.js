@@ -41,6 +41,11 @@
         $('#myTable').DataTable({
             serverSide: true,
             processing: true,
+            dom: 'Blfrtip', // Add this line to enable buttons
+            buttons: [
+                //'excel', 'pdf', 'print'
+                'print'
+            ],
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
