@@ -40,7 +40,8 @@
             processing: true,
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
-            //dom: 'Blfrtip', // Add this line to enable buttons
+            dom: '<"top-left"lf>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
+ // Add this line to enable buttons
 
             ///commented this code for styling purposes
 //            buttons: [

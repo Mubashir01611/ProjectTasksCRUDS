@@ -13,49 +13,29 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
-
-
 <style>
-    div.dataTables_filter {
-        padding:0px;
-        float:right;
-        text-align:start;
-    }
-    div.dataTables_filter input {
-           float:left;
-        }
-
-    div.dataTables_paginate {
-        margin-top:23px;
-        float:right;
+    .top-left {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
     }
 
-    div.dataTables_info{
-        margin-top:23px;
-        float:left;
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
     }
 
-    div.dataTables_length{
-        float:left;
-        width:100px;
-    }
-
-    div.dt-buttons {
-        float: none;
+    .bottom-left {
         text-align: left;
     }
-    .taskButton{
-        border: 2px solid green;
-        border-radius: 45px;
-        padding: 8px 29px;
-        font-size: 16px;
-    }
-    .button{
-        display:flex;
-        justify-content:flex-end;
-    }
-</style>
 
+    .bottom-right {
+        text-align: right;
+    }
+
+</style>
 <h1 class="mt-5">Lists of Tasks</h1>
 
 @* modal (larger, centered) *@

@@ -14,114 +14,64 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link href="~/css/sidebar.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/CentTask1.styles.css" asp-append-version="true" />
-    <style>
-        body, html {
-            height: 100%;
-        }
-        .dashboard-containe {
-            width: 1265px;
-            position: absolute;
-            right: 0px;
-            display: flex;
-            flex-direction: row;
-        }
-        .sidebar {
-            width: 250px;
-            background: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            padding: 1rem 0;
-        }
-
-        .sidebar-link:hover{
-            cursor:pointer;
-        }
-        .sidebar-content {
-            flex: 1;
-            padding: 13px;
-        }
-        .sidebar img {
-            margin: 19px 0px 25px 24px;
-            max-width: 169px;
-            height: auto;
-            
-        }
-        .sidebar .nav-link {
-            text-align:start;
-            margin-left: 41px;
-            margin-top: 6px;
-            margin-bottom: 0px;
-            color: black;
-        }
-        .sidebar .nav-link:hover {
-           cursor:pointer;
-                color: #f65e0c;
-        }
-        .sidebar .separator {
-            border-top: 1px solid #dee2e6;
-        }
-        .sidebar-bottom {
-            text-align: center;
-        }
-        .main-content {
-            
-            width: 1241px;
-        }
-    
       
-
-
-    </style>
 </head>
 <body>
-    <div class="dashboard-containe">
-
-            <nav class="sidebar">
-
-                <div class="sidebar-content">
-
-                    @* <a asp-action="MainIndex"> *@
-                    <a asp-action="Index">
-                        <img src="~/assets/img/logo.png" alt="Logo" />
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header text-center">
+                <img src="~/assets/img/logo.png" alt="Logo" class="logo-full" />
+                <img src="~/assets/img/logo-icon.png" alt="Logo Icon" class="logo-icon" />
+            </div>
+            <div class="sidear-content">
+            <ul class="sidebar-nav mt-4">
+                <li class="nav-item">
+                    <a href="#" id="loadHome" class="nav-link active ">
+                        <i class="fa fa-home"></i>
+                        <span class="link-text">Home</span>
                     </a>
-
-                    <a href="#" class="nav-link fw-bold w-75 mx-auto" id="loadHome">
-
-                        <i class="fa fa-home text-muted"></i> Home
-                    
+                </li>
+                <li class="nav-item">
+                        <a href="#" id="getTasks" class="nav-link sidebar-link ">
+                        <i class="fa fa-tasks"></i>
+                        <span class="link-text">Tasks</span>
                     </a>
-                    <div class="separator"></div>
-               
-                    <a class="nav-link w-75 mx-auto sidebar-link"> <i class="fa fa-tasks me-2 text-muted"></i>Tasks</a>
-                
-                    <a class="nav-link w-75 mx-auto " id="getProjects"><i class="fa fa-folder-open me-2 text-muted"></i>Projects</a>
-                </div>
-                    <div class="separator"></div>
-                <div class="sidebar-bottom">
-                    <a class="nav-link w-75" asp-area="" asp-controller="Settings" asp-action="Index"><i class="fa fa-cog"></i> Settings</a>
-                </div>
-            </nav>
-       
-        
-        <div class="main-content">
+                </li>
+                <li class="nav-item">
+                    <a href="#" id="getProjects" class="nav-link ">
+                        <i class="fa fa-folder-open"></i>
+                        <span class="link-text">Projects</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                @* <a asp-controller="Settings" asp-action="Index" class="nav-link">
+                    <i class="fa fa-cog"></i>
+                    <span class="link-text">Settings</span>
+                </a> *@
+                <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary mt-3">
+                    <i class="fa fa-angle-double-left"></i>
+                </button>
+            </div>
+
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="main-content" class="main-content">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-        </div>
-            <footer class="footer text-muted text-center">
-                <div class="container">
-                <span>
-                    &copy; 2025 <strong>Pilot</strong> — All rights reserved.
-                </span>
-            </div>
+            <footer class="footer text-center ">
+                <span>&copy; 2025 <strong>Pilot</strong> — All rights reserved.</span>
             </footer>
+        </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -157,7 +107,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/Tasks.js" asp-append-version="true"></script>
     <script src="~/js/project.js" asp-append-version="true"></script>
-
+    <script src="~/js/sidebar.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

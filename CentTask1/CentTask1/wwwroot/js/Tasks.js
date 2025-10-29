@@ -1,6 +1,7 @@
 ﻿$(function () {
     // Sidebar Tasks button
-    $(document).on("click", "a.sidebar-link", function (e) {
+    //changing the class temporary
+    $(document).on("click", "#getTasks", function (e) {
         e.preventDefault();
         loadTasks(); 
     });
@@ -41,11 +42,13 @@
         $('#myTable').DataTable({
             serverSide: true,
             processing: true,
-            dom: 'Blfrtip', // Add this line to enable buttons
-            buttons: [
-                //'excel', 'pdf', 'print'
-                //'print'
-            ],
+            dom: '<"top-left"lf>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
+
+            //dom: 'Blfrtip', // Add this line to enable buttons
+            //buttons: [
+            //    //'excel', 'pdf', 'print'
+            //    //'print'
+            //],
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
