@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CentTask1.Entities;
+using CentTask1.Enum;
 using CentTask1.ViewModels.BaseViewModels;
 
 namespace CentTask1.Models
@@ -15,7 +17,9 @@ namespace CentTask1.Models
         public string? Priority { get; set; }
         //public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
-        public string? TWR { get; set; } 
+        public string? TWR { get; set; }
+        public ProjectTaskStatus Status { get; set; } = default;
+
         // Foreign Key 
         // Navigation Property
         [ForeignKey("ProjectId")]
