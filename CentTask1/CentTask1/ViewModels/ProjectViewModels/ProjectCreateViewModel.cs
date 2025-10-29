@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CentTask1.Enum;
 using CentTask1.ViewModels.BaseViewModels;
 
 namespace CentTask1.ViewModels.ProjectViewModels
@@ -11,8 +12,11 @@ namespace CentTask1.ViewModels.ProjectViewModels
         public double? Budget { get; set; }
         [Display(Name = "Client Name")]
         public string? ClientName { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid status.")]
         [Display(Name = "Project Status")]
-        public bool Status { get; set; } 
+        public ProjectStatus Status { get; set; }
+
         public string? Manager { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CentTask1.Enum;
 using CentTask1.ViewModels.BaseViewModels;
 
 namespace CentTask1.ViewModels.ProjectViewModels
@@ -12,7 +13,7 @@ namespace CentTask1.ViewModels.ProjectViewModels
         [Display(Name = "Client Name")]
         public string? ClientName { get; set; }
         [Display(Name = "Project Status")]
-        public bool Status { get; set; }
+        public ProjectStatus Status { get; set; }
         public string? Manager { get; set; }
     }
 }

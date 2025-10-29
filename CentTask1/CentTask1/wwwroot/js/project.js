@@ -117,8 +117,39 @@
                 { 
                     data: 'status',
                     render: function (data) {
-                        return `<span class="badge ${data ? 'bg-success' : 'bg-danger'}">${data ? 'Active' : 'Inactive'}</span>`;
+                        let badgeClass = '';
+                        let statusText = '';
+
+                        switch (data) {
+                            case 0:
+                                badgeClass = 'bg-secondary';
+                                statusText = 'Not Selected';
+                                break;
+                            case 1:
+                                badgeClass = 'bg-dark';
+                                statusText = 'Not Started';
+                                break;
+                            case 2:
+                                badgeClass = 'bg-info text-dark';
+                                statusText = 'Started';
+                                break;
+                            case 3:
+                                badgeClass = 'bg-warning text-dark';
+                                statusText = 'In Progress';
+                                break;
+                            case 4:
+                                badgeClass = 'bg-success';
+                                statusText = 'Completed';
+                                break;
+                            default:
+                                badgeClass = 'bg-light text-dark';
+                                statusText = 'Unknown';
+                                break;
+                        }
+
+                        return `<span class="badge ${badgeClass}">${statusText}</span>`;
                     }
+
                 },
                 {
                     data: 'id',
@@ -204,23 +235,23 @@
         });
 
 
-        $(document).on('click', '.openProjectDetailModal', function (e) {
-            e.preventDefault();
-            var id = $(this).data("id");
-            $.ajax({
-                type: "GET",
-                url: "Projects/Details" + (id ? "?id=" + id : ""),
-                success: function (htmlContent)
-                {
-                    $("#projectModalBodyContent").html(htmlContent);
-                },
-                error: function (err)
-                {
-                    Swal.fire({ title: 'Error', text: 'Internal Server Error', icon: 'error', });
-                    console.log("error loading view", err);
-                }
-            }); $("#modalTitle").text("Task Detail"); $('#createOrEditProject').modal('show'); 
-        });
+        //$(document).on('click', '.openProjectDetailModal', function (e) {
+        //    e.preventDefault();
+        //    var id = $(this).data("id");
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "Projects/Details" + (id ? "?id=" + id : ""),
+        //        success: function (htmlContent)
+        //        {
+        //            $("#projectModalBodyContent").html(htmlContent);
+        //        },
+        //        error: function (err)
+        //        {
+        //            Swal.fire({ title: 'Error', text: 'Internal Server Error', icon: 'error', });
+        //            console.log("error loading view", err);
+        //        }
+        //    }); $("#modalTitle").text("Task Detail"); $('#createOrEditProject').modal('show'); 
+        //});
          
     });
 

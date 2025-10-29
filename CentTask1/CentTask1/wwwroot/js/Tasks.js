@@ -68,6 +68,8 @@
                 { data: 'equipmentType' },
                 { data: 'twr' },
                 { data: 'projectName' },
+                { data: 'status' },
+
                 {
                     data: 'id',
                     orderable: false,

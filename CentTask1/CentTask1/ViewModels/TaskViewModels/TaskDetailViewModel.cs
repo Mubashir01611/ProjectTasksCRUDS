@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CentTask1.Enum;
 using CentTask1.ViewModels.BaseViewModels;
 
 namespace CentTask1.ViewModels.TaskViewModels
@@ -15,5 +16,8 @@ namespace CentTask1.ViewModels.TaskViewModels
         public string? ProjectId { get; set; }
         [Display(Name = "Project Name")]
         public string? ProjectName { get; set; }
+        [Display(Name = "Project Status")]
+        public ProjectTaskStatus Status { get; set; }
+
     }
 }
