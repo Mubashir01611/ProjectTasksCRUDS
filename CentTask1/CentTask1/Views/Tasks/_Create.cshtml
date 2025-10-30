@@ -1,4 +1,5 @@
-﻿@model CentTask1.ViewModels.TaskViewModels.TaskCreateViewModel;  
+﻿@using CentTask1.Enum
+@model CentTask1.ViewModels.TaskViewModels.TaskCreateViewModel;  
 <style>
     /* Fix Select2 input border and alignment */
     .select2-container--bootstrap5 .select2-selection {
@@ -94,6 +95,20 @@
                 }
             </select>
             <span asp-validation-for="ProjectId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+       
+        <div class="col-md-6 mb-3">
+            <label asp-for="Status" class="form-label ">@Html.DisplayNameFor(model => model.Status)<span class="text-danger">*</span></label>
+            <select asp-for="Status" class="form-select">
+                <option value="">Select a project</option>
+                @foreach (var status in Enum.GetValues(typeof(ProjectTaskStatus)))
+                {
+                    <option value="@((int)status)">@status</option>
+                }
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
         </div>
     </div>
 

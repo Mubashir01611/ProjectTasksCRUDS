@@ -2,6 +2,7 @@
     // Sidebar Tasks button
     //changing the class temporary
     $(document).on("click", "#getTasks", function (e) {
+        debugger;
         e.preventDefault();
         loadTasks(); 
     });
@@ -68,7 +69,42 @@
                 { data: 'equipmentType' },
                 { data: 'twr' },
                 { data: 'projectName' },
-                { data: 'status' },
+                {
+                    data: 'status',
+                    render: function (data) {
+                        let badgeClass = '';
+                        let statusText = '';
+
+                        switch (data) {
+                            case 0:
+                                badgeClass = 'bg-secondary';
+                                statusText = 'Not Selected';
+                                break;
+                            case 1:
+                                badgeClass = 'bg-dark';
+                                statusText = 'Not Started';
+                                break;
+                            case 2:
+                                badgeClass = 'bg-info text-dark';
+                                statusText = 'Started';
+                                break;
+                            case 3:
+                                badgeClass = 'bg-warning text-dark';
+                                statusText = 'In Progress';
+                                break;
+                            case 4:
+                                badgeClass = 'bg-success';
+                                statusText = 'Completed';
+                                break;
+                            default:
+                                badgeClass = 'bg-light text-dark';
+                                statusText = 'Unknown';
+                                break;
+                        }
+
+                        return `<span class="badge ${badgeClass}">${statusText}</span>`;
+                    }
+ },
 
                 {
                     data: 'id',

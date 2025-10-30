@@ -67,7 +67,7 @@
         <div class="col-md-6 mb-3">
             <label asp-for="Status" class="form-label">@Html.DisplayNameFor(model => model.Status)<span class="text-danger">*</span></label>
             <select asp-for="Status" class="form-select">
-                <option value="0">-- Select Status --</option>
+                <option value="">-- Select Status --</option>
                 @foreach (var status in Enum.GetValues(typeof(ProjectStatus)))
                 {
                     <option value="@((int)status)">@status</option>

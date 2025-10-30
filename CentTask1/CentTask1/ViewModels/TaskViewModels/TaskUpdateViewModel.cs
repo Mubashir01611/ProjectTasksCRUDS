@@ -17,7 +17,8 @@ namespace CentTask1.ViewModels.TaskViewModels
         public string? ProjectId { get; set; }
         [Display(Name = "Project Name")]
         public string? ProjectName { get; set; }
-        [Display(Name = "Project Status")]
-        public ProjectTaskStatus Status { get; set; }
+        [Display(Name = "Task Status")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid status.")]
+        [Required] public ProjectTaskStatus Status { get; set; }
     }
 }

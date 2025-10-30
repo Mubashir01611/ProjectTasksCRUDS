@@ -18,8 +18,6 @@ namespace CentTask1.Models
         //public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
         public string? TWR { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid status.")]
         public ProjectTaskStatus Status { get; set; }
 
         // Foreign Key 

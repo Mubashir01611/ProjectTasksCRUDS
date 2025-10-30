@@ -37,6 +37,7 @@ namespace CentTask1.Services
                     EquipmentType = task.EquipmentType,
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false,
+                    Status = task.Status,
                     ProjectId = task.ProjectId == null ? null : Guid.Parse( task.ProjectId)
                 };
 
@@ -77,7 +78,8 @@ namespace CentTask1.Services
                     EquipmentType = t.EquipmentType,
                     Priority = t.Priority,
                     TWR = t.TWR,
-                    ProjectName = t.Project != null ? t.Project.ProjectName : null
+                    ProjectName = t.Project != null ? t.Project.ProjectName : null,
+                    Status = t.Status
                 }); // Materialize here to avoid open DataReader issues
         }
 
