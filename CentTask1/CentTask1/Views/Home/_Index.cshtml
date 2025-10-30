@@ -1,8 +1,108 @@
-﻿ 
-<div class="text-center m-5">
-    @* <h1 class="display-2">Welcome</h1>
-    <h3 class="display-4">To</h3> *@
+﻿@model CentTask1.ViewModels.HomeViewModel.DashboardViewModel;
 
-    <img style="height: 150px;" src="~/assets/img/logo.png" alt="Logo" />
+<!-- Bootstrap + Font Awesome should already be included in layout -->
+<style>
+    .body {
+        background-color: #f8f9fa;
+    }
 
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .stat-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: #fff;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        color: #6c757d;
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin-top: 5px;
+        color: #212529;
+    }
+
+    .stat-title {
+        font-size: 1rem;
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .stat-card
+
+    {
+        margin-bottom: 20px;
+    }
+
+    }
+</style>
+<div class="body">
+
+<div class="text-center my-4">
+    <img style="height: 100px;" src="~/assets/img/logo.png" alt="Logo" />
+</div>
+
+<section class="dashboard-container">
+    <div class="row g-4">
+        <!-- Active Tasks -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
+                <div>
+                    <p class="stat-title">Active Tasks</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.InProgressTask)</div>
+                </div>
+                <i class="fa-solid fa-list-check stat-icon text-primary"></i>
+            </div>
+        </div>
+
+        <!-- Total Tasks -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
+                <div>
+                    <p class="stat-title">Total Tasks</p>
+                        <div class="stat-number"> @Html.DisplayFor(model => model.TaskCount)</div>
+                </div>
+                <i class="fa-solid fa-tasks stat-icon text-success"></i>
+            </div>
+        </div>
+
+        <!-- Active Projects -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
+                <div>
+                    <p class="stat-title">Active Projects</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.CompletedProjects)</div>
+                </div>
+                <i class="fa-solid fa-diagram-project stat-icon text-warning"></i>
+            </div>
+        </div>
+
+        <!-- Total Projects -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
+                <div>
+                    <p class="stat-title">Total Projects</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.ProjectCount)</div>
+                </div>
+                <i class="fa-solid fa-folder-open stat-icon text-danger"></i>
+            </div>
+        </div>
+    </div>
+</section>
 </div>
