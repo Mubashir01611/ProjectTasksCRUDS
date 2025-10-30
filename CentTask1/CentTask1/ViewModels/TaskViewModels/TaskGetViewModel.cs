@@ -16,7 +16,7 @@ namespace CentTask1.ViewModels.TaskViewModels
         public string? ProjectId { get; set; }
         [Display(Name = "Project Name")]
         public string? ProjectName { get; set; }
-        [Display(Name = "Project Status")]
+        [Display(Name = "Task Status")]
         public ProjectTaskStatus Status { get; set; }
 
     }

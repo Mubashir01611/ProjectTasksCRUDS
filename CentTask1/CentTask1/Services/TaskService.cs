@@ -102,6 +102,7 @@ namespace CentTask1.Services
                 ProjectName = projectTask.Project != null ? projectTask.Project.ProjectName : null,
                 ProjectId = projectTask.ProjectId.ToString() ?? null,
                 CreatedOn = projectTask.CreatedOn,
+                Status = projectTask.Status
 
             };
                 //Assigned
@@ -129,7 +130,7 @@ namespace CentTask1.Services
                 existingTask.Priority = updatedTask.Priority;
                 existingTask.TWR = updatedTask.TWR;
                 existingTask.ProjectId = updatedTask.ProjectId == null ? null  : Guid.Parse(updatedTask.ProjectId);
-
+                existingTask.Status = updatedTask.Status;
                 await _dataContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -155,8 +156,9 @@ namespace CentTask1.Services
                 //AssignedTo = existingTask.AssignedTo,
                 Priority = existingTask.Priority,
                 TWR = existingTask.TWR,
-                ProjectId = existingTask.ProjectId?.ToString()
-                };
+                ProjectId = existingTask.ProjectId?.ToString(),
+                Status = existingTask.Status
+            };
             return taskViewModel;
         }
         ////Delete

@@ -2,11 +2,10 @@
 {
     public enum ProjectTaskStatus 
     {
-        NotSelected,
-        NotStarted,
-        Started,
-        Pending,
-        InProgress,
-        Completed 
+        NotSelected=0,
+        NotStarted=1,
+        Started=2,
+        InProgress=3,
+        Completed=4 
     }
 }

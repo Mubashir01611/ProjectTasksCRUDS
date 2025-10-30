@@ -75,7 +75,8 @@ namespace CentTask1.Controllers
                 p.Priority,
                 p.EquipmentType,
                 p.TWR,
-                p.ProjectName
+                p.ProjectName,
+                p.Status
             });
 
             return Json(new
