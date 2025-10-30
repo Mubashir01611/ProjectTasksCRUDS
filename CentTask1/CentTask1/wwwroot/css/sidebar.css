@@ -1,51 +1,155 @@
-﻿html, body {
+﻿/* Prevent floating or scroll bar issue */
+html, body {
+    height: 100vh;
     margin: 0;
     padding: 0;
-    height: 100%;
-    /*overflow-y: hidden;*/ /* horizontal scroll band */
+    overflow-x: hidden; /* Fix extra space on right */
 }
 
+/* Layout */
 .wrapper {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     overflow: hidden;
 }
 
-/* Sidebar fixed on left */
+/* Sidebar */
 .sidebar {
     background: #ffffff;
     color: #333;
     width: 240px;
-    height: 100vh; /* full screen height */
-    position: fixed;
-    top: 0;
-    left: 0;
+    transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
+    /*    justify-content: space-between;*/
     border-right: 1px solid #e0e0e0;
-    transition: width 0.3s ease;
-    z-index: 1000;
 }
 
-    /* Collapsed sidebar */
-    .sidebar.collapsed {
-        width: 80px;
+.sidear-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+/* Header Section */
+.sidebar-header {
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.logo-full {
+    width: 150px;
+    transition: opacity 0.3s ease;
+}
+
+.logo-icon {
+    width: 45px;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Collapsed view */
+.sidebar.collapsed .logo-full {
+    display: none;
+}
+
+.sidebar.collapsed .logo-icon {
+    display: inline-block;
+}
+
+/* Navigation links */
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px; /* Push below image */
+}
+
+.nav-item {
+    margin: 5px 0;
+}
+
+
+.nav-link {
+    color: #525050;
+    background-color: #f2f2f2;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin: 4px 12px;
+    font-weight: 500;
+}
+
+    .nav-link i {
+        font-size: 18px;
+        width: 25px;
+        text-align: center;
     }
 
-/* ✅ Main content vertical scroll only */
-.main-content {
-    flex: 1;
-    margin-left: 240px; /* sidebar space */
-    background: #f8f9fa;
-    padding: 20px;
-    overflow-y: auto; /* vertical scroll enable */
-    overflow-x: auto; /* no horizontal scroll */
-    min-height: 100vh;
-    transition: margin-left 0.3s ease;
+.link-text {
+    margin-left: 10px;
+    white-space: nowrap;
 }
 
-/* When sidebar is collapsed */
+/* Hover state */
+.nav-link:hover {
+    background-color: #ff6600;
+    color: #ffffff;
+}
+
+/* Active state (persistent highlight) */
+.nav-link.active {
+    background-color: #ff6600 !important;
+    color: #ffffff !important;
+}
+
+/* Collapsed view (hide text) */
+.sidebar.collapsed .link-text {
+    display: none;
+}
+
+/* Footer section */
+.sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin-top: 414px;
+}
+
+/* Collapse button */
+#toggleSidebar {
+    border-radius: 50%;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background: #f8f9fa;
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+/* Responsive margin change */
 .sidebar.collapsed ~ .main-content {
-    margin-left: 80px;
+    /*    margin-left: 80px;*/
+}
+
+.sidebar:not(.collapsed) ~ .main-content {
+    /*    margin-left: 240px;*/
 }
