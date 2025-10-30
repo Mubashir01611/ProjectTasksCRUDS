@@ -1,25 +1,15 @@
-﻿<div class="text-center" style="width:-1%">
-@*     <h1 class="display-4" 
-    style="
-        display: inline;
-        border-bottom: 7px solid #f65e0c;
-        border-radius: 4px;
-"
-    >Centangle Interactive</h1> *@
+﻿@model CentTask1.ViewModels.HomeViewModel.DashboardViewModel
 
-
-    <div id="HomeContainer" >
-        <!-- Home view yahan load hoga --> 
-        @await Html.PartialAsync("_Index")
+<div class="text-center">
+    <div id="HomeContainer">
+        @await Html.PartialAsync("_Index", Model)
     </div>
 
-    <div id="taskContainer" >
+    <div id="taskContainer" style="display:none;">
         <!-- GetAllTasks view yahan load hoga -->
     </div>
-   
-    <div id="ProjectContainer">
-        <!-- Home view yahan load hoga -->
-    </div>
 
+    <div id="ProjectContainer" style="display:none;">
+        <!-- Projects view yahan load hoga -->
+    </div>
 </div>
- 

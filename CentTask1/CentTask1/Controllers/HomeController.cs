@@ -32,8 +32,19 @@ namespace CentTask1.Controllers
 
         public IActionResult MainIndex()
         {
-            return View();
+            var dashboardViewModel = new DashboardViewModel
+            {
+                TaskCount = _taskService.GetAllTasksAsync().Count(),
+                ProjectCount = _projectService.GetAllProjectsAsync().Result.Count(),
+                InProgressTask = _taskService.GetAllTasksAsync()
+                                    .Where(t => t.Status == Enum.ProjectTaskStatus.InProgress).Count(),
+                CompletedProjects = _projectService.GetAllProjectsAsync().Result
+                                    .Where(p => p.Status == Enum.ProjectStatus.Completed).Count()
+            };
+
+            return View(dashboardViewModel); // send model to view
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
