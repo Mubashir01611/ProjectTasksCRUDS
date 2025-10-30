@@ -14,11 +14,18 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
 
 <style>
-    .top-left {
+    div.dataTables_wrapper div.top {
+        text-align:start;
         display: flex;
-        gap: 10px;
         justify-content: space-between;
-        margin-bottom: 10px;
+        align-items: center;
+        flex-wrap: wrap; /* optional: agar small screen ho to neeche aa jaye */
+    }
+
+    div.dataTables_wrapper div.top-left,
+    div.dataTables_wrapper div.top-right {
+        display: flex;
+        align-items: center;
     }
 
     .bottom {

@@ -43,7 +43,7 @@
         $('#myTable').DataTable({
             serverSide: true,
             processing: true,
-            dom: '<"top-left"lf>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
+            dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
 
             //dom: 'Blfrtip', // Add this line to enable buttons
             //buttons: [
