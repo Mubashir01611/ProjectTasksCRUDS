@@ -9,16 +9,14 @@ namespace CentTask1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ITaskService _taskService;
+         private readonly ITaskService _taskService;
         private readonly IProjectService _projectService;
 
-        public HomeController(ILogger<HomeController> logger,ITaskService taskService,IProjectService projectService)
+        public HomeController(ITaskService taskService,IProjectService projectService)
         {
             _taskService = taskService;
             _projectService = projectService;
-            _logger = logger;
-        }
+         }
 
         public IActionResult Index(DashboardViewModel dashboardViewModel)
         {

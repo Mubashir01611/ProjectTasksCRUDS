@@ -39,7 +39,7 @@
             serverSide: true,
             processing: true,
             pageLength: 5,
-            lengthMenu: [5, 10, 25, 50, 100],
+            lengthMenu: [5,10, 25, 50, 100],
             dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
  // Add this line to enable buttons
 

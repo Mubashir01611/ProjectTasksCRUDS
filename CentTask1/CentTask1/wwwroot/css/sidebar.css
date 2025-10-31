@@ -7,15 +7,19 @@ html, body {
 }
 
 /* Layout */
-.wrapper {
+.wrapper { 
     display: flex;
     height: 100vh;
     width: 100%;
-    overflow: hidden;
+    /*    overflow: auto;*/
+    /*    overflow: hidden;*/
 }
 
 /* Sidebar */
-.sidebar {
+.sidebar { 
+    position: fixed;
+    top: 0;
+    left: 0;
     background: #ffffff;
     color: #333;
     width: 240px;
@@ -125,20 +129,21 @@ html, body {
 }
 
 /* Footer section */
-.sidebar-footer {
+.sidebar-footer { 
     padding: 12px;
     border-top: 1px solid #ddd;
     text-align: center;
     margin-top: 414px;
 }
-
+ 
 /* Collapse button */
 #toggleSidebar {
     border-radius: 50%;
-}
-
+} 
 /* Main Content */
-.main-content {
+.main-content { 
+    position: relative;
+    top: 0;
     flex: 1;
     background: #f8f9fa;
     transition: margin-left 0.3s ease;
@@ -147,9 +152,9 @@ html, body {
 
 /* Responsive margin change */
 .sidebar.collapsed ~ .main-content {
-    /*    margin-left: 80px;*/
+        margin-left: 80px;
 }
 
 .sidebar:not(.collapsed) ~ .main-content {
-    /*    margin-left: 240px;*/
+        margin-left: 240px;
 }

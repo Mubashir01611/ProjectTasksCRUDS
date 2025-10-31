@@ -22,13 +22,7 @@ namespace CentTask1.Controllers
         {
             return PartialView("_GetAllTasks");
         }
-        // GET all tasks from db to display in table
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllTasks ()
-        //{
-        //    var projectTasks = await _projectTaskService.GetAllTasksAsync();
-        //    return Json(projectTasks);
-        //}
+       
         //get all task using queryable
         [HttpPost]
         public async Task<IActionResult> GetTasksDataTable()
