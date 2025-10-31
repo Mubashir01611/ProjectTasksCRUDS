@@ -38,9 +38,9 @@
         $('#myProjectTable').DataTable({
             serverSide: true,
             processing: true,
-            pageLength: 10,
-            lengthMenu: [[10, 25, 50, 75,100]],
             dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 75,100],
  // Add this line to enable buttons
 
             ///commented this code for styling purposes
