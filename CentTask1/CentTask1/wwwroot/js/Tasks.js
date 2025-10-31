@@ -50,8 +50,8 @@
             //    //'excel', 'pdf', 'print'
             //    //'print'
             //],
-            pageLength: 5,
-            lengthMenu: [5,10, 25, 50, 100],
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
                 url: '/Tasks/GetTasksDataTable',
                 type: 'POST',

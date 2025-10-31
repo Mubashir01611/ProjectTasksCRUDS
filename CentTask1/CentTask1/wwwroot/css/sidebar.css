@@ -88,8 +88,8 @@ html, body {
 
 
 .nav-link {
-    color: #525050;
     background-color: #f2f2f2;
+    color: gray !important;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -114,7 +114,7 @@ html, body {
 /* Hover state */
 .nav-link:hover {
     background-color: #ff6600;
-    color: #ffffff;
+    color: white !important;
 }
 
 /* Active state (persistent highlight) */
@@ -135,7 +135,9 @@ html, body {
     text-align: center;
     margin-top: 414px;
 }
- 
+.footertag{
+    padding-bottom:12px;
+}
 /* Collapse button */
 #toggleSidebar {
     border-radius: 50%;
