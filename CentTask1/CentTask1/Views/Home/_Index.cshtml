@@ -22,7 +22,7 @@
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 18px #ff6600;
         }
 
     .stat-icon {
@@ -43,6 +43,7 @@
         margin-bottom: 0;
     }
 
+
     @@media (max-width: 768px) {
         .stat-card
 
@@ -60,49 +61,57 @@
 
 <section class="dashboard-container">
     <div class="row g-4">
-        <!-- Active Tasks -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
-                <div>
-                    <p class="stat-title">Active Tasks</p>
-                        <div class="stat-number">@Html.DisplayFor(model => model.InProgressTask)</div>
-                </div>
-                <i class="fa-solid fa-list-check stat-icon text-primary"></i>
-            </div>
-        </div>
-
-        <!-- Total Tasks -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
-                <div>
-                    <p class="stat-title">Total Tasks</p>
+            <!-- Total Tasks -->
+            <div class="col-md-2 col-sm-6">
+                <div class="card stat-card p-4 d-flex align-items-center">
+                    <div>
+                        <p class="stat-title">Total Tasks</p>
                         <div class="stat-number"> @Html.DisplayFor(model => model.TaskCount)</div>
+                    </div>
+                    @* <i class="fa-solid fa-tasks stat-icon text-success"></i> *@
                 </div>
-                <i class="fa-solid fa-tasks stat-icon text-success"></i>
+            </div>
+        <!-- Active Tasks -->
+        <div class="col-md-4 col-sm-6">
+                <div class="card stat-card p-4 d-flex  justify-content-between flex-row align-items-center">
+                    <div>
+                        <p class="stat-title pe-1">Active Tasks</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.TasksInProgress)</div>
+                </div>
+                <div>
+                    <p class="stat-title">Pending Tasks</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.PendingTasks)</div>
+                </div>
+                @* <i class="fa-solid fa-list-check stat-icon text-primary"></i> *@
             </div>
         </div>
 
-        <!-- Active Projects -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
+            <!-- Total Projects -->
+            <div class="col-md-2 col-sm-6">
+                <div class="card stat-card p-4 d-flex  align-items-center">
+                    <div>
+                        <p class="stat-title">Total Projects</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.ProjectCount)</div>
+                    </div>
+                    @* <i class="fa-solid fa-folder-open stat-icon text-danger"></i> *@
+                </div>
+            </div>
+           <!-- Active Projects -->
+        <div class="col-md-4 col-sm-6">
+                <div class="card stat-card p-4 d-flex  justify-content-between flex-row  align-items-center">
                 <div>
                     <p class="stat-title">Active Projects</p>
                         <div class="stat-number">@Html.DisplayFor(model => model.CompletedProjects)</div>
                 </div>
-                <i class="fa-solid fa-diagram-project stat-icon text-warning"></i>
+                <div>
+                    <p class="stat-title">Pending Projects</p>
+                        <div class="stat-number">@Html.DisplayFor(model => model.PendingProjects)</div>
+                </div>
+                @* <i class="fa-solid fa-diagram-project stat-icon text-warning"></i> *@
             </div>
         </div>
 
-        <!-- Total Projects -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card stat-card p-4 d-flex justify-content-between flex-row align-items-center">
-                <div>
-                    <p class="stat-title">Total Projects</p>
-                        <div class="stat-number">@Html.DisplayFor(model => model.ProjectCount)</div>
-                </div>
-                <i class="fa-solid fa-folder-open stat-icon text-danger"></i>
-            </div>
-        </div>
+      
     </div>
 </section>
 </div>
