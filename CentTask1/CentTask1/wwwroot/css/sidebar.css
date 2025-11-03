@@ -133,10 +133,13 @@
 /* Collapse button */
 #toggleSidebar {
     border-radius: 50%;
+    background-color:gray;
+border-style:none;
 }
     #toggleSidebar:hover {
-        color: white;
+/*        color: white;*/
         background: #ff6600;
+/*        border:2px solid gray;*/
     } 
 /* Main Content */
 .main-content {

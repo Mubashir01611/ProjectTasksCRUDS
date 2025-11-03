@@ -106,11 +106,7 @@ html {
     }
 /*    footer*/
 .footertag {
-    /*position: fixed;*/
-    /* padding-bottom: 12px; */
-    /*bottom: 0;
-    text-align: center;
     background: white;
-    width: 100%;
-    height: 31px;*/
+    position: sticky;
+    bottom: 0;
 }
