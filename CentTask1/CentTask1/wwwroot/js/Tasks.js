@@ -2,7 +2,7 @@
     // Sidebar Tasks button
     //changing the class temporary
     $(document).on("click", "#getTasks", function (e) {
-        debugger;
+        
         e.preventDefault();
         loadTasks(); 
     });
@@ -125,7 +125,7 @@
 
     //modal detail
     $(document).on('click', '.openTaskDetailModal', function (e) {
-        debugger;
+        
         e.preventDefault();
         var id = $(this).data("id");
         $.ajax({
@@ -216,7 +216,7 @@
 
     //modal open dynamically for create and edit
     $(document).on('click', ".openTaskModal", function (e) {
-        debugger;
+        
         e.preventDefault();
         var id = $(this).data("id");
         var url = $(this).data("url"); // e.g. "/Tasks/CreateProjectTask" or "/Tasks/EditProjectTask"
@@ -248,7 +248,7 @@
 
     //CreateOrEdit submit
     $(document).on('click', '.submitForm', function (e) {
-        debugger;
+        
 
         e.preventDefault();
         var $btn = $(this);
@@ -295,7 +295,7 @@
 
     //delete
     $(document).on('click', '.deleteTask', function (e) {
-        debugger;
+        
         e.preventDefault();
         var id = $(this).data("id");
 
@@ -343,7 +343,7 @@
 
     //home
     $("#loadHome").on("click", function (e) {
-        debugger;
+        
         e.preventDefault();
         $.get("/Home/Index")
             .done(function (htmlContent) {

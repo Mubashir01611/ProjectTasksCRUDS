@@ -29,7 +29,7 @@
 
     function fetchProjectData() {
         toggleLoader(true);
-        debugger;
+        
         // Destroy any previous DataTable instance
         if ($.fn.DataTable.isDataTable('#myProjectTable')) {
             try { $('#myProjectTable').DataTable().clear().destroy(); } catch (ex) { console.warn('DataTable destroy failed', ex); }
