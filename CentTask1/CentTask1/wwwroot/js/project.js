@@ -193,10 +193,7 @@
     //CreateOrEdit
     $(document).on('click', '#submitProjectId', function (e) {
        
-        e.preventDefault();
-        // var id = $(this).data("id");
-
-        //var url = $(this).data("url"); // e.g. "/Tasks/Create"
+        e.preventDefault(); 
         var url = "/Projects/Create";
         var form = $('#createOrEditProjectForm'); // form's id
         var formData = form.serialize(); // convert form fields to query string
@@ -236,25 +233,6 @@
             }
         });
 
-
-        //$(document).on('click', '.openProjectDetailModal', function (e) {
-        //    e.preventDefault();
-        //    var id = $(this).data("id");
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "Projects/Details" + (id ? "?id=" + id : ""),
-        //        success: function (htmlContent)
-        //        {
-        //            $("#projectModalBodyContent").html(htmlContent);
-        //        },
-        //        error: function (err)
-        //        {
-        //            Swal.fire({ title: 'Error', text: 'Internal Server Error', icon: 'error', });
-        //            console.log("error loading view", err);
-        //        }
-        //    }); $("#modalTitle").text("Task Detail"); $('#createOrEditProject').modal('show'); 
-        //});
-         
     });
 
 

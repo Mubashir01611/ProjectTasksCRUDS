@@ -1,6 +1,5 @@
 ﻿$(function () {
     // Sidebar Tasks button
-    //changing the class temporary
     $(document).on("click", "#getTasks", function (e) {
         
         e.preventDefault();
@@ -24,8 +23,7 @@
             error: function (err) {
                 toggleLoader(false);
                 Swal.fire({ title: 'Error!', text: 'Error loading tasks', icon: 'error' });
-                console.error("Error loading partial view:", err);
-                //toggleLoader(false);
+                console.error("Error loading partial view:", err); 
                 $("#taskContainer").html(
                     '<div class="text-center p-5 text-danger"><h4>Error loading tasks</h4></div>'
                 );

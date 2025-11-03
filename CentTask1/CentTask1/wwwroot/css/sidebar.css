@@ -2,6 +2,7 @@
 
 /* Sidebar */
 .sidebar {
+    padding:3px;
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +13,7 @@
     transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #e0e0e0;
+/*    border-right: 1px solid #e0e0e0;*/
 }
 
 .sidear-content {
