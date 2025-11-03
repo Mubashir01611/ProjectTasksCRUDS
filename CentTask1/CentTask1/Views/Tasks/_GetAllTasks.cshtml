@@ -13,13 +13,15 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+<link href="~/css/site.css" rel="stylesheet" />
+
 <style>
     div.dataTables_wrapper div.top {
         text-align:start;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap; /* optional: agar small screen ho to neeche aa jaye */
+        /* flex-wrap: wrap; /* optional: agar small screen ho to neeche aa jaye */ 
     }
 
     div.dataTables_wrapper div.top-left,
@@ -28,8 +30,7 @@
         align-items: center;
     }
 
-    table {
-            /* background: #2984ff; */
+    table { 
         border-collapse: separate;
         border-spacing: 0;
     }
@@ -70,18 +71,6 @@
     .bottom-right {
         text-align: right;
     }
-
-    .btn-success {
-        border: 2px solid green;
-        border-radius: 23px;
-        padding: 9px 29px;
-    }
-
-    /* .table-background {
-        background: #2984ff;
-        border: 1px solid #2984ff;
-        border-radius:12px;
-    } */
 </style>
 <h1>Lists of Tasks</h1>
 
@@ -102,7 +91,7 @@
 
 <p class="button text-end">
     <!-- Create -->
-    <a href="#" class="btn btn-success TaskButton openTaskModal" data-url="Tasks/CreateProjectTask" data-id="">Add Task</a>
+    <a href="#" class="btn btn-green openTaskModal" data-url="Tasks/CreateProjectTask" data-id="">Add Task</a>
 </p>
 
 <div class="row">

@@ -39,7 +39,7 @@
             serverSide: true,
             processing: true,
             dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
-            pageLength: 10,
+            pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 75,100],
  // Add this line to enable buttons
 
@@ -127,7 +127,7 @@
                                 break;
                             case 1:
                                 badgeClass = 'bg-dark';
-                                statusText = 'Not Started';
+                                statusText = 'Pending..';
                                 break;
                             case 2:
                                 badgeClass = 'bg-info text-dark';

@@ -50,7 +50,7 @@
             //    //'excel', 'pdf', 'print'
             //    //'print'
             //],
-            pageLength: 10,
+            pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 100],
             ajax: {
                 url: '/Tasks/GetTasksDataTable',
@@ -82,7 +82,7 @@
                                 break;
                             case 1:
                                 badgeClass = 'bg-dark';
-                                statusText = 'Not Started';
+                                statusText = 'Pending..';
                                 break;
                             case 2:
                                 badgeClass = 'bg-info text-dark';

@@ -1,17 +1,17 @@
 ﻿/* Prevent floating or scroll bar issue */
-html, body {
+/*html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Fix extra space on right */
-}
+    overflow-x: hidden;*/ /* Fix extra space on right */
+/*}*/
 
 /* Layout */
-.wrapper { 
+/*.wrapper { 
     display: flex;
     height: 100vh;
     width: 100%; 
-}
+}*/
 
 /* Sidebar */
 .sidebar { 
@@ -135,9 +135,7 @@ html, body {
 .text-warning:hover {
     color: white !important;
 }
-.footertag{
-    padding-bottom:12px;
-}
+
 /* Collapse button */
 #toggleSidebar {
     border-radius: 50%;
@@ -151,7 +149,7 @@ html, body {
     position: relative;
     top: 0;
     flex: 1;
-    background: #f8f9fa;
+/*    background: #f8f9fa;*/
     transition: margin-left 0.3s ease;
     padding: 20px;
 }

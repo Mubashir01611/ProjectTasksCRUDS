@@ -3,7 +3,7 @@
     public enum ProjectStatus 
     {
         NotSelected,
-        NotStarted,
+        Pending,
         Started,
         InProgress,
         Completed
