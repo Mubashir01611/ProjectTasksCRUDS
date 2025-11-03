@@ -81,7 +81,7 @@
                                 break;
                             case 1:
                                 badgeClass = 'bg-dark';
-                                statusText = 'Pending..';
+                                statusText = 'Pending';
                                 break;
                             case 2:
                                 badgeClass = 'bg-info text-dark';
