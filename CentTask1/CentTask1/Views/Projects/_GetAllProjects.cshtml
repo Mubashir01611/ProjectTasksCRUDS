@@ -15,37 +15,47 @@
 
 <style>
     div.dataTables_wrapper div.top {
-        text-align:start;
+        text-align: start;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap; /* optional: agar small screen ho to neeche aa jaye */
-    } 
+    }
+
     div.dataTables_wrapper div.top-left,
     div.dataTables_wrapper div.top-right {
         display: flex;
         align-items: center;
-    } 
-    .bottom {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-    } 
-    .bottom-left {
-        text-align: left;
-    } 
-    .bottom-right {
-        text-align: right;
-    } 
-    .btn-success {
-        border:2px solid green;
-        border-radius:23px;
-        padding: 9px 29px;
     }
 
-    .table-background {
-     background:#2984ff;
+    table {
+        /* background: #2984ff; */
+        border-collapse: separate;
+        border-spacing: 0;
     }
+
+        table.dataTable thead {
+            background: #2984ff;
+            border-top-left-radius: 12px;
+        }
+
+            table.dataTable thead th:first-child {
+                background: #2984ff;
+                border-radius: 6px 0 0 6px;
+            }
+
+            table.dataTable thead th:last-child {
+                background: #2984ff;
+                border-radius: 0 6px 6px 0;
+            }
+
+        table.dataTable tbody td:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        table.dataTable tbody td:last-child {
+            border-radius: 0 6px 6px 0;
+        }
 </style>
 
 @* Modal (larger) *@
@@ -70,8 +80,8 @@
 
 <!-- Wrap table in a position-relative container so spinner overlays the table body -->
 <div id="projectTableWrapper" class="position-relative">
-    <table class="table table-hover align-content-start text-start" id="myProjectTable">
-        <thead class="table-background text-light rounded-circle">
+    <table class="table table-striped table-borderless align-content-start text-start" id="myProjectTable">
+        <thead class="table-background text-light">
             <tr>
                 <th style=" text-align : start;">@Html.DisplayNameFor(model => model.ProjectName)</th>
                 <th style=" text-align : start;">@Html.DisplayNameFor(model => model.Description)</th>
