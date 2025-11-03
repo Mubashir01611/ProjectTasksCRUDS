@@ -41,6 +41,7 @@
             $('#myTable').DataTable().clear().destroy();
         }
         $('#myTable').DataTable({
+            autoWidth: false,
             serverSide: true,
             processing: true,
             dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',

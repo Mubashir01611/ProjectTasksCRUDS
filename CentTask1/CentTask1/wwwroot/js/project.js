@@ -28,6 +28,7 @@
     }
 
     function fetchProjectData() {
+
         toggleLoader(true);
         
         // Destroy any previous DataTable instance
@@ -36,6 +37,7 @@
         }
         // Initialize DataTable with server-side processing
         $('#myProjectTable').DataTable({
+            autoWidth: false,
             serverSide: true,
             processing: true,
             dom: '<"top"<"top-left"f><"top-right"l>>rt<"bottom"<"bottom-left"i><"bottom-right"p>>',
