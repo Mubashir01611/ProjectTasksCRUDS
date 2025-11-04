@@ -18,7 +18,7 @@ namespace CentTask1.Models
         //public string? AssignedTo { get; set; }
         public string? EquipmentType { get; set; }
         public string? TWR { get; set; }
-        public ProjectTaskStatus Status { get; set; }
+        public ProjectTaskStatus? Status { get; set; }
 
         // Foreign Key 
         // Navigation Property

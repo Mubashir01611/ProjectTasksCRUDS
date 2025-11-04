@@ -71,36 +71,38 @@
                 {
                     data: 'status',
                     render: function (data) {
-                        let badgeClass = '';
-                        let statusText = '';
+                        let badgeClass, statusText;
 
                         switch (data) {
-                            case 0:
-                                badgeClass = 'bg-secondary';
-                                statusText = 'Not Selected';
+                            case 0: // NotStarted
+                                badgeClass = 'bg-secondary text-white';
+                                statusText = 'Not Started';
                                 break;
-                            case 1:
-                                badgeClass = 'bg-dark';
-                                statusText = 'Pending';
-                                break;
-                            case 2:
+                            case 1: // InProgress
                                 badgeClass = 'bg-info text-dark';
-                                statusText = 'Started';
-                                break;
-                            case 3:
-                                badgeClass = 'bg-warning text-dark';
                                 statusText = 'In Progress';
                                 break;
-                            case 4:
-                                badgeClass = 'bg-success';
+                            case 2: // Blocked
+                                badgeClass = 'bg-danger text-white';
+                                statusText = 'Blocked';
+                                break;
+                            case 3: // InReview
+                                badgeClass = 'bg-warning text-dark';
+                                statusText = 'In Review';
+                                break;
+                            case 4: // Completed
+                                badgeClass = 'bg-success text-white';
                                 statusText = 'Completed';
+                                break;
+                            case 5: // Cancelled
+                                badgeClass = 'bg-dark text-white';
+                                statusText = 'Cancelled';
                                 break;
                             default:
                                 badgeClass = 'bg-light text-dark';
                                 statusText = 'Unknown';
                                 break;
                         }
-
                         return `<span class="badge ${badgeClass}">${statusText}</span>`;
                     }
  },

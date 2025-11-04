@@ -18,9 +18,8 @@ namespace CentTask1.ViewModels.TaskViewModels
         public string? ProjectName { get; set; }
         public string? Message { get; set; }
         [Display(Name = "Task Status")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid status.")]
-        [Required]
-        public ProjectTaskStatus Status { get; set; }
+        [Required(ErrorMessage = "Please select a status.")]
+        public ProjectTaskStatus? Status { get; set; }
 
     }
 }

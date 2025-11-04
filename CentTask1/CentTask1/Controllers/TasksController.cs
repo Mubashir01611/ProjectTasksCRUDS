@@ -98,6 +98,7 @@ namespace CentTask1.Controllers
         public async Task< IActionResult> CreateProjectTask(Guid? id)
         {
             TaskCreateViewModel task = new TaskCreateViewModel();
+            task.Status = Enum.ProjectTaskStatus.NotStarted;
             return PartialView("_Create", task); // reuse same partial
         }
 
