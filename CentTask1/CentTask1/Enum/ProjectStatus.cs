@@ -1,12 +1,12 @@
 ﻿namespace CentTask1.Enum
 {
-    public enum ProjectStatus 
+    public enum ProjectStatus
     {
-        NotSelected,
-        Pending,
-        Started,
+        Pending,      // Only here — project-level gate
         InProgress,
-        Completed
+        OnHold,
+        Completed,
+        Cancelled
     }
 
 }

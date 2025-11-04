@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using CentTask1.Enum;
 using CentTask1.Interfaces;
 using CentTask1.Models;
 using CentTask1.Services;
@@ -21,12 +22,15 @@ namespace CentTask1.Controllers
         public IActionResult Index(DashboardViewModel dashboardViewModel)
         { 
             dashboardViewModel.TaskCount = _taskService.GetAllTasksAsync().Count();
-            dashboardViewModel.TasksInProgress = _taskService.GetAllTasksAsync().Where(t=> t.Status == Enum.ProjectTaskStatus.InProgress).Count();
-            dashboardViewModel.PendingTasks = _taskService.GetAllTasksAsync().Where(t => t.Status == Enum.ProjectTaskStatus.Pending).Count();
+            dashboardViewModel.CompletedTasks = _taskService.GetAllTasksAsync().Where(t => t.Status == ProjectTaskStatus.Completed).Count();
+            dashboardViewModel.TasksInProgress = _taskService.GetAllTasksAsync().Where(t => t.Status == ProjectTaskStatus.NotStarted || t.Status == ProjectTaskStatus.InReview).Count();
+            dashboardViewModel.PendingTasks = _taskService.GetAllTasksAsync().Where(t => t.Status == ProjectTaskStatus.NotStarted || t.Status == ProjectTaskStatus.Blocked).Count();
+
 
             dashboardViewModel.ProjectCount = _projectService.GetAllProjectsAsync().Result.Count();
             dashboardViewModel.CompletedProjects = _projectService.GetAllProjectsAsync().Result.Where(p => p.Status == Enum.ProjectStatus.Completed).Count();
             dashboardViewModel.PendingProjects = _projectService.GetAllProjectsAsync().Result.Where(p => p.Status == Enum.ProjectStatus.Pending).Count();
+;           dashboardViewModel.ProjectsInProgress = _projectService.GetAllProjectsAsync().Result.Where(p => p.Status == Enum.ProjectStatus.InProgress || p.Status == ProjectStatus.OnHold).Count();
 
             return PartialView("_Index",dashboardViewModel);
         }
@@ -35,15 +39,29 @@ namespace CentTask1.Controllers
         {
             var dashboardViewModel = new DashboardViewModel
             {
-                TaskCount = _taskService.GetAllTasksAsync().Count(),
-                TasksInProgress = _taskService.GetAllTasksAsync()
-                                    .Where(t => t.Status == Enum.ProjectTaskStatus.InProgress).Count(),
-                PendingTasks = _taskService.GetAllTasksAsync().Where(t => t.Status == Enum.ProjectTaskStatus.Pending).Count(),
+            /* Total */        TaskCount = _taskService.GetAllTasksAsync().Count(),
 
-                ProjectCount = _projectService.GetAllProjectsAsync().Result.Count(),
-                CompletedProjects = _projectService.GetAllProjectsAsync().Result
-                                    .Where(p => p.Status == Enum.ProjectStatus.Completed).Count(),
-                PendingProjects = _projectService.GetAllProjectsAsync().Result.Where(p => p.Status == Enum.ProjectStatus.Pending).Count()
+            /* active */           TasksInProgress = _taskService.GetAllTasksAsync()
+                                                      .Where(t => t.Status == ProjectTaskStatus.NotStarted || t.Status == ProjectTaskStatus.InReview).Count(),
+
+            /* pending */          PendingTasks = _taskService.GetAllTasksAsync()
+                                                    .Where(t => t.Status == ProjectTaskStatus.NotStarted || t.Status == ProjectTaskStatus.Blocked).Count(),
+
+            /* completed */          CompletedTasks = _taskService.GetAllTasksAsync()
+                                                        .Where(t => t.Status == ProjectTaskStatus.Completed).Count(),
+
+                //projects status
+
+                /* Total */     ProjectCount = _projectService.GetAllProjectsAsync().Result.Count(),
+
+              /* completed */    CompletedProjects = _projectService.GetAllProjectsAsync().Result
+                                                      .Where(p => p.Status == Enum.ProjectStatus.Completed).Count(),
+
+               /* pending */   PendingProjects = _projectService.GetAllProjectsAsync().Result
+                                                     .Where(p => p.Status == Enum.ProjectStatus.Pending).Count(),
+
+               /* active */  ProjectsInProgress  = _projectService.GetAllProjectsAsync().Result
+                                                      .Where(p => p.Status == Enum.ProjectStatus.InProgress || p.Status == ProjectStatus.OnHold).Count()
             };
 
             return View(dashboardViewModel); // send model to view
