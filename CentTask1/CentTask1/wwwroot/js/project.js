@@ -14,6 +14,7 @@
             .done(function (htmlContent) {
                 $("#HomeContainer").hide();
                 $("#taskContainer").hide();
+                $("#TaskItemsContainer").hide();
 
                 $("#ProjectContainer").html(htmlContent).show();
                 fetchProjectData();

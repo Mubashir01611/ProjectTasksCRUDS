@@ -1,0 +1,161 @@
+﻿@model IEnumerable<CentTask1.Entities.TaskItem>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+<link href="~/css/site.css" rel="stylesheet" />
+<style>
+    /* div.dataTables_wrapper div.top {
+        text-align: start;
+        display: flex;
+        align-items: self-start;
+        justify-content: flex-end;
+        gap: 15px;
+    } */
+
+    /* div.dataTables_wrapper div.top-left,
+    div.dataTables_wrapper div.top-right {
+        display: flex;
+        align-items: center;
+    } */
+    /* Search field styling */
+    .dataTables_filter input {
+
+        border-radius: 20px;
+        padding: 5px 17px;
+    }
+        /* Hide native clear button in Chrome, Safari, Edge */
+        .dataTables_filter input::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+            appearance: none;
+            display: none;
+        }
+
+    /* .search-wrapper {
+        position: relative;
+    } */
+
+        /* .search-wrapper input {
+            padding-left: 30px; 
+            padding-right: 30px;    
+        } */
+
+    .search-icon-start {
+        left: 10px;
+    }
+
+    .search-icon-start, .search-icon-end {
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
+        right: 0;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .dataTables_length select {
+        border-radius: 20px;
+        padding: 5px 11px;
+        width: 63px;
+    }
+
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        table.dataTable thead {
+            background: #2984ff;
+            border-top-left-radius: 12px;
+        }
+
+            table.dataTable thead th:first-child {
+                background: #2984ff;
+                color:white;
+                border-radius: 6px 0 0 6px;
+            }
+            table.dataTable thead th  { 
+                color:white; 
+            }
+
+            table.dataTable thead th:last-child {
+                background: #2984ff;
+                border-radius: 0 6px 6px 0;
+            }
+
+        table.dataTable tbody td:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        table.dataTable tbody td:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+
+    .top {
+        display: flex;
+        justify-content: flex-end;
+        /* margin-top: 10px; */
+    }
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    /* .bottom-left {
+        text-align: left;
+    }
+
+    .bottom-right {
+        text-align: right;
+    } */
+</style>
+<p>
+    <a class="btn btn-success">Create New</a>
+</p>
+<table class="table table-striped" id="myTaskItemsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+<div id="Spinner" class="text-center my-4" style="display:none;">
+    <div class="spinner-border text-info" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>

@@ -15,9 +15,15 @@ namespace CentTask1.Controllers
         }
 
         // GET: TaskItems
-        public async Task<IActionResult> LoadTaskItems()
+        public IActionResult LoadTaskItems()
         {
             return PartialView("_GetTaskItems");
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetTaskItemsDataTable()
+        { 
+            var taskItems = await _context.TaskItem.Where(t => !t.IsDeleted).ToListAsync();
+            return Json(taskItems);
         }
 
         // GET: TaskItems/Details/5

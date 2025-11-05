@@ -16,6 +16,7 @@
                 $("#ProjectContainer").hide();
                 //toggleLoader(false);
                 $("#taskContainer").html(htmlContent).show();
+                $("#TaskItemsContainer").hide();
 
                 // Fetch data and initialize table
                 fetchTaskData();
