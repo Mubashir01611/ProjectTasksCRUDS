@@ -50,7 +50,24 @@
             //    //'print'
             //],
             pageLength: 5,
-            lengthMenu: [5, 10, 25, 50, 100],
+            lengthMenu: [5, 10, 20, 50, 100],
+            initComplete: function () {
+                const $searchInput = $('.dataTables_filter input');
+
+                // Wrap input with a container
+                $searchInput.wrap('<div class="search-wrapper  d-flex align-items-center"></div>');
+
+                // Add magnifying icon to the left
+                $searchInput.before('<i class="fa fa-search search-icon-start text-muted"></i>');
+
+                // Add clear icon to the right
+                $searchInput.after('<i class="fa fa-times search-icon-end  me-2 text-muted"></i>');
+
+                // Optional: Clear input on click
+                $('.search-icon-end').on('click', function () {
+                    $searchInput.val('').trigger('input'); // Clear and trigger search
+                });
+            },
             ajax: {
                 url: '/Tasks/GetTasksDataTable',
                 type: 'POST',
