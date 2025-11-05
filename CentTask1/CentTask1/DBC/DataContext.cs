@@ -24,6 +24,7 @@ namespace CentTask1.DBC
             modelBuilder.Entity<Project>()
                 .HasKey(p => p.Id);  // Explicitly define GUID as PK
         }
+        public DbSet<CentTask1.Entities.TaskItem> TaskItem { get; set; } = default!;
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
