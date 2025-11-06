@@ -368,6 +368,7 @@
             .done(function (htmlContent) {
                 $("#taskContainer").hide();   
                 $("#ProjectContainer").hide();   
+                $("#TaskItemsContainer").hide();   
                 $("#HomeContainer").html(htmlContent).show(); 
             })
             .fail(function () {

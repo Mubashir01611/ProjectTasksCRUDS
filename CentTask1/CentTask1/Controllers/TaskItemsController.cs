@@ -25,7 +25,21 @@ namespace CentTask1.Controllers
             var taskItems = await _context.TaskItem.Where(t => !t.IsDeleted).ToListAsync();
             return Json(taskItems);
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateMultiple([FromBody] List<TaskItem> tasks)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            foreach (var task in tasks)
+            {
+                task.CreatedOn = DateTime.UtcNow;
+                task.UpdatedOn = DateTime.UtcNow;
+                await _context.TaskItem.AddAsync(task);
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Tasks created successfully" });
+        }
         // GET: TaskItems/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {

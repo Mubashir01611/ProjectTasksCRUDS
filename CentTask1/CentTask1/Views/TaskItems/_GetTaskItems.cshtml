@@ -28,6 +28,7 @@
 
         border-radius: 20px;
         padding: 5px 17px;
+
     }
         /* Hide native clear button in Chrome, Safari, Edge */
         .dataTables_filter input::-webkit-search-cancel-button {
@@ -81,7 +82,12 @@
                 border-radius: 6px 0 0 6px;
             }
             table.dataTable thead th  { 
+                text-align:start;
                 color:white; 
+            }
+
+        table.dataTable tbody td {
+            text-align:start; 
             }
 
             table.dataTable thead th:last-child {
@@ -99,28 +105,248 @@
 
 
     .top {
+        text-align: start;
         display: flex;
-        justify-content: flex-end;
+        align-items: self-start !important;
+        justify-content: flex-end !important;
+        gap: 15px;
         /* margin-top: 10px; */
     }
     .bottom {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
+    } 
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* .bottom-left {
-        text-align: left;
+    .modal {
+        background: #fff;
+        border-radius: 12px;
+        width: 900px;
+        max-width: 98vw;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        overflow: hidden;
     }
 
-    .bottom-right {
+    .modal-header {
+        background: #0984ff;
+        color: #fff;
+        padding: 18px 24px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .modal-header .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    .modal-body {
+        padding: 24px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 18px;
+        align-items: flex-end;
+    }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+            .form-row .form-group label {
+                font-weight: 500;
+                margin-bottom: 4px;
+                display: block;
+            }
+
+            .form-row .form-group input,
+            .form-row .form-group select {
+                width: 100%;
+                padding: 7px 12px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                font-size: 1rem;
+            }
+
+            .form-row .form-group .error {
+                color: #e74c3c;
+                font-size: 0.9rem;
+                margin-top: 2px;
+            }
+
+        .form-row .add-btn {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-left: 8px;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .modal-footer {
+        padding: 18px 24px;
+        background: #f5f6fa;
         text-align: right;
-    } */
+    }
+
+        .modal-footer .submit-btn {
+            background: #636e72;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    .task-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+
+        .task-table th, .task-table td {
+            border: 1px solid #dfe6e9;
+            padding: 8px 10px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .task-table th {
+            background: #f1f2f6;
+            font-weight: 600;
+        }
+
+    .action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+        margin-right: 6px;
+    }
+
+    .edit-btn {
+        color: #0984ff;
+    }
+
+    .delete-btn {
+        color: #e74c3c;
+    } 
+
+   
 </style>
-<p>
-    <a class="btn btn-success">Create New</a>
+
+<!-- Button to open modal (for demo) -->
+<p class="text-end">
+    <a class="btn btn-green openTaskItemModal" >Create New</a>
 </p>
-<table class="table table-striped" id="myTaskItemsTable">
+@* <p class="text-end">
+    <a class="btn btn-green">Create New</a>
+
+</p> *@
+<!-- Modal -->
+<div >
+    <div id="taskItemModal" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-custom" role="document">
+            <div class="modal-content">
+        <div class="modal-header">
+         <h4 class="modal-title text-info" id="taskItemModalTitle"></h4>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+        <div class="modal-body">
+            <div style="margin-bottom: 10px;">  
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taskName">Task Name *</label>
+                    <input type="text" id="taskName" placeholder="Task Name" required />
+                    <div class="error" id="taskNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <input type="text" id="description" placeholder="Description" required />
+                    <div class="error" id="descError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Start Date *</label>
+                    <input type="date" id="startDate" required />
+                    <div class="error" id="startDateError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date *</label>
+                    <input type="date" id="endDate" required />
+                    <div class="error" id="endDateError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status *</label>
+                    <select id="status" required>
+                        <option value="">Please select</option>
+                        <option value="NotStarted">Not Started</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Blocked">Blocked</option>
+                        <option value="InReview">In Review</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <div class="error" id="statusError"></div>
+                </div>
+                <button class="add-btn addItem" id="addBtn" onclick="addOrUpdateEntry()">+</button>
+            </div>
+            <table class="task-table" id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+           
+        </div>
+     
+        <div class="modal-footer">
+            <button class="submit-btn" id="submitBtn" onclick="submitEntries()">Submit</button>
+        </div>
+    </div>
+        </div>
+
+    </div>
+</div>
+<table class="table table-striped table-borderless" id="myTaskItemsTable">
     <thead>
         <tr>
             <th>
@@ -131,16 +357,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedOn)
-            </th>
+            </th> 
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
@@ -154,6 +371,10 @@
         
     </tbody>
 </table>
+@* @section scripts {
+  
+} *@
+
 <div id="Spinner" class="text-center my-4" style="display:none;">
     <div class="spinner-border text-info" role="status" style="width: 3rem; height: 3rem;">
         <span class="visually-hidden">Loading...</span>

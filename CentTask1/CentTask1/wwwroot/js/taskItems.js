@@ -116,4 +116,126 @@
         });
 
     }
+    const modal = document.getElementById('#taskItemModal');
+        let entries = [];
+        let editingIndex = -1;
+
+
+    // open modal for task item
+    $(document).on('click', '.openTaskItemModal', function (e) {
+        debugger;
+        e.preventDefault();
+        //modal.style.display = 'flex';
+        //var title = id ? "Update Task Item" : "Create Task Item";
+        $("#taskItemModalTitle").text("Create Task Item");
+        $('#taskItemModal').modal('show');
+        resetForm();
+    });
+        
+        function closeModal() {
+            modal.style.display = 'none';
+        entries = [];
+        renderTable();
+        resetForm();
+        }
+    function resetForm() {
+        debugger;
+            document.getElementById('taskName').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        document.getElementById('status').value = '';
+        clearErrors();
+        editingIndex = -1;
+        document.getElementById('addBtn').textContent = '+';
+        }
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        }
+        function validateForm() {
+            clearErrors();
+        let valid = true;
+        const taskName = document.getElementById('taskName').value.trim();
+        const desc = document.getElementById('description').value.trim();
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const status = document.getElementById('status').value;
+
+        if (!taskName) {document.getElementById('taskNameError').textContent = 'Required'; valid = false; }
+        if (!desc) {document.getElementById('descError').textContent = 'Required'; valid = false; }
+        if (!startDate) {document.getElementById('startDateError').textContent = 'Required'; valid = false; }
+        if (!endDate) {document.getElementById('endDateError').textContent = 'Required'; valid = false; }
+        if (!status) {document.getElementById('statusError').textContent = 'Required'; valid = false; }
+        return valid;
+    }
+
+    //add task item to list
+    $(document).on('click', '#addItem', function (e) {
+            if (!validateForm()) return;
+        const entry = {
+            taskName: document.getElementById('taskName').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        status: document.getElementById('status').value
+            };
+            if (editingIndex >= 0) {
+            entries[editingIndex] = entry;
+        editingIndex = -1;
+        document.getElementById('addBtn').textContent = '+';
+            } else {
+            entries.push(entry);
+            }
+        renderTable();
+        resetForm();
+        
+
+    });
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+            entries.forEach((entry, index) => {
+                const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${entry.taskName}</td>
+        <td>${entry.description}</td>
+        <td>${entry.startDate}</td>
+        <td>${entry.endDate}</td>
+        <td>${entry.status}</td>
+        <td>
+            <button class="action-btn edit-btn" onclick="editEntry(${index})">✏️</button>
+            <button class="action-btn delete-btn" onclick="deleteEntry(${index})">🗑️</button>
+        </td>
+        `;
+        tbody.appendChild(row);
+            });
+        document.getElementById('totalMHS').textContent = entries.length.toFixed(1);
+        document.getElementById('laborTotal').textContent = (entries.length * 100).toFixed(2); // Example calculation
+        document.getElementById('submitBtn').disabled = entries.length === 0;
+        }
+        function editEntry(index) {
+            const e = entries[index];
+        document.getElementById('taskName').value = e.taskName;
+        document.getElementById('description').value = e.description;
+        document.getElementById('startDate').value = e.startDate;
+        document.getElementById('endDate').value = e.endDate;
+        document.getElementById('status').value = e.status;
+        editingIndex = index;
+        document.getElementById('addBtn').textContent = 'Update';
+        }
+        function deleteEntry(index) {
+            if (confirm('Remove this entry?')) {
+            entries.splice(index, 1);
+        renderTable();
+            }
+        }
+        function submitEntries() {
+            if (entries.length === 0) return;
+        // Simulate submission
+        console.log('Submitting Task Items:', entries);
+        alert(`Submitted ${entries.length} entries!\nTotal MHS: ${document.getElementById('totalMHS').textContent}\nLabor Total: $${document.getElementById('laborTotal').textContent}`);
+            // In real app: send to backend via fetch()
+            // fetch('/TaskItems/CreateMultiple', { method: 'POST', body: JSON.stringify(entries), headers: { 'Content-Type': 'application/json' } })
+            closeModal();
+        } 
 });
