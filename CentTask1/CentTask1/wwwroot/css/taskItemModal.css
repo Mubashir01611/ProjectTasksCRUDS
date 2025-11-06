@@ -1,0 +1,98 @@
+﻿ 
+.modal1 {
+    background: #fff;
+    border-radius: 12px;
+    width: 900px;
+    max-width: 98vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    overflow: hidden;
+}
+
+.modal-header1 {
+    background: #0984ff;
+    color: #fff;
+    padding: 18px 24px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header1 .close-btn1 {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+    }
+
+.modal-body1 {
+    padding: 24px;
+}
+
+.form-row1 {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+    align-items: flex-end;
+}
+
+    .form-row1 .form-group1 {
+        flex: 1;
+        min-width: 120px;
+    }
+
+        .form-row1 .form-group1 labe1l {
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .form-row1 .form-group1 input1,
+        .form-row1 .form-group1 select1 {
+            width: 100%;
+            padding: 7px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .form-row1 .form-group1 .error1 {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+    .form-row1 .add-btn1 {
+        background: #27ae60;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        margin-left: 8px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;    
+        justify-content: center;
+    }
+
+.modal-footer1 {
+    padding: 18px 24px;
+    background: #f5f6fa;
+    text-align: right;
+}
+
+    .modal-footer1 .submit-btn1 {
+        background: #636e72;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 32px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }

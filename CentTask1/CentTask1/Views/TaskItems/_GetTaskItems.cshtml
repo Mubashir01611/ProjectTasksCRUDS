@@ -9,7 +9,20 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
 <link href="~/css/site.css" rel="stylesheet" />
+@* <link href="~/css/taskItemModal.css" rel="stylesheet" /> *@
 <style>
+    .btn-circle {
+        background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        /* border: 1px solid var(--dark); */
+        border: 1px solid #0057af;
+        border-radius: 5px;
+        opacity: 0.7;
+        height: 40px;
+        width: 40px;
+        margin-left: 10px;
+    }
     /* div.dataTables_wrapper div.top {
         text-align: start;
         display: flex;
@@ -130,103 +143,7 @@
         justify-content: center;
     }
 
-    .modal {
-        background: #fff;
-        border-radius: 12px;
-        width: 900px;
-        max-width: 98vw;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-        overflow: hidden;
-    }
-
-    .modal-header {
-        background: #0984ff;
-        color: #fff;
-        padding: 18px 24px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-        .modal-header .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #fff;
-            cursor: pointer;
-        }
-
-    .modal-body {
-        padding: 24px;
-    }
-
-    .form-row {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 18px;
-        align-items: flex-end;
-    }
-
-        .form-row .form-group {
-            flex: 1;
-            min-width: 120px;
-        }
-
-            .form-row .form-group label {
-                font-weight: 500;
-                margin-bottom: 4px;
-                display: block;
-            }
-
-            .form-row .form-group input,
-            .form-row .form-group select {
-                width: 100%;
-                padding: 7px 12px;
-                border-radius: 6px;
-                border: 1px solid #ccc;
-                font-size: 1rem;
-            }
-
-            .form-row .form-group .error {
-                color: #e74c3c;
-                font-size: 0.9rem;
-                margin-top: 2px;
-            }
-
-        .form-row .add-btn {
-            background: #27ae60;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            margin-left: 8px;
-            height: 40px;
-            width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-    .modal-footer {
-        padding: 18px 24px;
-        background: #f5f6fa;
-        text-align: right;
-    }
-
-        .modal-footer .submit-btn {
-            background: #636e72;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 32px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
+ 
 
     .task-table {
         width: 100%;
@@ -260,9 +177,13 @@
 
     .delete-btn {
         color: #e74c3c;
-    } 
+    }
 
-   
+    .modal-footer1{
+        display:flex;
+        justify-content:space-evenly;
+        padding: 12px;
+    }
 </style>
 
 <!-- Button to open modal (for demo) -->
@@ -275,52 +196,62 @@
 </p> *@
 <!-- Modal -->
 <div >
-    <div id="taskItemModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div id="taskItemModal" class="modal   fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-custom" role="document">
             <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header modal-header1">
          <h4 class="modal-title text-info" id="taskItemModalTitle"></h4>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
         </div>
-        <div class="modal-body">
-            <div style="margin-bottom: 10px;">  
-            </div>
+        <div class="modal-body modal-body1">
+
+            <div class="col-md-12 mb-2">  
+
             <div class="form-row">
-                <div class="form-group">
-                    <label for="taskName">Task Name *</label>
-                    <input type="text" id="taskName" placeholder="Task Name" required />
-                    <div class="error" id="taskNameError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description *</label>
-                    <input type="text" id="description" placeholder="Description" required />
-                    <div class="error" id="descError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="startDate">Start Date *</label>
-                    <input type="date" id="startDate" required />
-                    <div class="error" id="startDateError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="endDate">End Date *</label>
-                    <input type="date" id="endDate" required />
-                    <div class="error" id="endDateError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status *</label>
-                    <select id="status" required>
+
+                <div class="form-group row">
+                <span class="labour-head-count-td col-md-2">
+
+                    <label class="form-label float-start fw-600" for="taskName">Task Name *</label>
+                    <input class="form-control " type="text" id="taskName" placeholder="Task Name" required />
+                    @* <div class="error" id="taskNameError"></div> *@ 
+                    </span>   
+                <span class="labour-head-count-td col-md-2">
+                                    <label class="form-label float-start fw-600" for="description">Description *</label>
+                    <input class="form-control " type="text" id="description" placeholder="Description" required />
+                    @* <div class="error" id="descError"></div> *@
+                </span>
+                <span class="labour-head-count-td col-md-2">
+                                    <label class="form-label float-start fw-600" for="startDate">Start Date *</label>
+                    <input class="form-control "type="date" id="startDate" required />
+                    @* <div class="error" id="startDateError"></div> *@
+                </span>
+                <span class="labour-head-count-td col-md-2">
+                                    <label class="form-label float-start fw-600" for="endDate">End Date *</label>
+                      <input class="form-control " type="date" id="endDate" required />
+                    @* <div class="error" id="endDateError"></div> *@
+                </span>
+                <span class="labour-head-count-td col-md-2">
+                                    <label class="form-label float-start fw-600" for="status">Status *</label>
+                                    <select class="form-control " id="status" required>
                         <option value="">Please select</option>
-                        <option value="NotStarted">Not Started</option>
+                     <option value="NotStarted">Not Started</option>
                         <option value="InProgress">In Progress</option>
                         <option value="Blocked">Blocked</option>
                         <option value="InReview">In Review</option>
                         <option value="Completed">Completed</option>
                         <option value="Cancelled">Cancelled</option>
                     </select>
-                    <div class="error" id="statusError"></div>
+                    @* <div class="error" id="statusError"></div> *@
+                </span>
+                <span class="text-center col-md-1">
+                                    <label class="form-label fw-600 w-100" >Add</label>
+                     <button type="button" class="addItem btn-circle btn-sm" style="height: calc(1.5715em + 0.875rem + 2px);"><i class="fas fa-plus"></i></button>
+                </span>
                 </div>
-                <button class="add-btn addItem" id="addBtn" onclick="addOrUpdateEntry()">+</button>
+            </div>
+
             </div>
             <table class="task-table" id="taskTable">
                 <thead>
@@ -338,9 +269,19 @@
            
         </div>
      
-        <div class="modal-footer">
-            <button class="submit-btn" id="submitBtn" onclick="submitEntries()">Submit</button>
-        </div>
+        <div class="modal-footer1">
+                    <div class="cancel">
+                        <div class="col-sm-4 text-left">
+                            <button class="btn btn-danger" data-bs-dismiss="modal" data-dismiss="modal" type="button" aria-label="editMtoModal">Close</button>
+                        </div>
+                    </div>
+                    <div class="save">
+                        <div class="col-sm-4 text-right">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                     
+                </div>
     </div>
         </div>
 
